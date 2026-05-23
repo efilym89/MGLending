@@ -162,6 +162,33 @@ a {
   padding: 0;
 }
 
+.page-shell,
+.page-shell * {
+  color-scheme: light;
+}
+
+.page-shell a:not(.btn):not(.map-marker) {
+  color: inherit !important;
+}
+
+.page-shell .main-nav a {
+  color: #514642 !important;
+}
+
+.page-shell .btn-filled {
+  color: #fff !important;
+}
+
+.page-shell .btn-light,
+.page-shell .btn-outline {
+  color: var(--rose-dark) !important;
+}
+
+.btn-instagram {
+  min-width: 178px;
+  padding-inline: 20px;
+}
+
 .brand-star,
 .icon,
 .instagram-icon {
@@ -1149,37 +1176,62 @@ details p {
 
 .map-card {
   position: relative;
-  min-height: 180px;
+  min-height: 220px;
   overflow: hidden;
-  background:
-    linear-gradient(34deg, transparent 47%, rgba(192, 118, 132, 0.5) 48%, transparent 51%),
-    linear-gradient(116deg, transparent 43%, rgba(180, 156, 148, 0.45) 44%, transparent 47%),
-    linear-gradient(0deg, rgba(255,255,255,0.55) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.55) 1px, transparent 1px),
-    #e8d6da;
-  background-size: auto, auto, 36px 36px, 36px 36px, auto;
+  background: #e8d6da;
   border: 1px solid var(--line);
   border-radius: 34px 14px 42px 14px;
   box-shadow: 0 15px 30px rgba(91, 66, 58, 0.07);
 }
 
-.map-pin {
+.map-card::after {
   position: absolute;
-  right: 52px;
-  top: 54px;
-  display: grid;
-  place-items: center;
-  width: 42px;
-  height: 42px;
-  color: #fff;
-  background: var(--rose);
-  border-radius: 50% 50% 50% 0;
-  transform: rotate(-45deg);
-  font-size: 24px;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(254, 247, 251, 0.08), rgba(254, 247, 251, 0.34)),
+    radial-gradient(circle at 22% 34%, rgba(183, 122, 136, 0.12), transparent 140px);
 }
 
-.map-pin::before {
-  transform: rotate(45deg);
+.map-image {
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
+  object-fit: cover;
+  filter: saturate(0.72) brightness(1.08) contrast(0.92);
+}
+
+.map-marker {
+  position: absolute;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 34px;
+  padding: 7px 11px;
+  color: var(--ink) !important;
+  background: rgba(254, 247, 251, 0.92);
+  border: 1px solid rgba(216, 186, 192, 0.88);
+  border-radius: 18px 7px 22px 7px;
+  box-shadow: 0 12px 24px rgba(91, 66, 58, 0.13);
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.map-marker .brand-star {
+  color: var(--rose);
+}
+
+.map-marker-shota {
+  left: 14%;
+  top: 42%;
+}
+
+.map-marker-karasu {
+  right: 12%;
+  top: 35%;
 }
 
 @media (max-width: 980px) {
