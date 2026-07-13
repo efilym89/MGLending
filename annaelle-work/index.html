@@ -2759,6 +2759,41 @@ fieldset.field {
     flex: 0 0 72%;
     aspect-ratio: 3 / 5;
   }
+
+  .vacancy-footer {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 22px;
+    padding: 32px 20px 34px;
+  }
+
+  .vacancy-footer .footer-copy,
+  .vacancy-footer .footer-actions,
+  .vacancy-footer .footer-links {
+    grid-column: 1;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .vacancy-footer .footer-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+    justify-content: stretch;
+  }
+
+  .vacancy-footer .footer-actions .btn {
+    width: 100%;
+    max-width: 100%;
+    min-height: 48px;
+    padding: 0 16px;
+    font-size: 12px;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .vacancy-footer .footer-links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 html.is-embedded .mobile-apply {
