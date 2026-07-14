@@ -3130,7 +3130,7 @@ html.is-embedded .mobile-apply {
         </div>
       </div>
       <div class="faq-more">
-        <a class="btn btn-outline faq-telegram-btn" href="https://t.me/annaelle_uz" target="_blank" rel="noopener noreferrer">
+        <a class="btn btn-outline faq-telegram-btn" href="https://telegram.me/annaelle_uz" target="_blank" rel="noopener noreferrer">
           <span class="tg-icon" aria-hidden="true"></span>
           <span>Ознакомиться подробнее в Telegram</span>
         </a>
@@ -3225,7 +3225,7 @@ html.is-embedded .mobile-apply {
       </div>
       <div class="footer-links">
         <div><strong>Вакансия</strong><a href="#benefits">Почему Annaelle</a><a href="#role">Обязанности</a><a href="#conditions">Условия</a></div>
-        <div><strong>Контакты</strong><a href="https://t.me/annaellelaser" target="_blank" rel="noreferrer">Telegram @annaellelaser</a><span>Ташкент</span><span>09:00-21:00</span></div>
+        <div><strong>Контакты</strong><a href="https://telegram.me/annaellelaser" target="_blank" rel="noreferrer">Telegram @annaellelaser</a><span>Ташкент</span><span>09:00-21:00</span></div>
       </div>
     </footer>
   </section>
@@ -3359,8 +3359,17 @@ if (candidateForm) {
       `Креатив: ${get("utm_content") || "Не указан"}`
     ].join("\n");
 
+    if (window.self !== window.top) {
+      window.parent.postMessage({ type: "annaelle-career-lead" }, "*");
+    } else if (typeof window.fbq === "function") {
+      window.fbq("track", "Lead", {
+        content_name: "Annaelle Vacancy Application",
+        content_category: "Recruitment"
+      });
+    }
+
     if (formStatus) formStatus.textContent = "Анкета готова. Открываем Telegram...";
-    const telegramUrl = `https://t.me/annaellelaser?text=${encodeURIComponent(message)}`;
+    const telegramUrl = `https://telegram.me/annaellelaser?text=${encodeURIComponent(message)}`;
     const telegramWindow = window.open(telegramUrl, "_blank", "noopener,noreferrer");
     if (!telegramWindow) window.location.href = telegramUrl;
   });

@@ -1,0 +1,216 @@
+<!-- Meta Pixel Code -->
+<script>
+  (() => {
+    const pixelId = "27765618759737126";
+    if (window.__annaelleMetaPixelId === pixelId) return;
+    window.__annaelleMetaPixelId = pixelId;
+
+    !function(f, b, e, v, n, t, s) {
+      if (f.fbq) return;
+      n = f.fbq = function() {
+        n.callMethod
+          ? n.callMethod.apply(n, arguments)
+          : n.queue.push(arguments);
+      };
+      if (!f._fbq) f._fbq = n;
+      n.push = n;
+      n.loaded = true;
+      n.version = "2.0";
+      n.queue = [];
+      t = b.createElement(e);
+      t.async = true;
+      t.src = v;
+      s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s);
+    }(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+
+    fbq("init", pixelId);
+    fbq("track", "PageView");
+  })();
+</script>
+<noscript>
+  <img
+    height="1"
+    width="1"
+    style="display:none"
+    src="https://www.facebook.com/tr?id=27765618759737126&ev=PageView&noscript=1"
+    alt=""
+  >
+</noscript>
+<!-- End Meta Pixel Code -->
+
+<div id="annaelle-career-t123">
+  <iframe
+    id="annaelle-career-frame"
+    src="https://efilym89.github.io/MGLending/annaelle-work/?v=20260714-pixel1"
+    title="Вакансия косметолога-лазеролога в Annaelle"
+    loading="eager"
+    scrolling="no"
+    referrerpolicy="strict-origin-when-cross-origin"
+  ></iframe>
+
+  <button
+    id="annaelle-career-cta"
+    type="button"
+    aria-label="Перейти к анкете"
+  >
+    <span aria-hidden="true">✦</span>
+    <span>Стать частью команды</span>
+  </button>
+</div>
+
+<style>
+  #annaelle-career-t123 {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    overflow: visible;
+    background: #fef7fb;
+  }
+
+  #annaelle-career-frame {
+    display: block;
+    width: 100%;
+    height: 1200px;
+    margin: 0;
+    border: 0;
+    background: #fef7fb;
+  }
+
+  #annaelle-career-cta {
+    display: none;
+  }
+
+  @media (max-width: 680px) {
+    #annaelle-career-cta {
+      position: fixed;
+      right: auto;
+      bottom: max(12px, env(safe-area-inset-bottom));
+      left: 50%;
+      z-index: 999999;
+      display: flex;
+      width: min(320px, calc(100% - 36px));
+      min-height: 48px;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 9px 18px;
+      box-sizing: border-box;
+      color: #fff;
+      background: linear-gradient(180deg, #c58c98, #b77a88);
+      border: 0;
+      border-radius: 20px 8px 24px 8px;
+      box-shadow: 0 10px 24px rgba(99, 62, 72, 0.26);
+      font: 600 13px/1.2 Inter, Arial, sans-serif;
+      white-space: nowrap;
+      cursor: pointer;
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%);
+      transition: opacity .2s ease, visibility .2s ease, transform .2s ease;
+    }
+
+    #annaelle-career-cta > span:first-child {
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    #annaelle-career-cta.is-hidden {
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transform: translate(-50%, 10px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #annaelle-career-cta {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  (() => {
+    const root = document.getElementById("annaelle-career-t123");
+    const frame = document.getElementById("annaelle-career-frame");
+    const cta = document.getElementById("annaelle-career-cta");
+
+    if (!root || !frame || !cta || root.dataset.ready === "true") return;
+    root.dataset.ready = "true";
+
+    const allowedOrigin = "https://efilym89.github.io";
+    let applicationTop = 0;
+    let applicationHeight = 0;
+    let updateFrame = 0;
+    let leadTracked = false;
+
+    const frameTop = () => window.scrollY + frame.getBoundingClientRect().top;
+
+    const scrollToFrameOffset = (offset) => {
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({
+        top: Math.max(0, frameTop() + Math.max(0, Number(offset) || 0) - 24),
+        behavior: reducedMotion ? "auto" : "smooth"
+      });
+    };
+
+    const updateCta = () => {
+      updateFrame = 0;
+      if (!applicationTop || window.innerWidth > 680) {
+        cta.classList.remove("is-hidden");
+        return;
+      }
+
+      const viewportTop = window.scrollY;
+      const viewportBottom = viewportTop + window.innerHeight;
+      const formTop = frameTop() + applicationTop;
+      const formBottom = formTop + applicationHeight;
+      const formIsVisible = formBottom > viewportTop + 80 && formTop < viewportBottom - 90;
+      cta.classList.toggle("is-hidden", formIsVisible);
+    };
+
+    const scheduleCtaUpdate = () => {
+      if (updateFrame) return;
+      updateFrame = window.requestAnimationFrame(updateCta);
+    };
+
+    window.addEventListener("message", (event) => {
+      if (event.origin !== allowedOrigin || event.source !== frame.contentWindow) return;
+      if (!event.data) return;
+
+      if (event.data.type === "annaelle-career-lead") {
+        if (!leadTracked && typeof window.fbq === "function") {
+          leadTracked = true;
+          window.fbq("track", "Lead", {
+            content_name: "Annaelle Vacancy Application",
+            content_category: "Recruitment"
+          });
+        }
+        return;
+      }
+
+      if (event.data.type === "annaelle-career-scroll") {
+        scrollToFrameOffset(event.data.targetTop);
+        return;
+      }
+
+      if (event.data.type !== "annaelle-career-layout") return;
+
+      const height = Math.min(30000, Math.max(900, Math.ceil(Number(event.data.height) || 0)));
+      applicationTop = Math.max(0, Number(event.data.applicationTop) || 0);
+      applicationHeight = Math.max(0, Number(event.data.applicationHeight) || 0);
+      frame.style.height = `${height}px`;
+      scheduleCtaUpdate();
+    });
+
+    cta.addEventListener("click", () => {
+      if (!applicationTop) return;
+      scrollToFrameOffset(applicationTop);
+    });
+
+    window.addEventListener("scroll", scheduleCtaUpdate, { passive: true });
+    window.addEventListener("resize", scheduleCtaUpdate);
+    frame.addEventListener("load", scheduleCtaUpdate);
+  })();
+</script>
