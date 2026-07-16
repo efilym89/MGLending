@@ -2139,6 +2139,10 @@ fieldset.field {
   grid-column: 1 / -1;
 }
 
+.conditional-field[hidden] {
+  display: none;
+}
+
 .field > span,
 .field legend {
   padding: 0;
@@ -2267,7 +2271,12 @@ fieldset.field {
 }
 
 .vacancy-footer .footer-links {
-  grid-template-columns: 1fr 1fr;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.footer-addresses span {
+  line-height: 1.45;
 }
 
 .mobile-apply {
@@ -2807,6 +2816,10 @@ fieldset.field {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .vacancy-footer .footer-addresses {
+    grid-column: 1 / -1;
+  }
+
   .faq-telegram-btn {
     width: 100%;
     min-width: 0;
@@ -3143,7 +3156,7 @@ html.is-embedded .mobile-apply {
         <h2>Станьте частью команды Annaelle</h2>
         <p>Оставьте основные данные. После заполнения откроется Telegram с готовым текстом анкеты для нашего менеджера.</p>
         <ul class="application-points">
-          <li>Заполнение занимает около 2 минут</li>
+          <li>Заполнение занимает около 2-х минут</li>
           <li>Мы внимательно читаем каждую анкету</li>
           <li>Подходящим кандидатам напишем или позвоним</li>
         </ul>
@@ -3171,6 +3184,21 @@ html.is-embedded .mobile-apply {
               <option>1-3 года</option>
               <option>Более 3 лет</option>
             </select>
+          </label>
+          <label class="field">
+            <span>Укажите ваш возраст *</span>
+            <input type="number" name="age" inputmode="numeric" required min="1" max="99" placeholder="Полных лет">
+          </label>
+          <fieldset class="field">
+            <legend>Есть ли у вас медицинское образование? *</legend>
+            <div class="choice-row">
+              <label class="choice"><input type="radio" name="medical_education" value="Да" required aria-controls="medical-direction-field" aria-expanded="false"><span>Да</span></label>
+              <label class="choice"><input type="radio" name="medical_education" value="Нет" aria-controls="medical-direction-field" aria-expanded="false"><span>Нет</span></label>
+            </div>
+          </fieldset>
+          <label class="field field-full conditional-field" id="medical-direction-field" hidden>
+            <span>Укажите направление медицинского образования *</span>
+            <input type="text" name="medical_direction" maxlength="120" placeholder="Например, сестринское дело" disabled>
           </label>
           <fieldset class="field field-full">
             <legend>Уровень владения русским языком *</legend>
@@ -3226,6 +3254,7 @@ html.is-embedded .mobile-apply {
       <div class="footer-links">
         <div><strong>Вакансия</strong><a href="#benefits">Почему Annaelle</a><a href="#role">Обязанности</a><a href="#conditions">Условия</a></div>
         <div><strong>Контакты</strong><a href="https://telegram.me/annaellelaser" target="_blank" rel="noreferrer">Telegram @annaellelaser</a><span>Ташкент</span><span>09:00-21:00</span></div>
+        <div class="footer-addresses"><strong>Адреса студий</strong><span>ул. Шота Руставели, 33, Ташкент</span><span>ул. Карасу, 31, Ташкент</span></div>
       </div>
     </footer>
   </section>
@@ -3309,6 +3338,37 @@ if (candidateForm) {
     if (input instanceof HTMLInputElement) input.value = params.get(key) || "";
   });
 
+  const medicalEducationFields = Array.from(candidateForm.querySelectorAll('input[name="medical_education"]'));
+  const medicalDirectionField = candidateForm.querySelector("#medical-direction-field");
+  const medicalDirectionInput = candidateForm.elements.namedItem("medical_direction");
+
+  const updateMedicalDirection = () => {
+    const selectedEducation = medicalEducationFields.find((field) => field.checked)?.value || "";
+    const shouldShowDirection = selectedEducation === "Да";
+
+    if (medicalDirectionField instanceof HTMLElement) {
+      medicalDirectionField.hidden = !shouldShowDirection;
+    }
+
+    medicalEducationFields.forEach((field) => {
+      field.setAttribute("aria-expanded", String(shouldShowDirection));
+    });
+
+    if (medicalDirectionInput instanceof HTMLInputElement) {
+      medicalDirectionInput.disabled = !shouldShowDirection;
+      medicalDirectionInput.required = shouldShowDirection;
+      if (!shouldShowDirection) {
+        medicalDirectionInput.value = "";
+        medicalDirectionInput.removeAttribute("aria-invalid");
+      }
+    }
+  };
+
+  medicalEducationFields.forEach((field) => {
+    field.addEventListener("change", updateMedicalDirection);
+  });
+  updateMedicalDirection();
+
   const clearFieldState = () => {
     candidateForm.querySelectorAll("[aria-invalid='true']").forEach((field) => {
       field.removeAttribute("aria-invalid");
@@ -3348,7 +3408,10 @@ if (candidateForm) {
       `Имя: ${get("name")}`,
       `Телефон: ${get("phone")}`,
       `Telegram: ${get("telegram") || "Не указан"}`,
+      `Возраст: ${get("age")}`,
       `Опыт: ${get("experience")}`,
+      `Медицинское образование: ${get("medical_education")}`,
+      ...(get("medical_education") === "Да" ? [`Направление: ${get("medical_direction")}`] : []),
       `Русский язык: ${get("russian_level")}`,
       `Узбекский язык: ${get("uzbek_level")}`,
       `График 2/2, 09:00-21:00: ${get("schedule")}`,
