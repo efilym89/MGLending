@@ -1,3 +1,10 @@
+const telegramMessage = "Здравствуйте! Хочу узнать подробнее про первый визит с максимальной выгодой";
+const telegramUrl = `https://telegram.me/annaellelaser?text=${encodeURIComponent(telegramMessage)}`;
+
+document.querySelectorAll("[data-telegram-message]").forEach((link) => {
+  link.setAttribute("href", telegramUrl);
+});
+
 const menuButton = document.querySelector(".menu-toggle");
 const navigation = document.querySelector(".main-nav");
 
