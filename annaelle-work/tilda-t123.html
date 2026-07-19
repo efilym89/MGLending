@@ -141,7 +141,6 @@
 
     const allowedOrigin = "https://efilym89.github.io";
     let applicationTop = 0;
-    let applicationHeight = 0;
     let updateFrame = 0;
     let leadTracked = false;
 
@@ -162,12 +161,10 @@
         return;
       }
 
-      const viewportTop = window.scrollY;
-      const viewportBottom = viewportTop + window.innerHeight;
+      const viewportBottom = window.scrollY + window.innerHeight;
       const formTop = frameTop() + applicationTop;
-      const formBottom = formTop + applicationHeight;
-      const formIsVisible = formBottom > viewportTop + 80 && formTop < viewportBottom - 90;
-      cta.classList.toggle("is-hidden", formIsVisible);
+      const hasReachedApplication = formTop < viewportBottom - 90;
+      cta.classList.toggle("is-hidden", hasReachedApplication);
     };
 
     const scheduleCtaUpdate = () => {
@@ -199,7 +196,6 @@
 
       const height = Math.min(30000, Math.max(900, Math.ceil(Number(event.data.height) || 0)));
       applicationTop = Math.max(0, Number(event.data.applicationTop) || 0);
-      applicationHeight = Math.max(0, Number(event.data.applicationHeight) || 0);
       frame.style.height = `${height}px`;
       scheduleCtaUpdate();
     });
