@@ -1,10 +1,3 @@
-const telegramMessage = "Здравствуйте! Хочу узнать подробнее про первый визит с максимальной выгодой";
-const telegramUrl = `https://telegram.me/annaellelaser?text=${encodeURIComponent(telegramMessage)}`;
-
-document.querySelectorAll("[data-telegram-message]").forEach((link) => {
-  link.setAttribute("href", telegramUrl);
-});
-
 const menuButton = document.querySelector(".menu-toggle");
 const navigation = document.querySelector(".main-nav");
 
@@ -15,7 +8,7 @@ if (menuButton && navigation) {
   });
 
   navigation.addEventListener("click", (event) => {
-    if (event.target instanceof HTMLAnchorElement) {
+    if (event.target instanceof Element && event.target.closest("a")) {
       navigation.classList.remove("is-open");
       menuButton.setAttribute("aria-expanded", "false");
     }
@@ -51,4 +44,84 @@ if (reviewCards.length) {
   reviewDots.forEach((dot, dotIndex) => {
     dot.addEventListener("click", () => showReview(dotIndex));
   });
+}
+
+const leadForm = document.querySelector("#client-lead-form");
+const formStatus = document.querySelector("#form-status");
+const translate = (value) => window.annaelleI18n?.t(value) || value;
+
+if (leadForm) {
+  const searchParams = new URLSearchParams(window.location.search);
+
+  ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"].forEach((name) => {
+    const field = leadForm.elements.namedItem(name);
+    const value = searchParams.get(name);
+
+    if (field instanceof HTMLInputElement && value) {
+      field.value = value;
+    }
+  });
+
+  leadForm.addEventListener("input", (event) => {
+    if (event.target instanceof HTMLElement) {
+      event.target.removeAttribute("aria-invalid");
+    }
+
+    if (formStatus) {
+      formStatus.textContent = "";
+    }
+  });
+
+  leadForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const requiredFields = Array.from(leadForm.querySelectorAll("[required]"));
+    const phoneField = leadForm.elements.namedItem("phone");
+    let isValid = true;
+
+    requiredFields.forEach((field) => {
+      field.removeAttribute("aria-invalid");
+
+      if (!field.checkValidity()) {
+        field.setAttribute("aria-invalid", "true");
+        isValid = false;
+      }
+    });
+
+    if (phoneField instanceof HTMLInputElement) {
+      const digits = phoneField.value.replace(/\D/g, "");
+
+      if (digits.length < 9) {
+        phoneField.setAttribute("aria-invalid", "true");
+        isValid = false;
+      }
+    }
+
+    if (!isValid) {
+      if (formStatus) {
+        formStatus.textContent = translate("Пожалуйста, заполните обязательные поля и проверьте номер телефона.");
+      }
+
+      leadForm.querySelector('[aria-invalid="true"]')?.focus();
+      return;
+    }
+
+    if (formStatus) {
+      formStatus.textContent = translate("Форма заполнена. Подключение отправки выполним после утверждения лендинга.");
+    }
+  });
+}
+
+const mobileApply = document.querySelector(".mobile-apply");
+const leadSection = document.querySelector("#lead-form");
+
+if (mobileApply && leadSection && "IntersectionObserver" in window) {
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      mobileApply.classList.toggle("is-hidden", entry.isIntersecting);
+    },
+    { threshold: 0.08 }
+  );
+
+  observer.observe(leadSection);
 }

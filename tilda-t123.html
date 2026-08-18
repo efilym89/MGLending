@@ -1,6 +1,7 @@
 <!-- nominify begin -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://efilym89.github.io/MGLending/annaelle-work/assets/hero-main-960.webp" as="image" type="image/webp" fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -80,8 +81,8 @@ a {
 
 .site-header {
   display: grid;
-  grid-template-columns: 150px 1fr auto;
-  gap: 28px;
+  grid-template-columns: 150px 1fr auto auto;
+  gap: 18px;
   align-items: center;
   min-height: 116px;
   padding: 18px 42px 12px;
@@ -115,6 +116,51 @@ a {
 .main-nav a:hover,
 .text-link:hover {
   color: var(--rose-dark);
+}
+
+.language-switch {
+  display: inline-grid;
+  grid-template-columns: repeat(3, 30px);
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 16px 7px 19px 7px;
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow: 0 8px 18px rgba(91, 66, 58, 0.05);
+}
+
+.language-switch button {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  place-items: center;
+  color: var(--muted);
+  border: 0;
+  border-radius: 11px 5px 13px 5px;
+  outline: 0;
+  background: transparent;
+  font-family: var(--sans);
+  font-size: 9px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.language-switch button:hover {
+  color: var(--rose-dark);
+}
+
+.language-switch button:focus-visible {
+  outline: 2px solid var(--rose);
+  outline-offset: 2px;
+}
+
+.language-switch button.is-active {
+  color: #fff;
+  background: var(--rose);
+  box-shadow: 0 6px 12px rgba(183, 122, 136, 0.22);
+  transform: translateY(-1px);
 }
 
 .btn {
@@ -165,6 +211,10 @@ a {
   width: 52px;
   min-width: 52px;
   padding: 0;
+}
+
+.mobile-apply {
+  display: none;
 }
 
 .page-shell,
@@ -502,8 +552,8 @@ h1 span {
   width: 100%;
   height: 360px;
   object-fit: cover;
-  object-position: 50% 43%;
-  filter: saturate(0.86) brightness(1.08) contrast(0.96);
+  object-position: 62% 50%;
+  filter: saturate(0.92) brightness(1.06) contrast(0.98);
 }
 
 .sparkle {
@@ -552,7 +602,7 @@ h1 span {
   display: flex;
   align-items: center;
   gap: 13px;
-  min-height: 68px;
+  min-height: 82px;
   padding: 13px 18px;
   background: rgba(255, 255, 255, 0.72);
   border: 1px solid var(--line);
@@ -586,6 +636,11 @@ h1 span {
 .info-strip small {
   color: var(--muted);
   font-size: 11px;
+}
+
+.address-stack {
+  display: grid !important;
+  gap: 1px;
 }
 
 .section {
@@ -638,14 +693,16 @@ h1 span {
 
 .badge {
   position: absolute;
-  top: 14px;
-  left: 16px;
+  z-index: 3;
+  top: 26px;
+  left: 30px;
   padding: 5px 9px;
   color: #fff;
   background: var(--rose);
   border-radius: 15px 7px 18px 7px;
   font-size: 10px;
   font-weight: 600;
+  box-shadow: 0 6px 14px rgba(91, 66, 58, 0.14);
 }
 
 .line-art {
@@ -745,6 +802,82 @@ h1 span {
 .benefits {
   padding-top: 40px;
   padding-bottom: 32px;
+}
+
+.benefits > h2 {
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+.value-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.value-card {
+  position: relative;
+  min-height: 186px;
+  padding: 24px 22px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--leaf-radius-sm);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.value-card::after {
+  position: absolute;
+  right: -12px;
+  bottom: -18px;
+  width: 72px;
+  height: 108px;
+  content: "";
+  background: var(--rose-light);
+  opacity: 0.45;
+  -webkit-mask: var(--brand-star) center / contain no-repeat;
+  mask: var(--brand-star) center / contain no-repeat;
+}
+
+.value-card > span {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 18px;
+  place-items: center;
+  color: var(--rose);
+  border: 1px solid var(--line-strong);
+  border-radius: 15px 7px 18px 7px;
+  background: var(--paper);
+}
+
+.semantic-icon {
+  display: block;
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.value-card h3 {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 8px;
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.value-card p {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
 }
 
 .benefit-grid,
@@ -868,22 +1001,23 @@ h1 span {
 }
 
 .gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 12px;
 }
 
 .gallery-grid img {
-  width: 100%;
-  height: 190px;
+  width: calc((100% - 36px) / 4);
+  height: auto;
+  flex: 0 0 calc((100% - 36px) / 4);
+  aspect-ratio: 3 / 5;
   object-fit: cover;
+  -webkit-user-drag: none;
+  user-select: none;
+  object-position: 50% 50%;
   border-radius: 24px 10px 30px 10px;
-  filter: saturate(0.86) brightness(1.08) contrast(0.96);
-}
-
-.gallery-grid img:nth-child(2),
-.gallery-grid img:nth-child(3) {
-  object-position: 50% 42%;
+  filter: saturate(0.9) brightness(1.04) contrast(0.98);
 }
 
 .reviews {
@@ -944,8 +1078,12 @@ h1 span {
 }
 
 .review-card {
-  display: none;
+  display: block;
   position: relative;
+  grid-column: 2;
+  grid-row: 1;
+  align-self: stretch;
+  height: 100%;
   min-height: 268px;
   padding: 22px 22px 20px;
   overflow: hidden;
@@ -954,10 +1092,26 @@ h1 span {
   border: 1px solid var(--line);
   border-radius: var(--leaf-radius);
   box-shadow: 0 15px 30px rgba(91, 66, 58, 0.06);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.22s ease, visibility 0.22s ease;
 }
 
 .review-card.is-active {
-  display: block;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.review-prev {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.review-next {
+  grid-column: 3;
+  grid-row: 1;
 }
 
 .review-card::after {
@@ -1159,11 +1313,260 @@ details p {
   margin-top: 22px;
 }
 
-.faq-telegram {
+.faq-lead {
   width: fit-content;
   min-width: 220px;
   margin-right: auto;
   margin-left: auto;
+}
+
+.application {
+  display: grid;
+  grid-template-columns: 0.82fr 1.18fr;
+  gap: 42px;
+  align-items: start;
+  margin: 0 34px 34px;
+  padding: 42px;
+  border: 1px solid var(--line);
+  border-radius: 42px 16px 50px 16px;
+  background:
+    radial-gradient(circle at 4% 0%, rgba(183, 122, 136, 0.13), transparent 16rem),
+    linear-gradient(145deg, #fff 0%, #fef7fb 100%);
+}
+
+.application-copy {
+  position: sticky;
+  top: 24px;
+}
+
+.application-copy .section-kicker {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.application-copy h2 {
+  margin: 7px 0 14px;
+  font-family: var(--serif);
+  font-size: clamp(34px, 4.3vw, 52px);
+  font-weight: 500;
+  line-height: 1.02;
+}
+
+.application-copy > p:not(.section-kicker) {
+  max-width: 360px;
+  margin: 0 0 24px;
+  color: var(--muted);
+}
+
+.application-points {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.application-points li {
+  position: relative;
+  padding-left: 24px;
+  font-size: 13px;
+}
+
+.application-points li::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  width: 17px;
+  height: 17px;
+  place-items: center;
+  content: "✓";
+  color: var(--rose-dark);
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.application-form {
+  display: grid;
+  gap: 18px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: var(--leaf-radius);
+  background: #fff;
+  box-shadow: 0 18px 42px rgba(76, 57, 48, 0.08);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.field {
+  display: grid;
+  gap: 7px;
+}
+
+.field-full {
+  grid-column: 1 / -1;
+}
+
+.contact-method {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.contact-method legend {
+  margin-bottom: 8px;
+  color: #514649;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.contact-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.contact-options label {
+  position: relative;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.contact-options input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.contact-option {
+  display: flex;
+  min-height: 50px;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 8px;
+  overflow: hidden;
+  color: var(--muted);
+  border: 1px solid var(--line-strong);
+  border-radius: 16px 7px 18px 7px;
+  background: #fffdfd;
+  font-size: 11px;
+  font-weight: 600;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.contact-option svg {
+  width: 19px;
+  height: 19px;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.contact-options input:checked + .contact-option {
+  color: var(--rose-dark);
+  border-color: var(--rose);
+  background: var(--cream);
+  box-shadow: 0 8px 18px rgba(183, 122, 136, 0.12);
+  transform: translateY(-1px);
+}
+
+.contact-options input:focus-visible + .contact-option {
+  outline: 2px solid var(--rose);
+  outline-offset: 2px;
+}
+
+.field > span {
+  color: #514649;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 16px 7px 18px 7px;
+  outline: 0;
+  background: #fffdfd;
+  color: var(--ink);
+  font: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.field textarea {
+  min-height: 98px;
+  resize: vertical;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--rose);
+  box-shadow: 0 0 0 3px rgba(183, 122, 136, 0.14);
+}
+
+.field input[aria-invalid="true"],
+.field select[aria-invalid="true"] {
+  border-color: #a94355;
+}
+
+.consent {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  gap: 10px;
+  align-items: start;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.consent input {
+  width: 17px;
+  height: 17px;
+  margin: 1px 0 0;
+  accent-color: var(--rose);
+}
+
+.form-status {
+  min-height: 18px;
+  margin: -4px 0 0;
+  color: #9d4252;
+  font-size: 12px;
+}
+
+.application-form .btn {
+  width: 100%;
+  min-height: 52px;
+  border: 0;
+  cursor: pointer;
+}
+
+.form-note {
+  margin: -7px 0 0;
+  color: var(--muted);
+  font-size: 10px;
+  text-align: center;
+}
+
+.step-brand-star {
+  width: 22px;
+  height: 30px;
 }
 
 .footer {
@@ -1220,7 +1623,13 @@ details p {
   position: relative;
   min-height: 220px;
   overflow: hidden;
-  background: #e8d6da;
+  background:
+    linear-gradient(34deg, transparent 47%, rgba(192, 118, 132, 0.36) 48%, transparent 51%),
+    linear-gradient(116deg, transparent 43%, rgba(180, 156, 148, 0.32) 44%, transparent 47%),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.55) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.55) 1px, transparent 1px),
+    #e8d6da;
+  background-size: auto, auto, 36px 36px, 36px 36px, auto;
   border: 1px solid var(--line);
   border-radius: 34px 14px 42px 14px;
   box-shadow: 0 15px 30px rgba(91, 66, 58, 0.07);
@@ -1240,6 +1649,7 @@ details p {
   width: 100%;
   height: 100%;
   min-height: 220px;
+  border: 0;
   object-fit: cover;
   filter: saturate(0.72) brightness(1.08) contrast(0.92);
 }
@@ -1310,9 +1720,22 @@ details p {
   }
 
   .benefit-grid,
-  .steps-grid,
-  .gallery-grid {
+  .steps-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gallery-grid img {
+    width: calc((100% - 24px) / 3);
+    flex-basis: calc((100% - 24px) / 3);
+  }
+
+  .application {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .application-copy {
+    position: static;
   }
 
   .package-grid,
@@ -1336,6 +1759,10 @@ details p {
     width: 100%;
     overflow-x: hidden;
     background: #f3e4ea;
+  }
+
+  body {
+    padding-bottom: calc(82px + env(safe-area-inset-bottom));
   }
 
   .page-shell {
@@ -1379,31 +1806,54 @@ details p {
   }
 
   .site-header {
-    grid-template-columns: 1fr auto;
-    position: relative;
-    min-height: auto;
-    padding: 18px 20px 10px;
-    align-items: start;
+    grid-template-columns: 1fr auto auto;
+    position: fixed;
+    top: max(8px, env(safe-area-inset-top));
+    right: 8px;
+    left: 8px;
+    z-index: 60;
+    width: auto;
+    min-height: 68px;
+    padding: 10px 18px;
+    align-items: center;
+    background: rgba(254, 247, 251, 0.94);
+    border-bottom: 1px solid rgba(232, 214, 218, 0.78);
+    border-radius: 22px 22px 12px 12px;
+    box-shadow: 0 8px 24px rgba(76, 57, 48, 0.07);
+    backdrop-filter: blur(14px);
   }
 
   .brand {
-    width: 116px;
+    width: 60px;
+  }
+
+  .language-switch {
+    grid-template-columns: repeat(3, 28px);
+    justify-self: end;
+  }
+
+  .language-switch button {
+    width: 28px;
+    height: 28px;
   }
 
   .main-nav {
-    position: absolute;
-    top: 70px;
-    right: 14px;
-    left: 14px;
-    z-index: 5;
+    position: fixed;
+    top: calc(max(8px, env(safe-area-inset-top)) + 72px);
+    right: 12px;
+    left: 12px;
+    z-index: 70;
     display: none;
     flex-direction: column;
     gap: 0;
-    padding: 12px;
-    background: #fff;
+    max-height: calc(100dvh - 92px);
+    overflow-y: auto;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.96);
     border: 1px solid var(--line);
     border-radius: 24px 10px 30px 10px;
-    box-shadow: 0 16px 35px rgba(54, 38, 32, 0.15);
+    box-shadow: 0 18px 44px rgba(54, 38, 32, 0.2);
+    backdrop-filter: blur(14px);
   }
 
   .main-nav.is-open {
@@ -1411,15 +1861,27 @@ details p {
   }
 
   .main-nav a {
-    padding: 12px;
+    display: flex;
+    min-height: 48px;
+    align-items: center;
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(232, 214, 218, 0.72);
+    font-size: 14px;
+  }
+
+  .main-nav a:last-child {
+    border-bottom: 0;
   }
 
   .menu-toggle {
     display: block;
-    position: fixed;
-    top: 24px;
-    right: 22px;
-    z-index: 6;
+    position: relative;
+    top: auto;
+    right: auto;
+    z-index: 71;
+    width: 48px;
+    height: 48px;
+    justify-self: end;
     background: rgba(254, 247, 251, 0.86);
     border: 1px solid var(--line);
     border-radius: 16px 7px 20px 7px;
@@ -1444,7 +1906,7 @@ details p {
 
   .hero {
     display: block;
-    padding: 8px 20px 0;
+    padding: calc(82px + env(safe-area-inset-top)) 20px 0;
   }
 
   .hero-copy {
@@ -1494,11 +1956,12 @@ details p {
   }
 
   .hero-action {
-    display: block;
+    display: grid;
+    gap: 10px;
   }
 
   .hero-action .btn {
-    width: min(100%, calc(100vw - 56px));
+    width: 100%;
     min-width: 0;
     min-height: 54px;
     padding-inline: 14px;
@@ -1509,7 +1972,14 @@ details p {
   }
 
   .hero-media {
-    display: none;
+    display: block;
+    min-height: 220px;
+    margin-top: 18px;
+  }
+
+  .hero-media img {
+    height: 220px;
+    object-position: 62% 50%;
   }
 
   .info-strip {
@@ -1519,7 +1989,7 @@ details p {
   }
 
   .info-strip article {
-    min-height: 58px;
+    min-height: 82px;
     padding: 11px 12px;
   }
 
@@ -1535,7 +2005,6 @@ details p {
   .package-grid,
   .benefit-grid,
   .steps-grid,
-  .gallery-grid,
   .faq-grid,
   .footer-links {
     grid-template-columns: 1fr;
@@ -1624,13 +2093,30 @@ details p {
   }
 
   .gallery-grid {
-    grid-template-columns: repeat(2, 1fr);
+    flex-wrap: nowrap;
+    justify-content: flex-start;
     gap: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 2px 2px 12px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-inline: contain;
+    touch-action: pan-x;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .gallery-grid::-webkit-scrollbar {
+    display: none;
   }
 
   .gallery-grid img {
+    width: 72%;
+    min-width: 72%;
+    flex: 0 0 72%;
     height: auto;
-    aspect-ratio: 1.35 / 1;
+    aspect-ratio: 3 / 5;
+    scroll-snap-align: start;
   }
 
   .review-card {
@@ -1672,6 +2158,83 @@ details p {
     min-width: 0;
     margin-top: 22px;
     padding-inline: 12px;
+  }
+
+  .application {
+    gap: 22px;
+    margin: 0 8px 20px;
+    padding: 28px 14px;
+    border-radius: 30px 12px 36px 12px;
+    scroll-margin-top: calc(78px + env(safe-area-inset-top));
+  }
+
+  .application-copy h2 {
+    font-size: 38px;
+  }
+
+  .application-form {
+    gap: 16px;
+    padding: 18px 12px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .field-full {
+    grid-column: auto;
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    min-height: 52px;
+    font-size: 16px;
+  }
+
+  .field textarea {
+    min-height: 128px;
+  }
+
+  .field > span {
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  .consent {
+    grid-template-columns: 22px 1fr;
+    gap: 9px;
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  .consent input {
+    width: 20px;
+    height: 20px;
+  }
+
+  .application-form .btn {
+    min-height: 56px;
+  }
+
+  .mobile-apply {
+    position: fixed;
+    z-index: 50;
+    right: 12px;
+    bottom: max(10px, env(safe-area-inset-bottom));
+    left: 12px;
+    display: flex;
+    min-height: 56px;
+    box-shadow: 0 14px 32px rgba(99, 62, 72, 0.3);
+    transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+  }
+
+  .mobile-apply.is-hidden {
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
   }
 
   .footer {
@@ -1720,7 +2283,7 @@ details p {
   }
 
   .brand {
-    width: 106px;
+    width: 58px;
   }
 
   .menu-toggle {
@@ -1762,13 +2325,74 @@ details p {
   }
 }
 
+@media (max-width: 980px) {
+  .value-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .benefits > h2 {
+    margin-bottom: 20px;
+  }
+
+  .value-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .value-card {
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 4px 13px;
+    min-height: auto;
+    padding: 16px;
+    align-items: center;
+  }
+
+  .value-card::after {
+    width: 54px;
+    height: 82px;
+    opacity: 0.28;
+  }
+
+  .value-card > span {
+    grid-row: 1 / span 2;
+    width: 46px;
+    height: 46px;
+    margin: 0;
+  }
+
+  .value-card h3 {
+    margin: 0;
+    font-size: 18px;
+  }
+
+  .value-card p {
+    font-size: 12px;
+    line-height: 1.42;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-options {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-option {
+    justify-content: flex-start;
+    min-height: 48px;
+    padding-inline: 14px;
+  }
+}
+
 </style>
 
 <main class="page-shell">
     <section class="landing-card">
       <header class="site-header">
-        <a class="brand" href="#top" aria-label="annaelle">
-          <img class="brand-logo" src="https://efilym89.github.io/MGLending/images/annaelle-logo-mark.svg" alt="annaelle">
+        <a class="brand" href="#top" aria-label="Annaelle - начало страницы">
+          <img class="brand-logo" src="https://efilym89.github.io/MGLending/images/annaelle-logo-mark.svg" alt="Annaelle, студия лазерной эпиляции" width="298" height="267">
         </a>
         <nav class="main-nav" aria-label="Основная навигация">
           <a href="#about">О студии</a>
@@ -1778,9 +2402,14 @@ details p {
           <a href="#faq">FAQ</a>
           <a href="#contacts">Контакты</a>
         </nav>
-        <a class="btn btn-small btn-filled" href="https://telegram.me/annaellelaser" data-telegram-message target="_blank" rel="noreferrer">
-          <span class="tg-icon" aria-hidden="true"></span>
-          <span>Записаться в Telegram</span>
+        <div class="language-switch" role="group" aria-label="Выбор языка">
+          <button type="button" class="is-active" data-lang="ru" aria-pressed="true" title="Русский">RU</button>
+          <button type="button" data-lang="uz" aria-pressed="false" title="O'zbekcha">UZ</button>
+          <button type="button" data-lang="en" aria-pressed="false" title="English">EN</button>
+        </div>
+        <a class="btn btn-small btn-filled" href="#lead-form">
+          <span class="brand-star" aria-hidden="true"></span>
+          <span>Получить скидку</span>
         </a>
         <button class="menu-toggle" type="button" aria-label="Открыть меню" aria-expanded="false">
           <span></span>
@@ -1796,11 +2425,15 @@ details p {
             <span class="desktop-title-line">в Ташкенте</span>
             <span class="mobile-title-line">в Ташкенте</span>
           </h1>
-          <p class="hero-text">Деликатная процедура, современные технологии и внимание к вам на каждом этапе.</p>
+          <p class="hero-text">Гарантируем результат: если при соблюдении рекомендаций эффект не достигнут, вернём 100% стоимости процедуры.</p>
           <div class="hero-action">
-            <a class="btn btn-filled" href="https://telegram.me/annaellelaser" data-telegram-message target="_blank" rel="noreferrer">
-              <span class="tg-icon" aria-hidden="true"></span>
+            <a class="btn btn-filled" href="#lead-form">
+              <span class="brand-star" aria-hidden="true"></span>
               <span>Получить скидку до 30%</span>
+            </a>
+            <a class="btn btn-outline" href="#packages">
+              <span class="brand-star" aria-hidden="true"></span>
+              <span>Выбрать акцию</span>
             </a>
             <div class="social-proof" aria-label="Более 500 довольных клиентов">
               <span class="avatar avatar-1"></span>
@@ -1813,7 +2446,7 @@ details p {
           </div>
         </div>
         <div class="hero-media">
-          <img src="https://efilym89.github.io/MGLending/images/studio-new-1016.jpg" alt="Процедура лазерной эпиляции в annaelle">
+          <img src="https://efilym89.github.io/MGLending/annaelle-work/assets/hero-main-960.webp" srcset="https://efilym89.github.io/MGLending/annaelle-work/assets/hero-main-960.webp 960w, https://efilym89.github.io/MGLending/annaelle-work/assets/hero-main-1800.webp 1800w" sizes="(max-width: 680px) calc(100vw - 56px), 450px" alt="Процедура лазерной эпиляции в студии Annaelle" width="1800" height="1200" fetchpriority="high" decoding="async">
           <span class="sparkle sparkle-big" aria-hidden="true"></span>
         </div>
         <div class="info-strip" aria-label="Ключевая информация">
@@ -1827,8 +2460,8 @@ details p {
           <article>
             <span class="mini-icon"><span class="icon icon-location" aria-hidden="true"></span></span>
             <div>
-              <strong>2 студии в Ташкенте</strong>
-              <small>Шота Руставели 33/1 · Карасу 31</small>
+              <strong>2 филиала в Ташкенте</strong>
+              <small class="address-stack"><span>Шота Руставели, 33/1</span><span>Карасу, 31</span></small>
             </div>
           </article>
           <article>
@@ -1846,7 +2479,7 @@ details p {
         <h2>Акции с выгодой на первый визит</h2>
         <div class="package-grid">
           <article class="package-card">
-            <img class="package-photo" src="https://efilym89.github.io/MGLending/images/offer-photo-299.jpg" alt="Спецпредложение подмышки плюс бикини">
+            <img class="package-photo" src="https://efilym89.github.io/MGLending/images/offer-new-1-760.webp" srcset="images/offer-new-1-380.webp 380w, images/offer-new-1-760.webp 760w" sizes="(max-width: 680px) calc(100vw - 74px), 300px" alt="Лазерная эпиляция подмышек и бикини в Annaelle" width="760" height="440" loading="lazy" decoding="async">
             <h3>Подмышки + бикини</h3>
             <ul>
               <li>Подмышки</li>
@@ -1856,11 +2489,11 @@ details p {
               <strong>299 000 <span>сум</span></strong>
               <del>400 000 сум</del>
             </div>
-            <a class="btn btn-filled" href="https://telegram.me/annaellelaser" data-telegram-message target="_blank" rel="noreferrer"><span class="tg-icon" aria-hidden="true"></span>Записаться</a>
+            <a class="btn btn-filled" href="#lead-form"><span class="brand-star" aria-hidden="true"></span>Записаться</a>
           </article>
           <article class="package-card featured">
-            <span class="badge">популярный</span>
-            <img class="package-photo" src="https://efilym89.github.io/MGLending/images/offer-photo-540.jpg" alt="Спецпредложение любые три зоны">
+            <span class="badge">популярная</span>
+            <img class="package-photo" src="https://efilym89.github.io/MGLending/images/offer-new-2-760.webp" srcset="images/offer-new-2-380.webp 380w, images/offer-new-2-760.webp 760w" sizes="(max-width: 680px) calc(100vw - 74px), 300px" alt="Лазерная эпиляция любых трёх зон в Annaelle" width="760" height="440" loading="lazy" decoding="async">
             <h3>Любые 3 зоны</h3>
             <ul>
               <li>Выбирайте любые 3 зоны</li>
@@ -1870,10 +2503,10 @@ details p {
               <strong>540 000 <span>сум</span></strong>
               <del>640 000 сум</del>
             </div>
-            <a class="btn btn-filled" href="https://telegram.me/annaellelaser" data-telegram-message target="_blank" rel="noreferrer"><span class="tg-icon" aria-hidden="true"></span>Записаться</a>
+            <a class="btn btn-filled" href="#lead-form"><span class="brand-star" aria-hidden="true"></span>Записаться</a>
           </article>
           <article class="package-card">
-            <img class="package-photo" src="https://efilym89.github.io/MGLending/images/offer-photo-699.jpg" alt="Спецпредложение все зоны">
+            <img class="package-photo" src="https://efilym89.github.io/MGLending/images/offer-new-3-760.webp" srcset="images/offer-new-3-380.webp 380w, images/offer-new-3-760.webp 760w" sizes="(max-width: 680px) calc(100vw - 74px), 300px" alt="Лазерная эпиляция всех зон в Annaelle" width="760" height="440" loading="lazy" decoding="async">
             <h3>Все зоны</h3>
             <ul>
               <li>Комплекс на все тело</li>
@@ -1883,7 +2516,7 @@ details p {
               <strong>699 000 <span>сум</span></strong>
               <del>1 300 000 сум</del>
             </div>
-            <a class="btn btn-filled" href="https://telegram.me/annaellelaser" data-telegram-message target="_blank" rel="noreferrer"><span class="tg-icon" aria-hidden="true"></span>Записаться</a>
+            <a class="btn btn-filled" href="#lead-form"><span class="brand-star" aria-hidden="true"></span>Записаться</a>
           </article>
         </div>
         <p class="note">Акция действует только на первое посещение</p>
@@ -1891,33 +2524,44 @@ details p {
 
       <section class="section benefits" id="benefits">
         <p class="section-kicker">почему первый визит проходит спокойно</p>
-        <div class="benefit-grid">
-          <article>
-            <span><span class="icon icon-expert" aria-hidden="true"></span></span>
+        <h2>Забота, которую вы чувствуете</h2>
+        <div class="value-grid">
+          <article class="value-card">
+            <span><svg class="semantic-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="m16 11 2 2 4-4"></path></svg></span>
             <h3>Опытные мастера</h3>
             <p>Все процедуры проводят специалисты с медицинским образованием и практическим опытом.</p>
           </article>
-          <article>
-            <span><span class="icon icon-guarantee" aria-hidden="true"></span></span>
+          <article class="value-card">
+            <span><svg class="semantic-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V5l8-3 8 3v8Z"></path><path d="m9 12 2 2 4-4"></path></svg></span>
             <h3>Гарантия результата</h3>
             <p>Если при соблюдении рекомендаций результат не достигнут — вернём 100% стоимости процедуры.</p>
           </article>
-          <article>
-            <span><span class="icon icon-equipment" aria-hidden="true"></span></span>
-            <h3>Премиальное оборудование</h3>
-            <p>Работаем на медицинском лазере IXTRON Sprint M4 с официальной сертификацией.</p>
+          <article class="value-card">
+            <span><svg class="semantic-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="14" x="2" y="3" rx="2"></rect><path d="M8 21h8M12 17v4M6 10h2l1.4-3 3 6 1.5-3H18"></path></svg></span>
+            <h3>Медицинское оборудование</h3>
+            <p>Работаем на премиальном медицинском лазере IXTRON Sprint M4 с официальной сертификацией.</p>
           </article>
-          <article>
-            <span><span class="icon icon-privacy" aria-hidden="true"></span></span>
+          <article class="value-card">
+            <span><svg class="semantic-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path><circle cx="12" cy="16.5" r="1"></circle></svg></span>
             <h3>Комфорт и приватность</h3>
             <p>Новая современная студия, отдельный кабинет и только вы с мастером во время процедуры.</p>
+          </article>
+          <article class="value-card">
+            <span><svg class="semantic-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3 1.5-5A7 7 0 0 1 3 12a8 8 0 0 1 8-8h2a8 8 0 0 1 8 8v3Z"></path><path d="M8.5 12.5 11 15l4.5-5"></path></svg></span>
+            <h3>Честные рекомендации</h3>
+            <p>Подбираем зоны и курс процедур по вашим целям, без навязанных услуг и лишних обещаний.</p>
+          </article>
+          <article class="value-card">
+            <span><svg class="semantic-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg></span>
+            <h3>Два филиала</h3>
+            <p>Выбирайте подходящий филиал в Ташкенте: Шота Руставели 33/1 или Карасу 31.</p>
           </article>
         </div>
       </section>
 
       <section class="section about" id="about">
         <div class="about-media">
-          <img src="https://efilym89.github.io/MGLending/images/studio-new-1518.jpg" alt="Мастер annaelle и клиент после процедуры">
+          <img src="https://efilym89.github.io/MGLending/images/studio-new-1518.jpg" alt="Специалист Annaelle общается с клиенткой после процедуры" width="1350" height="1800" loading="lazy" decoding="async">
         </div>
         <div class="about-copy">
           <p class="section-kicker">забота, технологии и результат</p>
@@ -1926,7 +2570,7 @@ details p {
             <li>5.0 рейтинг в Яндекс Картах, 7 минут до метро</li>
             <li>Честные рекомендации до и после процедуры</li>
             <li>Без навязанных продаж и лишнего стресса</li>
-            <li>2 удобные локации: Шота Руставели 33/1 и Карасу 31</li>
+            <li>2 филиала: Шота Руставели 33/1 и Карасу 31</li>
             <li>График: 09:00–21:00 без выходных</li>
             <li>Silk-карты для постоянных клиентов</li>
           </ul>
@@ -1939,42 +2583,42 @@ details p {
         <p class="section-kicker">как проходит запись и процедура</p>
         <div class="steps-grid">
           <article>
-            <span><span class="tg-step-icon" aria-hidden="true"></span></span>
-            <h3>Напишите в Telegram</h3>
-            <p>Мы ответим и подберем удобное время.</p>
+            <span><svg class="semantic-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5H6a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-3"></path><rect x="9" y="2" width="6" height="5" rx="1"></rect><path d="M8 12h5M8 16h3M16.5 13.5l2 2-4 4H12v-2.5l4.5-3.5Z"></path></svg></span>
+            <h3>Оставьте заявку</h3>
+            <p>Укажите контакты и удобный филиал.</p>
           </article>
           <article>
-            <span><span class="icon icon-complex" aria-hidden="true"></span></span>
+            <span><svg class="semantic-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"></rect><path d="M9 7h6M9 12h6M9 17h6M7 7h.01M7 12h.01M7 17h.01"></path></svg></span>
             <h3>Подбираем комплекс</h3>
             <p>Подскажем оптимальные зоны и рассчитаем стоимость.</p>
           </article>
           <article>
-            <span><span class="icon icon-calendar" aria-hidden="true"></span></span>
+            <span><svg class="semantic-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 10h18M8 15l2 2 5-5"></path></svg></span>
             <h3>Подтверждаем время</h3>
             <p>Закрепляем запись удобным способом.</p>
           </article>
           <article>
-            <span><span class="icon icon-procedure" aria-hidden="true"></span></span>
+            <span><svg class="semantic-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"></path><path d="M7 12h10M12 7v10"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
             <h3>Проводим процедуру</h3>
             <p>Деликатно, быстро и в комфортной атмосфере.</p>
           </article>
           <article>
-            <span><span class="icon icon-recommend" aria-hidden="true"></span></span>
-            <h3>Рекомендации по уходу</h3>
+            <span><svg class="semantic-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10a2 2 0 0 1 2 2v16l-7-3-7 3V5a2 2 0 0 1 2-2Z"></path><path d="m9 10 2 2 4-4"></path></svg></span>
+            <h3>Рекомендации после процедуры</h3>
             <p>Даем простые советы для идеального результата.</p>
           </article>
         </div>
       </section>
 
-      <section class="section gallery">
-        <p class="section-kicker">Атмосфера Annaelle</p>
+      <section class="section gallery" aria-labelledby="gallery-title">
+        <p class="section-kicker" id="gallery-title">Атмосфера Annaelle</p>
         <div class="gallery-grid">
-          <img src="https://efilym89.github.io/MGLending/images/gallery-room-wide.jpg" alt="Кабинет annaelle">
-          <img src="https://efilym89.github.io/MGLending/images/studio-new-1038.jpg" alt="Мастер annaelle во время процедуры">
-          <img src="https://efilym89.github.io/MGLending/images/gallery-device-close.jpg" alt="Аппарат лазерной эпиляции в кабинете">
-          <img src="https://efilym89.github.io/MGLending/images/studio-room.jpg" alt="Кабинет лазерной эпиляции annaelle">
-          <img src="https://efilym89.github.io/MGLending/images/heic-plant-detail.jpg" alt="Детали интерьера annaelle">
-          <img src="https://efilym89.github.io/MGLending/images/heic-plant-wide.jpg" alt="Атмосфера кабинета annaelle">
+          <img src="https://efilym89.github.io/MGLending/annaelle-work/assets/gallery-img_1861-640.webp" srcset="https://efilym89.github.io/MGLending/annaelle-work/assets/gallery-img_1861-640.webp 640w, https://efilym89.github.io/MGLending/annaelle-work/assets/gallery-img_1861-1200.webp 1200w" sizes="(max-width: 680px) 72vw, (max-width: 980px) 30vw, 230px" alt="Кабинет Annaelle с медицинским лазером IXTRON" width="1200" height="2000" loading="lazy" decoding="async">
+          <img src="https://efilym89.github.io/MGLending/annaelle-work/assets/gallery-img_1864-640.webp" srcset="https://efilym89.github.io/MGLending/annaelle-work/assets/gallery-img_1864-640.webp 640w, https://efilym89.github.io/MGLending/annaelle-work/assets/gallery-img_1864-1200.webp 1200w" sizes="(max-width: 680px) 72vw, (max-width: 980px) 30vw, 230px" alt="Интерьер филиала Annaelle" width="1200" height="2000" loading="lazy" decoding="async">
+          <img src="https://efilym89.github.io/MGLending/annaelle-work/assets/gallery-img_1855-640.webp" srcset="https://efilym89.github.io/MGLending/annaelle-work/assets/gallery-img_1855-640.webp 640w, https://efilym89.github.io/MGLending/annaelle-work/assets/gallery-img_1855-1200.webp 1200w" sizes="(max-width: 680px) 72vw, (max-width: 980px) 30vw, 230px" alt="Фирменные халаты и интерьер кабинета Annaelle" width="1200" height="2000" loading="lazy" decoding="async">
+          <img src="https://efilym89.github.io/MGLending/annaelle-work/assets/gallery-img_1857-640.webp" srcset="https://efilym89.github.io/MGLending/annaelle-work/assets/gallery-img_1857-640.webp 640w, https://efilym89.github.io/MGLending/annaelle-work/assets/gallery-img_1857-1200.webp 1200w" sizes="(max-width: 680px) 72vw, (max-width: 980px) 30vw, 230px" alt="Уютная зона кабинета Annaelle" width="1200" height="2000" loading="lazy" decoding="async">
+          <img src="https://efilym89.github.io/MGLending/annaelle-work/assets/gallery-img_1858-640.webp" srcset="https://efilym89.github.io/MGLending/annaelle-work/assets/gallery-img_1858-640.webp 640w, https://efilym89.github.io/MGLending/annaelle-work/assets/gallery-img_1858-1200.webp 1200w" sizes="(max-width: 680px) 72vw, (max-width: 980px) 30vw, 230px" alt="Аромадиффузор в интерьере Annaelle" width="1200" height="2000" loading="lazy" decoding="async">
+          <img src="https://efilym89.github.io/MGLending/annaelle-work/assets/gallery-img_1863-640.webp" srcset="https://efilym89.github.io/MGLending/annaelle-work/assets/gallery-img_1863-640.webp 640w, https://efilym89.github.io/MGLending/annaelle-work/assets/gallery-img_1863-1200.webp 1200w" sizes="(max-width: 680px) 72vw, (max-width: 980px) 30vw, 230px" alt="Зона отдыха в филиале Annaelle" width="1200" height="2000" loading="lazy" decoding="async">
         </div>
       </section>
 
@@ -1995,7 +2639,7 @@ details p {
           <article class="review-card" aria-hidden="true">
             <div class="review-source">Яндекс Карты</div>
             <div class="stars" aria-label="5 из 5"><span></span><span></span><span></span><span></span><span></span></div>
-            <p>Отличная студия. Профессиональный и вежливый персонал, приятная атмосфера 🎀</p>
+            <p>Отличная студия. Профессиональный и вежливый персонал, приятная атмосфера.</p>
             <div class="review-author">
               <span></span>
               <div><strong>София Саттарова</strong><small>отзыв клиента</small></div>
@@ -2004,7 +2648,7 @@ details p {
           <article class="review-card" aria-hidden="true">
             <div class="review-source">Яндекс Карты</div>
             <div class="stars" aria-label="5 из 5"><span></span><span></span><span></span><span></span><span></span></div>
-            <p>Не пожалела, что доверила свою первую процедуру лазера именно этой студии. Мастер Нилюфар была очень вежлива, аккуратна и делала всё ради комфорта клиента ❤️</p>
+            <p>Не пожалела, что доверила свою первую процедуру лазера именно этой студии. Мастер Нилюфар была очень вежлива, аккуратна и делала всё ради комфорта клиента.</p>
             <div class="review-author">
               <span></span>
               <div><strong>Жулдыз Калекешова</strong><small>отзыв клиента</small></div>
@@ -2021,8 +2665,8 @@ details p {
           <h2>Первый визит<br>с максимальной выгодой</h2>
           <p>Запишитесь и узнайте, какая акция подойдёт для выбранных зон.</p>
         </div>
-        <a class="btn btn-light" href="https://telegram.me/annaellelaser" data-telegram-message target="_blank" rel="noreferrer">
-          <span class="tg-icon" aria-hidden="true"></span>
+        <a class="btn btn-light" href="#lead-form">
+          <span class="brand-star" aria-hidden="true"></span>
           <span>Получить скидку до 30%</span>
         </a>
         <span class="sparkle cta-sparkle" aria-hidden="true"></span>
@@ -2056,7 +2700,7 @@ details p {
             </details>
             <details>
               <summary>Как выбрать комплекс?</summary>
-              <p><span class="tg-icon tg-icon-inline" aria-hidden="true"></span>Напишите в Telegram: мы уточним зоны и подберём самый выгодный вариант.</p>
+              <p>Оставьте заявку ниже: мы уточним зоны и подберём самый выгодный вариант.</p>
             </details>
             <details>
               <summary>Что такое Silk-карта?</summary>
@@ -2064,22 +2708,98 @@ details p {
             </details>
           </div>
         </div>
-        <a class="btn btn-outline centered faq-telegram" href="https://telegram.me/annaellelaser" data-telegram-message target="_blank" rel="noreferrer">
-          <span class="tg-icon" aria-hidden="true"></span>
-          <span>Подробнее в ТГ</span>
+        <a class="btn btn-outline centered faq-lead" href="#lead-form">
+          <span class="brand-star" aria-hidden="true"></span>
+          <span>Получить консультацию</span>
         </a>
+      </section>
+
+      <section class="application" id="lead-form" aria-labelledby="lead-form-title">
+        <div class="application-copy">
+          <p class="section-kicker">Ваш первый визит</p>
+          <h2 id="lead-form-title">Получите скидку до 30%</h2>
+          <p>Оставьте контакты и выберите удобный филиал. Администратор уточнит зоны, рассчитает стоимость и предложит время для визита.</p>
+          <ul class="application-points">
+            <li>Заполнение занимает меньше минуты</li>
+            <li>Подберём выгодный комплекс под ваши зоны</li>
+            <li>Свяжемся в удобное для вас время</li>
+          </ul>
+        </div>
+        <form class="application-form" id="client-lead-form" novalidate>
+          <div class="form-grid">
+            <label class="field">
+              <span>Имя *</span>
+              <input type="text" name="name" autocomplete="name" required maxlength="80" placeholder="Как к вам обращаться">
+            </label>
+            <label class="field">
+              <span>Телефон *</span>
+              <input type="tel" name="phone" autocomplete="tel" inputmode="tel" required maxlength="24" placeholder="+998 90 000 00 00">
+            </label>
+            <label class="field">
+              <span>Удобный филиал *</span>
+              <select name="studio" required>
+                <option value="">Выберите адрес</option>
+                <option value="Шота Руставели 33/1">Шота Руставели, 33/1</option>
+                <option value="Карасу 31">Карасу, 31</option>
+                <option value="Подобрать ближайшую">Помогите выбрать</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Что вас интересует?</span>
+              <select name="offer">
+                <option value="">Выберите вариант</option>
+                <option value="Подмышки + бикини">Подмышки + бикини</option>
+                <option value="Любые 3 зоны">Любые 3 зоны</option>
+                <option value="Все зоны">Все зоны</option>
+                <option value="Нужна консультация">Нужна консультация</option>
+              </select>
+            </label>
+            <fieldset class="contact-method field-full">
+              <legend>Как удобнее связаться? *</legend>
+              <div class="contact-options">
+                <label>
+                  <input type="radio" name="contact_method" value="Telegram" checked>
+                  <span class="contact-option"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 3-7.4 18-4.2-7.2L3 10.7 21 3Z"></path><path d="m9.4 13.8 4.8-4.6"></path></svg>Telegram</span>
+                </label>
+                <label>
+                  <input type="radio" name="contact_method" value="WhatsApp">
+                  <span class="contact-option"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.7a8.5 8.5 0 0 1-12.6 7.5L3 20.5l1.3-4.7A8.5 8.5 0 1 1 20.5 11.7Z"></path><path d="M8.2 7.7c.3-.4.6-.4.9-.4l.5.1c.2.1.3.4.5.9l.5 1.2c.1.2.1.4 0 .6l-.7.9c.8 1.7 2 2.9 3.8 3.7l.8-.9c.2-.2.4-.2.7-.1l1.6.7c.3.2.5.3.5.6 0 .5-.3 1.5-.8 1.9-.5.5-1.3.7-2.1.5-1.3-.3-3.1-1.1-4.8-2.7-1.4-1.3-2.5-3-2.9-4.4-.3-1-.1-1.9.4-2.5l.1-.1Z"></path></svg>WhatsApp</span>
+                </label>
+                <label>
+                  <input type="radio" name="contact_method" value="Позвоните мне">
+                  <span class="contact-option"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.8 2.1Z"></path></svg>Позвоните мне</span>
+                </label>
+              </div>
+            </fieldset>
+            <label class="field field-full">
+              <span>Комментарий</span>
+              <textarea name="comment" maxlength="300" placeholder="Например, удобное время для звонка или интересующие зоны"></textarea>
+            </label>
+          </div>
+          <label class="consent">
+            <input type="checkbox" name="consent" required>
+            <span>Я согласна на обработку указанных данных для записи и связи со мной по услугам Annaelle.</span>
+          </label>
+          <p class="form-status" id="form-status" role="alert" aria-live="polite"></p>
+          <button class="btn btn-filled" type="submit"><span class="brand-star" aria-hidden="true"></span><span>Получить скидку</span></button>
+          <input type="hidden" name="utm_source">
+          <input type="hidden" name="utm_medium">
+          <input type="hidden" name="utm_campaign">
+          <input type="hidden" name="utm_content">
+          <input type="hidden" name="utm_term">
+        </form>
       </section>
 
       <footer class="footer" id="contacts">
         <div class="footer-copy">
-          <h2>Готовы подобрать свой комплекс?</h2>
-          <p><span class="tg-icon tg-icon-inline" aria-hidden="true"></span>Напишите нам в Telegram, и мы подберём комплекс под ваши зоны, график и первый визит.</p>
-          <a class="brand footer-brand" href="#top" aria-label="annaelle">
-            <img class="brand-logo" src="https://efilym89.github.io/MGLending/images/annaelle-logo-mark.svg" alt="annaelle">
+          <h2>До встречи в Annaelle</h2>
+          <p>Оставьте заявку, и администратор поможет подобрать зоны, акцию и удобное время для первого визита.</p>
+          <a class="brand footer-brand" href="#top" aria-label="Annaelle - начало страницы">
+            <img class="brand-logo" src="https://efilym89.github.io/MGLending/images/annaelle-logo-mark.svg" alt="Annaelle" width="298" height="267" loading="lazy" decoding="async">
           </a>
         </div>
         <div class="footer-actions">
-          <a class="btn btn-filled" href="https://telegram.me/annaellelaser" data-telegram-message target="_blank" rel="noreferrer"><span class="tg-icon" aria-hidden="true"></span>Написать в Telegram</a>
+          <a class="btn btn-filled" href="#lead-form"><span class="brand-star" aria-hidden="true"></span>Получить скидку</a>
           <a class="btn btn-outline btn-instagram" href="https://www.instagram.com/annaelle.laser" target="_blank" rel="noreferrer" aria-label="Instagram annaelle.laser"><span class="instagram-icon" aria-hidden="true"></span><span>мы в Instagram</span></a>
         </div>
         <div class="footer-links">
@@ -2088,7 +2808,7 @@ details p {
           <div><strong>Контакты</strong><a href="https://yandex.ru/maps/?text=Annaelle%20%D0%A8%D0%BE%D1%82%D0%B0%20%D0%A0%D1%83%D1%81%D1%82%D0%B0%D0%B2%D0%B5%D0%BB%D0%B8%2033%2F1%20%D0%A2%D0%B0%D1%88%D0%BA%D0%B5%D0%BD%D1%82" target="_blank" rel="noreferrer">Ташкент, ул. Шота Руставели, 33/1</a><a href="https://yandex.ru/maps/?text=Annaelle%20%D0%9A%D0%B0%D1%80%D0%B0%D1%81%D1%83%2031%20%D0%A2%D0%B0%D1%88%D0%BA%D0%B5%D0%BD%D1%82" target="_blank" rel="noreferrer">Ташкент, ул. Карасу, 31</a><span>09:00–21:00 без выходных</span></div>
         </div>
         <div class="map-card" aria-label="Карта расположения">
-          <img class="map-image" src="https://static-maps.yandex.ru/1.x/?lang=ru_RU&amp;ll=69.292333,41.290694&amp;z=12&amp;l=map&amp;size=650,260&amp;pt=69.260916,41.291156,pm2rdm1~69.323750,41.290231,pm2rdm2" alt="Карта Ташкента с двумя студиями annaelle">
+          <iframe class="map-image" src="https://www.openstreetmap.org/export/embed.html?bbox=69.22%2C41.25%2C69.36%2C41.33&amp;layer=mapnik" title="Карта Ташкента с двумя филиалами Annaelle" loading="lazy" referrerpolicy="no-referrer"></iframe>
           <a class="map-marker map-marker-shota" href="https://yandex.ru/maps/?text=Annaelle%20%D0%A8%D0%BE%D1%82%D0%B0%20%D0%A0%D1%83%D1%81%D1%82%D0%B0%D0%B2%D0%B5%D0%BB%D0%B8%2033%2F1%20%D0%A2%D0%B0%D1%88%D0%BA%D0%B5%D0%BD%D1%82" target="_blank" rel="noreferrer"><span class="brand-star" aria-hidden="true"></span><strong>Шота Руставели</strong></a>
           <a class="map-marker map-marker-karasu" href="https://yandex.ru/maps/?text=Annaelle%20%D0%9A%D0%B0%D1%80%D0%B0%D1%81%D1%83%2031%20%D0%A2%D0%B0%D1%88%D0%BA%D0%B5%D0%BD%D1%82" target="_blank" rel="noreferrer"><span class="brand-star" aria-hidden="true"></span><strong>Карасу</strong></a>
         </div>
@@ -2096,13 +2816,409 @@ details p {
     </section>
   </main>
 
-<script>
-const telegramMessage = "Здравствуйте! Хочу узнать подробнее про первый визит с максимальной выгодой";
-const telegramUrl = `https://telegram.me/annaellelaser?text=${encodeURIComponent(telegramMessage)}`;
+  <a class="btn btn-filled mobile-apply" href="#lead-form"><span class="brand-star" aria-hidden="true"></span>Получить скидку до 30%</a>
 
-document.querySelectorAll("[data-telegram-message]").forEach((link) => {
-  link.setAttribute("href", telegramUrl);
-});
+<script>
+(() => {
+  const translations = {
+    uz: {
+      "О студии": "Studiya haqida",
+      "Акции": "Aksiyalar",
+      "Преимущества": "Afzalliklar",
+      "Отзывы": "Sharhlar",
+      "Контакты": "Kontaktlar",
+      "Получить скидку": "Chegirmani olish",
+      "акции с выгодой на первый визит": "ilk tashrif uchun foydali aksiyalar",
+      "Лазерная": "Lazer",
+      "эпиляция": "epilyatsiya",
+      "в Ташкенте": "Toshkentda",
+      "Гарантируем результат: если при соблюдении рекомендаций эффект не достигнут, вернём 100% стоимости процедуры.": "Natijaga kafolat beramiz: tavsiyalarga amal qilinganda samara bo'lmasa, protsedura narxining 100%ini qaytaramiz.",
+      "Получить скидку до 30%": "30% gacha chegirma olish",
+      "Выбрать акцию": "Aksiyani tanlash",
+      "более 500+": "500 dan ortiq",
+      "довольных клиентов": "mamnun mijoz",
+      "5.0 в Яндекс Картах": "Yandex Xaritalarda 5.0",
+      "рейтинг студии": "studiya reytingi",
+      "2 филиала в Ташкенте": "Toshkentda 2 filial",
+      "Шота Руставели, 33/1": "Shota Rustaveli, 33/1",
+      "Карасу, 31": "Qorasuv, 31",
+      "ежедневно": "har kuni",
+      "выберите акцию под себя": "o'zingizga mos aksiyani tanlang",
+      "Акции с выгодой на первый визит": "Ilk tashrif uchun foydali aksiyalar",
+      "Подмышки + бикини": "Qo'ltiq + bikini",
+      "Подмышки": "Qo'ltiq",
+      "Классическое бикини": "Klassik bikini",
+      "сум": "so'm",
+      "400 000 сум": "400 000 so'm",
+      "640 000 сум": "640 000 so'm",
+      "1 300 000 сум": "1 300 000 so'm",
+      "Записаться": "Yozilish",
+      "популярная": "ommabop",
+      "Любые 3 зоны": "Istalgan 3 zona",
+      "Выбирайте любые 3 зоны": "Istalgan 3 zonani tanlang",
+      "Консультация и подбор комплекса": "Maslahat va kompleks tanlash",
+      "Все зоны": "Barcha zonalar",
+      "Комплекс на все тело": "Butun tana uchun kompleks",
+      "Максимальная выгода": "Maksimal foyda",
+      "Акция действует только на первое посещение": "Aksiya faqat birinchi tashrif uchun amal qiladi",
+      "почему первый визит проходит спокойно": "nega birinchi tashrif xotirjam o'tadi",
+      "Забота, которую вы чувствуете": "Siz his qiladigan g'amxo'rlik",
+      "Опытные мастера": "Tajribali mutaxassislar",
+      "Все процедуры проводят специалисты с медицинским образованием и практическим опытом.": "Barcha protseduralarni tibbiy ma'lumot va amaliy tajribaga ega mutaxassislar bajaradi.",
+      "Гарантия результата": "Natija kafolati",
+      "Если при соблюдении рекомендаций результат не достигнут — вернём 100% стоимости процедуры.": "Tavsiyalarga amal qilinganda natija bo'lmasa, protsedura narxining 100%ini qaytaramiz.",
+      "Медицинское оборудование": "Tibbiy uskunalar",
+      "Работаем на премиальном медицинском лазере IXTRON Sprint M4 с официальной сертификацией.": "Rasmiy sertifikatga ega premium IXTRON Sprint M4 tibbiy lazerida ishlaymiz.",
+      "Комфорт и приватность": "Qulaylik va maxfiylik",
+      "Новая современная студия, отдельный кабинет и только вы с мастером во время процедуры.": "Zamonaviy studiya, alohida xona va protsedura vaqtida faqat siz va mutaxassis.",
+      "Честные рекомендации": "Halol tavsiyalar",
+      "Подбираем зоны и курс процедур по вашим целям, без навязанных услуг и лишних обещаний.": "Zona va kursni maqsadingizga mos tanlaymiz, ortiqcha xizmat va va'dalarsiz.",
+      "Два филиала": "Ikki filial",
+      "Выбирайте подходящий филиал в Ташкенте: Шота Руставели 33/1 или Карасу 31.": "Toshkentdagi qulay filialni tanlang: Shota Rustaveli 33/1 yoki Qorasuv 31.",
+      "забота, технологии и результат": "g'amxo'rlik, texnologiya va natija",
+      "Почему выбирают Annaelle": "Nega Annaelle tanlanadi",
+      "5.0 рейтинг в Яндекс Картах, 7 минут до метро": "Yandex Xaritalarda 5.0 reyting, metrogacha 7 daqiqa",
+      "Честные рекомендации до и после процедуры": "Protseduradan oldin va keyin halol tavsiyalar",
+      "Без навязанных продаж и лишнего стресса": "Majburiy savdo va ortiqcha stresssiz",
+      "2 филиала: Шота Руставели 33/1 и Карасу 31": "2 filial: Shota Rustaveli 33/1 va Qorasuv 31",
+      "График: 09:00–21:00 без выходных": "Ish vaqti: 09:00–21:00, dam olish kunisiz",
+      "Silk-карты для постоянных клиентов": "Doimiy mijozlar uchun Silk-kartalar",
+      "Читать отзывы в Яндекс Картах": "Yandex Xaritalardagi sharhlarni o'qish",
+      "как проходит запись и процедура": "yozilish va protsedura qanday o'tadi",
+      "Оставьте заявку": "Ariza qoldiring",
+      "Укажите контакты и удобный филиал.": "Kontaktlaringiz va qulay filialni ko'rsating.",
+      "Подбираем комплекс": "Kompleksni tanlaymiz",
+      "Подскажем оптимальные зоны и рассчитаем стоимость.": "Mos zonalarni tavsiya qilamiz va narxni hisoblaymiz.",
+      "Подтверждаем время": "Vaqtni tasdiqlaymiz",
+      "Закрепляем запись удобным способом.": "Yozuvni sizga qulay usulda tasdiqlaymiz.",
+      "Проводим процедуру": "Protsedurani o'tkazamiz",
+      "Деликатно, быстро и в комфортной атмосфере.": "Ehtiyotkor, tez va qulay muhitda.",
+      "Рекомендации после процедуры": "Protseduradan keyingi tavsiyalar",
+      "Даем простые советы для идеального результата.": "Yaxshi natija uchun oddiy tavsiyalar beramiz.",
+      "Атмосфера Annaelle": "Annaelle muhiti",
+      "клиенты отмечают комфорт и деликатность": "mijozlar qulaylik va ehtiyotkorlikni qadrlashadi",
+      "Отзывы из Яндекс Карт": "Yandex Xaritalardagi sharhlar",
+      "Яндекс Карты": "Yandex Xaritalar",
+      "отзыв клиента": "mijoz sharhi",
+      "Очень приятная студия, сразу чувствуешь себя спокойно. Мастер Анастасия — отдельная любовь. Всё объяснила, поддерживала, чувствуется опыт и профессионализм. Для первого раза это было максимально комфортно. Результат превзошёл ожидания, обязательно вернусь ещё!": "Juda yoqimli studiya, darhol o'zingizni xotirjam his qilasiz. Mutaxassis Anastasiya hammasini tushuntirdi va qo'llab-quvvatladi, tajriba va professionallik seziladi. Birinchi marta uchun juda qulay bo'ldi. Natija kutganimdan ham yaxshi, albatta yana qaytaman!",
+      "Отличная студия. Профессиональный и вежливый персонал, приятная атмосфера.": "Ajoyib studiya. Professional va xushmuomala xodimlar, yoqimli muhit.",
+      "Не пожалела, что доверила свою первую процедуру лазера именно этой студии. Мастер Нилюфар была очень вежлива, аккуратна и делала всё ради комфорта клиента.": "Birinchi lazer protseduramni aynan shu studiyaga ishonib topshirganimdan afsuslanmadim. Mutaxassis Nilufar juda xushmuomala va ehtiyotkor bo'lib, mijoz qulayligi uchun hamma narsani qildi.",
+      "спецпредложение": "maxsus taklif",
+      "Первый визит": "Birinchi tashrif",
+      "с максимальной выгодой": "maksimal foyda bilan",
+      "Запишитесь и узнайте, какая акция подойдёт для выбранных зон.": "Yoziling va tanlangan zonalar uchun qaysi aksiya mosligini bilib oling.",
+      "частые вопросы": "ko'p beriladigan savollar",
+      "Подготовка к процедуре": "Protseduraga tayyorgarlik",
+      "За 24 часа до визита нужно аккуратно побрить выбранные зоны и не использовать агрессивные средства.": "Tashrifdan 24 soat oldin tanlangan zonalarni ehtiyotkorlik bilan qirish va agressiv vositalardan foydalanmaslik kerak.",
+      "Больно ли делать лазерную эпиляцию?": "Lazer epilyatsiyasi og'riqlimi?",
+      "Ощущения индивидуальны, но процедура проходит с охлаждением и обычно переносится комфортно.": "Sezgilar individual, ammo protsedura sovitish bilan o'tadi va odatda qulay kechadi.",
+      "Сколько процедур нужно для результата?": "Natija uchun nechta protsedura kerak?",
+      "В среднем курс состоит из 6–8 посещений, точные рекомендации мастер дает после консультации.": "O'rtacha kurs 6–8 tashrifdan iborat, aniq tavsiyalar maslahatdan keyin beriladi.",
+      "Можно ли после загара?": "Quyoshda toblangandan keyin mumkinmi?",
+      "После активного загара лучше выдержать паузу. Мастер подскажет безопасный интервал.": "Faol toblanishdan keyin tanaffus qilish ma'qul. Mutaxassis xavfsiz muddatni aytadi.",
+      "Что делать после процедуры?": "Protseduradan keyin nima qilish kerak?",
+      "Избегайте перегрева, активного солнца и раздражающих средств в первые дни.": "Birinchi kunlarda qizib ketish, faol quyosh va tirnash xususiyati beruvchi vositalardan saqlaning.",
+      "Как выбрать комплекс?": "Kompleksni qanday tanlash mumkin?",
+      "Оставьте заявку ниже: мы уточним зоны и подберём самый выгодный вариант.": "Quyida ariza qoldiring: zonalarni aniqlab, eng foydali variantni tanlaymiz.",
+      "Что такое Silk-карта?": "Silk-karta nima?",
+      "Silk-карта — персональная карта клиента Annaelle. Администратор расскажет об оформлении и доступных привилегиях во время записи или визита.": "Silk-karta — Annaelle mijozining shaxsiy kartasi. Administrator yozilish yoki tashrif vaqtida rasmiylashtirish va imtiyozlar haqida aytadi.",
+      "Получить консультацию": "Maslahat olish",
+      "Ваш первый визит": "Sizning birinchi tashrifingiz",
+      "Получите скидку до 30%": "30% gacha chegirma oling",
+      "Оставьте контакты и выберите удобный филиал. Администратор уточнит зоны, рассчитает стоимость и предложит время для визита.": "Kontaktlaringizni qoldiring va qulay filialni tanlang. Administrator zonalarni aniqlaydi, narxni hisoblaydi va tashrif vaqtini taklif qiladi.",
+      "Заполнение занимает меньше минуты": "To'ldirish bir daqiqadan kam vaqt oladi",
+      "Подберём выгодный комплекс под ваши зоны": "Zonalaringiz uchun foydali kompleks tanlaymiz",
+      "Свяжемся в удобное для вас время": "Sizga qulay vaqtda bog'lanamiz",
+      "Имя *": "Ism *",
+      "Телефон *": "Telefon *",
+      "Удобный филиал *": "Qulay filial *",
+      "Выберите адрес": "Manzilni tanlang",
+      "Помогите выбрать": "Tanlashga yordam bering",
+      "Что вас интересует?": "Sizni nima qiziqtiradi?",
+      "Выберите вариант": "Variantni tanlang",
+      "Нужна консультация": "Maslahat kerak",
+      "Как удобнее связаться? *": "Qanday bog'lanish qulay? *",
+      "Позвоните мне": "Menga qo'ng'iroq qiling",
+      "Комментарий": "Izoh",
+      "Я согласна на обработку указанных данных для записи и связи со мной по услугам Annaelle.": "Yozilish va Annaelle xizmatlari bo'yicha men bilan bog'lanish uchun ko'rsatilgan ma'lumotlarni qayta ishlashga roziman.",
+      "До встречи в Annaelle": "Annaelle'da ko'rishguncha",
+      "Оставьте заявку, и администратор поможет подобрать зоны, акцию и удобное время для первого визита.": "Ariza qoldiring, administrator zonalar, aksiya va birinchi tashrif uchun qulay vaqtni tanlashga yordam beradi.",
+      "мы в Instagram": "Instagram'damiz",
+      "Услуги": "Xizmatlar",
+      "Зоны и цены": "Zonalar va narxlar",
+      "Вопросы": "Savollar",
+      "Студия": "Studiya",
+      "О нас": "Biz haqimizda",
+      "Ташкент, ул. Шота Руставели, 33/1": "Toshkent, Shota Rustaveli ko'chasi, 33/1",
+      "Ташкент, ул. Карасу, 31": "Toshkent, Qorasuv ko'chasi, 31",
+      "Шота Руставели": "Shota Rustaveli",
+      "Карасу": "Qorasuv",
+      "09:00–21:00 без выходных": "09:00–21:00, dam olish kunisiz",
+      "Выбор языка": "Tilni tanlash",
+      "Основная навигация": "Asosiy navigatsiya",
+      "Открыть меню": "Menyuni ochish",
+      "Предыдущий отзыв": "Oldingi sharh",
+      "Следующий отзыв": "Keyingi sharh",
+      "Ключевая информация": "Asosiy ma'lumot",
+      "Карта расположения": "Joylashuv xaritasi",
+      "Карта Ташкента с двумя филиалами Annaelle": "Annaelle'ning ikki filiali ko'rsatilgan Toshkent xaritasi",
+      "Пожалуйста, заполните обязательные поля и проверьте номер телефона.": "Majburiy maydonlarni to'ldiring va telefon raqamini tekshiring.",
+      "Форма заполнена. Подключение отправки выполним после утверждения лендинга.": "Forma to'ldirildi. Yuborishni landing tasdiqlangandan keyin ulaymiz.",
+      "Как к вам обращаться": "Ismingiz",
+      "Например, удобное время для звонка или интересующие зоны": "Masalan, qo'ng'iroq uchun qulay vaqt yoki qiziqqan zonalar"
+    },
+    en: {
+      "О студии": "About",
+      "Акции": "Offers",
+      "Преимущества": "Benefits",
+      "Отзывы": "Reviews",
+      "Контакты": "Contacts",
+      "Получить скидку": "Get a discount",
+      "акции с выгодой на первый визит": "special offers for your first visit",
+      "Лазерная": "Laser hair",
+      "эпиляция": "removal",
+      "в Ташкенте": "in Tashkent",
+      "Гарантируем результат: если при соблюдении рекомендаций эффект не достигнут, вернём 100% стоимости процедуры.": "We guarantee results: if the treatment has no effect when recommendations are followed, we will refund 100% of its cost.",
+      "Получить скидку до 30%": "Get up to 30% off",
+      "Выбрать акцию": "Choose an offer",
+      "более 500+": "over 500",
+      "довольных клиентов": "happy clients",
+      "5.0 в Яндекс Картах": "5.0 on Yandex Maps",
+      "рейтинг студии": "studio rating",
+      "2 филиала в Ташкенте": "2 locations in Tashkent",
+      "Шота Руставели, 33/1": "Shota Rustaveli, 33/1",
+      "Карасу, 31": "Karasu, 31",
+      "ежедневно": "daily",
+      "выберите акцию под себя": "choose the offer that suits you",
+      "Акции с выгодой на первый визит": "First-visit special offers",
+      "Подмышки + бикини": "Underarms + bikini",
+      "Подмышки": "Underarms",
+      "Классическое бикини": "Classic bikini",
+      "сум": "UZS",
+      "400 000 сум": "400,000 UZS",
+      "640 000 сум": "640,000 UZS",
+      "1 300 000 сум": "1,300,000 UZS",
+      "Записаться": "Book now",
+      "популярная": "popular",
+      "Любые 3 зоны": "Any 3 areas",
+      "Выбирайте любые 3 зоны": "Choose any 3 areas",
+      "Консультация и подбор комплекса": "Consultation and package selection",
+      "Все зоны": "All areas",
+      "Комплекс на все тело": "Full-body package",
+      "Максимальная выгода": "Maximum value",
+      "Акция действует только на первое посещение": "The offer applies to your first visit only",
+      "почему первый визит проходит спокойно": "why your first visit feels easy",
+      "Забота, которую вы чувствуете": "Care you can feel",
+      "Опытные мастера": "Experienced specialists",
+      "Все процедуры проводят специалисты с медицинским образованием и практическим опытом.": "All treatments are performed by specialists with medical education and hands-on experience.",
+      "Гарантия результата": "Results guarantee",
+      "Если при соблюдении рекомендаций результат не достигнут — вернём 100% стоимости процедуры.": "If results are not achieved after following our recommendations, we will refund 100% of the treatment cost.",
+      "Медицинское оборудование": "Medical equipment",
+      "Работаем на премиальном медицинском лазере IXTRON Sprint M4 с официальной сертификацией.": "We use the premium, officially certified IXTRON Sprint M4 medical laser.",
+      "Комфорт и приватность": "Comfort and privacy",
+      "Новая современная студия, отдельный кабинет и только вы с мастером во время процедуры.": "A modern studio, a private room, and only you and your specialist during the treatment.",
+      "Честные рекомендации": "Honest recommendations",
+      "Подбираем зоны и курс процедур по вашим целям, без навязанных услуг и лишних обещаний.": "We tailor treatment areas and course length to your goals, without pressure or unrealistic promises.",
+      "Два филиала": "Two locations",
+      "Выбирайте подходящий филиал в Ташкенте: Шота Руставели 33/1 или Карасу 31.": "Choose the location that suits you: Shota Rustaveli 33/1 or Karasu 31.",
+      "забота, технологии и результат": "care, technology and results",
+      "Почему выбирают Annaelle": "Why clients choose Annaelle",
+      "5.0 рейтинг в Яндекс Картах, 7 минут до метро": "5.0 rating on Yandex Maps, 7 minutes from the metro",
+      "Честные рекомендации до и после процедуры": "Honest guidance before and after treatment",
+      "Без навязанных продаж и лишнего стресса": "No pressure selling or unnecessary stress",
+      "2 филиала: Шота Руставели 33/1 и Карасу 31": "2 locations: Shota Rustaveli 33/1 and Karasu 31",
+      "График: 09:00–21:00 без выходных": "Open daily from 09:00 to 21:00",
+      "Silk-карты для постоянных клиентов": "Silk cards for returning clients",
+      "Читать отзывы в Яндекс Картах": "Read reviews on Yandex Maps",
+      "как проходит запись и процедура": "how booking and treatment work",
+      "Оставьте заявку": "Send a request",
+      "Укажите контакты и удобный филиал.": "Share your contact details and preferred location.",
+      "Подбираем комплекс": "We select your package",
+      "Подскажем оптимальные зоны и рассчитаем стоимость.": "We recommend suitable areas and calculate the price.",
+      "Подтверждаем время": "We confirm the time",
+      "Закрепляем запись удобным способом.": "We confirm your booking through your preferred channel.",
+      "Проводим процедуру": "Your treatment",
+      "Деликатно, быстро и в комфортной атмосфере.": "Gentle, efficient and in a comfortable atmosphere.",
+      "Рекомендации после процедуры": "Aftercare recommendations",
+      "Даем простые советы для идеального результата.": "We share simple guidance for the best possible result.",
+      "Атмосфера Annaelle": "The Annaelle atmosphere",
+      "клиенты отмечают комфорт и деликатность": "clients appreciate our comfort and gentle approach",
+      "Отзывы из Яндекс Карт": "Reviews from Yandex Maps",
+      "Яндекс Карты": "Yandex Maps",
+      "отзыв клиента": "client review",
+      "Очень приятная студия, сразу чувствуешь себя спокойно. Мастер Анастасия — отдельная любовь. Всё объяснила, поддерживала, чувствуется опыт и профессионализм. Для первого раза это было максимально комфортно. Результат превзошёл ожидания, обязательно вернусь ещё!": "A very welcoming studio where you immediately feel at ease. Anastasia was wonderful: she explained everything, offered support and showed true experience and professionalism. My first treatment was extremely comfortable. The result exceeded my expectations, and I will definitely be back!",
+      "Отличная студия. Профессиональный и вежливый персонал, приятная атмосфера.": "An excellent studio with professional, courteous staff and a pleasant atmosphere.",
+      "Не пожалела, что доверила свою первую процедуру лазера именно этой студии. Мастер Нилюфар была очень вежлива, аккуратна и делала всё ради комфорта клиента.": "I am glad I trusted this studio with my first laser treatment. Nilufar was very polite and careful, and did everything to make me feel comfortable.",
+      "спецпредложение": "special offer",
+      "Первый визит": "Your first visit",
+      "с максимальной выгодой": "with maximum value",
+      "Запишитесь и узнайте, какая акция подойдёт для выбранных зон.": "Book a consultation and find the best offer for your chosen areas.",
+      "частые вопросы": "frequently asked questions",
+      "Подготовка к процедуре": "Preparing for treatment",
+      "За 24 часа до визита нужно аккуратно побрить выбранные зоны и не использовать агрессивные средства.": "Gently shave the selected areas 24 hours before your visit and avoid harsh products.",
+      "Больно ли делать лазерную эпиляцию?": "Is laser hair removal painful?",
+      "Ощущения индивидуальны, но процедура проходит с охлаждением и обычно переносится комфортно.": "Sensitivity varies, but cooling is used throughout and most clients find the treatment comfortable.",
+      "Сколько процедур нужно для результата?": "How many treatments will I need?",
+      "В среднем курс состоит из 6–8 посещений, точные рекомендации мастер дает после консультации.": "A typical course includes 6–8 visits. Your specialist will give precise recommendations after consultation.",
+      "Можно ли после загара?": "Can I come after tanning?",
+      "После активного загара лучше выдержать паузу. Мастер подскажет безопасный интервал.": "It is best to wait after active tanning. Your specialist will advise a safe interval.",
+      "Что делать после процедуры?": "What should I do after treatment?",
+      "Избегайте перегрева, активного солнца и раздражающих средств в первые дни.": "Avoid overheating, strong sun and irritating products for the first few days.",
+      "Как выбрать комплекс?": "How do I choose a package?",
+      "Оставьте заявку ниже: мы уточним зоны и подберём самый выгодный вариант.": "Send a request below. We will clarify the areas and recommend the best-value option.",
+      "Что такое Silk-карта?": "What is a Silk card?",
+      "Silk-карта — персональная карта клиента Annaelle. Администратор расскажет об оформлении и доступных привилегиях во время записи или визита.": "The Silk card is Annaelle's personal client card. Our administrator will explain registration and available benefits when you book or visit.",
+      "Получить консультацию": "Get a consultation",
+      "Ваш первый визит": "Your first visit",
+      "Получите скидку до 30%": "Get up to 30% off",
+      "Оставьте контакты и выберите удобный филиал. Администратор уточнит зоны, рассчитает стоимость и предложит время для визита.": "Leave your contact details and choose a convenient location. Our administrator will confirm the areas, calculate the price and suggest a visit time.",
+      "Заполнение занимает меньше минуты": "Takes less than a minute to complete",
+      "Подберём выгодный комплекс под ваши зоны": "We will select the best-value package for your areas",
+      "Свяжемся в удобное для вас время": "We will contact you at a convenient time",
+      "Имя *": "Name *",
+      "Телефон *": "Phone *",
+      "Удобный филиал *": "Preferred location *",
+      "Выберите адрес": "Choose an address",
+      "Помогите выбрать": "Help me choose",
+      "Что вас интересует?": "What are you interested in?",
+      "Выберите вариант": "Choose an option",
+      "Нужна консультация": "I need a consultation",
+      "Как удобнее связаться? *": "How should we contact you? *",
+      "Позвоните мне": "Call me",
+      "Комментарий": "Comment",
+      "Я согласна на обработку указанных данных для записи и связи со мной по услугам Annaelle.": "I consent to the processing of the provided data for booking and contact regarding Annaelle services.",
+      "До встречи в Annaelle": "See you at Annaelle",
+      "Оставьте заявку, и администратор поможет подобрать зоны, акцию и удобное время для первого визита.": "Send a request and our administrator will help select the areas, offer and a convenient time for your first visit.",
+      "мы в Instagram": "Follow us on Instagram",
+      "Услуги": "Services",
+      "Зоны и цены": "Areas and prices",
+      "Вопросы": "Questions",
+      "Студия": "Studio",
+      "О нас": "About us",
+      "Ташкент, ул. Шота Руставели, 33/1": "Tashkent, 33/1 Shota Rustaveli Street",
+      "Ташкент, ул. Карасу, 31": "Tashkent, 31 Karasu Street",
+      "Шота Руставели": "Shota Rustaveli",
+      "Карасу": "Karasu",
+      "09:00–21:00 без выходных": "09:00–21:00, open daily",
+      "Выбор языка": "Language selection",
+      "Основная навигация": "Main navigation",
+      "Открыть меню": "Open menu",
+      "Предыдущий отзыв": "Previous review",
+      "Следующий отзыв": "Next review",
+      "Ключевая информация": "Key information",
+      "Карта расположения": "Location map",
+      "Карта Ташкента с двумя филиалами Annaelle": "Map of Tashkent with two Annaelle locations",
+      "Пожалуйста, заполните обязательные поля и проверьте номер телефона.": "Please complete the required fields and check your phone number.",
+      "Форма заполнена. Подключение отправки выполним после утверждения лендинга.": "The form is complete. Submission will be connected after the landing page is approved.",
+      "Как к вам обращаться": "Your name",
+      "Например, удобное время для звонка или интересующие зоны": "For example, a convenient call time or areas you are interested in"
+    }
+  };
+
+  const metaByLanguage = {
+    ru: {
+      title: "Лазерная эпиляция в Ташкенте - студия Annaelle",
+      description: "Лазерная эпиляция в Ташкенте в студии Annaelle. Два филиала, медицинское оборудование, гарантия результата и скидка до 30% на первый визит."
+    },
+    uz: {
+      title: "Toshkentda lazer epilyatsiyasi - Annaelle studiyasi",
+      description: "Annaelle studiyasida Toshkentda lazer epilyatsiyasi. Ikki filial, tibbiy uskunalar, natija kafolati va ilk tashrif uchun 30% gacha chegirma."
+    },
+    en: {
+      title: "Laser hair removal in Tashkent - Annaelle studio",
+      description: "Laser hair removal at Annaelle in Tashkent. Two locations, medical equipment, a results guarantee and up to 30% off your first visit."
+    }
+  };
+
+  const normalize = (value) => value.replace(/\s+/g, " ").trim();
+  const root = document.querySelector(".page-shell") || document.body;
+  const textNodes = [];
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      const parent = node.parentElement;
+      const key = normalize(node.nodeValue || "");
+
+      if (!key || parent?.closest("script, style") || parent?.classList.contains("language-switch")) {
+        return NodeFilter.FILTER_REJECT;
+      }
+
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  });
+
+  let textNode;
+  while ((textNode = walker.nextNode())) {
+    textNodes.push({ node: textNode, original: textNode.nodeValue, key: normalize(textNode.nodeValue) });
+  }
+
+  const attributeNodes = Array.from(root.querySelectorAll("[placeholder], [aria-label], [title]"))
+    .flatMap((element) => ["placeholder", "aria-label", "title"]
+      .filter((attribute) => element.hasAttribute(attribute))
+      .map((attribute) => ({ element, attribute, original: element.getAttribute(attribute) })));
+
+  const translateValue = (value, language) => {
+    if (language === "ru") return value;
+    return translations[language]?.[normalize(value)] || value;
+  };
+
+  const applyLanguage = (language) => {
+    const selectedLanguage = ["ru", "uz", "en"].includes(language) ? language : "ru";
+
+    textNodes.forEach(({ node, original, key }) => {
+      const translated = translateValue(key, selectedLanguage);
+      const leading = original.match(/^\s*/)?.[0] || "";
+      const trailing = original.match(/\s*$/)?.[0] || "";
+      node.nodeValue = `${leading}${translated}${trailing}`;
+    });
+
+    attributeNodes.forEach(({ element, attribute, original }) => {
+      element.setAttribute(attribute, translateValue(original, selectedLanguage));
+    });
+
+    const meta = metaByLanguage[selectedLanguage];
+    document.title = meta.title;
+    document.querySelector('meta[name="description"]')?.setAttribute("content", meta.description);
+    document.documentElement.lang = selectedLanguage;
+    document.querySelectorAll("[data-lang]").forEach((button) => {
+      const isActive = button.dataset.lang === selectedLanguage;
+      button.classList.toggle("is-active", isActive);
+      button.setAttribute("aria-pressed", String(isActive));
+    });
+
+    try {
+      localStorage.setItem("annaelle-language", selectedLanguage);
+    } catch {}
+
+    const url = new URL(window.location.href);
+    if (selectedLanguage === "ru") url.searchParams.delete("lang");
+    else url.searchParams.set("lang", selectedLanguage);
+    history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
+
+    window.annaelleI18n.currentLanguage = selectedLanguage;
+    window.dispatchEvent(new CustomEvent("annaelle:languagechange", { detail: { language: selectedLanguage } }));
+  };
+
+  window.annaelleI18n = {
+    currentLanguage: "ru",
+    t(value) {
+      return translateValue(value, this.currentLanguage);
+    },
+    applyLanguage
+  };
+
+  document.querySelectorAll("[data-lang]").forEach((button) => {
+    button.addEventListener("click", () => applyLanguage(button.dataset.lang));
+  });
+
+  const requestedLanguage = new URLSearchParams(window.location.search).get("lang");
+  let storedLanguage = "";
+  try {
+    storedLanguage = localStorage.getItem("annaelle-language") || "";
+  } catch {}
+
+  applyLanguage(requestedLanguage || storedLanguage || "ru");
+})();
+
 
 const menuButton = document.querySelector(".menu-toggle");
 const navigation = document.querySelector(".main-nav");
@@ -2114,7 +3230,7 @@ if (menuButton && navigation) {
   });
 
   navigation.addEventListener("click", (event) => {
-    if (event.target instanceof HTMLAnchorElement) {
+    if (event.target instanceof Element && event.target.closest("a")) {
       navigation.classList.remove("is-open");
       menuButton.setAttribute("aria-expanded", "false");
     }
@@ -2150,6 +3266,86 @@ if (reviewCards.length) {
   reviewDots.forEach((dot, dotIndex) => {
     dot.addEventListener("click", () => showReview(dotIndex));
   });
+}
+
+const leadForm = document.querySelector("#client-lead-form");
+const formStatus = document.querySelector("#form-status");
+const translate = (value) => window.annaelleI18n?.t(value) || value;
+
+if (leadForm) {
+  const searchParams = new URLSearchParams(window.location.search);
+
+  ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"].forEach((name) => {
+    const field = leadForm.elements.namedItem(name);
+    const value = searchParams.get(name);
+
+    if (field instanceof HTMLInputElement && value) {
+      field.value = value;
+    }
+  });
+
+  leadForm.addEventListener("input", (event) => {
+    if (event.target instanceof HTMLElement) {
+      event.target.removeAttribute("aria-invalid");
+    }
+
+    if (formStatus) {
+      formStatus.textContent = "";
+    }
+  });
+
+  leadForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const requiredFields = Array.from(leadForm.querySelectorAll("[required]"));
+    const phoneField = leadForm.elements.namedItem("phone");
+    let isValid = true;
+
+    requiredFields.forEach((field) => {
+      field.removeAttribute("aria-invalid");
+
+      if (!field.checkValidity()) {
+        field.setAttribute("aria-invalid", "true");
+        isValid = false;
+      }
+    });
+
+    if (phoneField instanceof HTMLInputElement) {
+      const digits = phoneField.value.replace(/\D/g, "");
+
+      if (digits.length < 9) {
+        phoneField.setAttribute("aria-invalid", "true");
+        isValid = false;
+      }
+    }
+
+    if (!isValid) {
+      if (formStatus) {
+        formStatus.textContent = translate("Пожалуйста, заполните обязательные поля и проверьте номер телефона.");
+      }
+
+      leadForm.querySelector('[aria-invalid="true"]')?.focus();
+      return;
+    }
+
+    if (formStatus) {
+      formStatus.textContent = translate("Форма заполнена. Подключение отправки выполним после утверждения лендинга.");
+    }
+  });
+}
+
+const mobileApply = document.querySelector(".mobile-apply");
+const leadSection = document.querySelector("#lead-form");
+
+if (mobileApply && leadSection && "IntersectionObserver" in window) {
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      mobileApply.classList.toggle("is-hidden", entry.isIntersecting);
+    },
+    { threshold: 0.08 }
+  );
+
+  observer.observe(leadSection);
 }
 
 </script>
