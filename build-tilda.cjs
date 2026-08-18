@@ -17,7 +17,7 @@ if (!bodyMatch) {
 
 const markup = bodyMatch[1]
   .trim()
-  .replaceAll('src="images/', `src="${assetBase}`)
+  .replaceAll("images/", assetBase)
   .replaceAll("annaelle-work/assets/", workAssetBase);
 
 const css = sourceCss.replaceAll('url("images/', `url("${assetBase}`);
