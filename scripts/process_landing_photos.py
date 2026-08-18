@@ -25,7 +25,16 @@ def save_fitted(image: Image.Image, destination: Path, size: tuple[int, int]) ->
     fitted.save(destination, **WEBP_OPTIONS)
 
 
-gallery_order = ["IMG_1861.JPG", "IMG_1864.JPG", "IMG_1855.JPG", "IMG_1857.JPG", "IMG_1858.JPG", "IMG_1863.JPG"]
+gallery_order = [
+    "IMG_1861.JPG",
+    "IMG_1864.JPG",
+    "IMG_1855.JPG",
+    "IMG_1857.JPG",
+    "IMG_1858.JPG",
+    "IMG_1863.JPG",
+    "800_8787-HDR.jpg",
+    "800_9029-HDR.jpg",
+]
 
 for filename in gallery_order:
     image = open_rgb(filename)
