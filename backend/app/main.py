@@ -120,6 +120,9 @@ def create_production_app() -> FastAPI:
         level=getattr(logging, settings.log_level.upper(), logging.INFO),
         format="%(asctime)s %(levelname)s %(name)s %(message)s",
     )
+    # httpx logs complete request URLs at INFO level. Keep third-party request
+    # metadata out of production logs so credentials can never leak through a URL.
+    logging.getLogger("httpx").setLevel(logging.WARNING)
     return create_app(settings)
 
 

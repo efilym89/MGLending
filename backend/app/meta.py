@@ -57,11 +57,13 @@ class MetaClient:
             base_url="https://graph.facebook.com",
             timeout=self.timeout_seconds,
             transport=self.transport,
-            headers={"User-Agent": "annaelle-landing-leads/1.0"},
+            headers={
+                "Authorization": f"Bearer {self.access_token}",
+                "User-Agent": "annaelle-landing-leads/1.0",
+            },
         ) as client:
             response = await client.post(
                 f"/{self.api_version}/{self.dataset_id}/events",
-                params={"access_token": self.access_token},
                 json=payload,
             )
         if response.status_code >= 400:
