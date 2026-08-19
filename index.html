@@ -424,7 +424,7 @@
             <li>Свяжемся в удобное для вас время</li>
           </ul>
         </div>
-        <form class="application-form" id="client-lead-form" action="" method="post" data-lead-endpoint="" data-min-submit-interval="10" novalidate>
+        <form class="application-form" id="client-lead-form" action="" method="post" data-lead-endpoint="https://api.annaellebot.com/landing-leads/v1/leads" data-min-submit-interval="10" novalidate>
           <div class="form-grid">
             <label class="field">
               <span>Имя *</span>
@@ -494,6 +494,10 @@
           <input type="hidden" name="fbclid">
           <input type="hidden" name="fbp">
           <input type="hidden" name="fbc">
+          <input type="hidden" name="campaign_id">
+          <input type="hidden" name="adset_id">
+          <input type="hidden" name="ad_id">
+          <input type="hidden" name="placement">
           <input type="hidden" name="landing_url">
           <input type="hidden" name="page_referrer">
           <input type="hidden" name="page_language">

@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "generated_for": "Annaelle landing backend",
+  "kommo": {
+    "domain": "annaellelaser.kommo.com",
+    "account_id": 36838895,
+    "pipeline_id": 14282171,
+    "incoming_endpoint": "/api/v4/leads/unsorted/forms",
+    "incoming_status_id_reference_only": 110293759,
+    "field_group": {"id": "leads_35971787147207", "name": "Лендинг и реклама"},
+    "tag": {"id": 4754, "name": "META_LANDING"},
+    "follow_up_task_type_id": 1
+  },
+  "source": {
+    "source_uid": "annaelle_landing_v1",
+    "source_name": "Annaelle Landing",
+    "form_id": "annaelle_meta_landing",
+    "form_name": "Annaelle Meta Landing"
+  },
+  "lead_fields": {
+    "submission_id": {"id": 155672, "name": "ID заявки с лендинга", "type": "text"},
+    "landing_url": {"id": 155674, "name": "URL лендинга", "type": "url"},
+    "comment": {"id": 155676, "name": "Комментарий с лендинга", "type": "textarea"},
+    "campaign_id": {"id": 155678, "name": "Meta campaign_id", "type": "text"},
+    "adset_id": {"id": 155680, "name": "Meta adset_id", "type": "text"},
+    "ad_id": {"id": 155682, "name": "Meta ad_id", "type": "text"},
+    "placement": {"id": 155684, "name": "Meta placement", "type": "text"},
+    "fbp": {"id": 155686, "name": "Meta _fbp", "type": "text"},
+    "fbc": {"id": 155688, "name": "Meta _fbc", "type": "text"},
+    "offer": {"id": 111368, "name": "Акция из Мета формы", "type": "text"},
+    "contact_method": {"id": 111370, "name": "Способ связи из Мета формы", "type": "text"},
+    "branch": {"id": 62720, "name": "Филиал", "type": "multiselect"}
+  },
+  "branch_enum_by_landing_value": {
+    "Шота Руставели 33/1": 50404,
+    "Карасу 31": 50406,
+    "Подобрать ближайшую": null
+  },
+  "tracking_fields_by_code": {
+    "UTM_CONTENT": 23102,
+    "UTM_MEDIUM": 23104,
+    "UTM_CAMPAIGN": 23106,
+    "UTM_SOURCE": 23108,
+    "UTM_TERM": 23110,
+    "REFERRER": 23114,
+    "FBCLID": 23120
+  },
+  "runtime_invariants": {
+    "do_not_send_incoming_status_id": true,
+    "normalize_phone_to_e164": true,
+    "exact_phone_match_after_query": true,
+    "persist_unsorted_uid_and_entity_ids": true,
+    "lock_by_normalized_phone": true,
+    "never_retry_ambiguous_post_blindly": true,
+    "unmapped_branch_policy": "leave_field_empty_and_preserve_raw_value_in_note"
+  }
+}

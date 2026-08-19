@@ -67,6 +67,10 @@ const attributionFields = [
   "utm_content",
   "utm_term",
   "fbclid",
+  "campaign_id",
+  "adset_id",
+  "ad_id",
+  "placement",
 ];
 const attributionStorageKey = "annaelle-lead-attribution";
 const lastSubmissionStorageKey = "annaelle-last-lead-submission";

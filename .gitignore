@@ -6,3 +6,10 @@ Thumbs.db
 
 node_modules/
 dist/
+
+backend/.venv/
+backend/*.egg-info/
+backend/.pytest_cache/
+backend/.ruff_cache/
+backend/**/__pycache__/
+backend/**/*.pyc
