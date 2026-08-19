@@ -1399,6 +1399,11 @@ details p {
   box-shadow: 0 18px 42px rgba(76, 57, 48, 0.08);
 }
 
+.application-form[hidden],
+.application-success[hidden] {
+  display: none;
+}
+
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1495,6 +1500,13 @@ details p {
   font-weight: 600;
 }
 
+.field-hint {
+  margin-top: -2px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.35;
+}
+
 .field input,
 .field select,
 .field textarea {
@@ -1523,8 +1535,20 @@ details p {
 }
 
 .field input[aria-invalid="true"],
-.field select[aria-invalid="true"] {
+.field select[aria-invalid="true"],
+.field textarea[aria-invalid="true"] {
   border-color: #a94355;
+}
+
+.form-trap {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .consent {
@@ -1543,6 +1567,18 @@ details p {
   accent-color: var(--rose);
 }
 
+.consent a {
+  color: var(--rose-dark);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+.consent input[aria-invalid="true"] {
+  outline: 2px solid #a94355;
+  outline-offset: 2px;
+}
+
 .form-status {
   min-height: 18px;
   margin: -4px 0 0;
@@ -1550,11 +1586,139 @@ details p {
   font-size: 12px;
 }
 
+.form-status[data-state="success"] {
+  color: #39734f;
+}
+
+.form-status[data-state="loading"] {
+  color: var(--muted);
+}
+
 .application-form .btn {
   width: 100%;
   min-height: 52px;
   border: 0;
   cursor: pointer;
+}
+
+.application-form .btn:disabled {
+  cursor: wait;
+  opacity: 0.72;
+  filter: saturate(0.75);
+}
+
+.application-success {
+  display: grid;
+  min-height: 520px;
+  place-items: center;
+  align-content: center;
+  gap: 13px;
+  padding: 42px;
+  border: 1px solid var(--line);
+  border-radius: var(--leaf-radius);
+  background: linear-gradient(145deg, #fff 0%, #fef7fb 100%);
+  box-shadow: 0 18px 42px rgba(76, 57, 48, 0.08);
+  text-align: center;
+}
+
+.application-success:focus {
+  outline: 0;
+}
+
+.application-success .success-star {
+  width: 54px;
+  height: 72px;
+  margin-bottom: 3px;
+  color: var(--rose);
+}
+
+.application-success .section-kicker {
+  justify-content: center;
+}
+
+.application-success h3 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(42px, 5vw, 58px);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.application-success > p:not(.section-kicker) {
+  max-width: 430px;
+  margin: 0 0 12px;
+  color: var(--muted);
+}
+
+.application-success .btn {
+  min-width: 230px;
+}
+
+.privacy-policy {
+  margin: 0 42px 42px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 24px 10px 30px 10px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.privacy-policy summary {
+  position: relative;
+  padding: 18px 52px 18px 22px;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  list-style: none;
+}
+
+.privacy-policy summary::-webkit-details-marker {
+  display: none;
+}
+
+.privacy-policy summary::after {
+  position: absolute;
+  top: 50%;
+  right: 22px;
+  color: var(--rose-dark);
+  content: "+";
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1;
+  transform: translateY(-50%);
+}
+
+.privacy-policy[open] summary::after {
+  content: "−";
+}
+
+.privacy-policy-copy {
+  display: grid;
+  gap: 12px;
+  padding: 0 22px 24px;
+  border-top: 1px solid var(--line);
+}
+
+.privacy-policy-copy h2 {
+  margin: 22px 0 0;
+  font-family: var(--serif);
+  font-size: 27px;
+  font-weight: 500;
+}
+
+.privacy-policy-copy p {
+  max-width: 850px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.privacy-policy-copy a {
+  color: var(--rose-dark);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .form-note {
@@ -2177,6 +2341,21 @@ details p {
     padding: 18px 12px;
   }
 
+  .application-success {
+    min-height: 430px;
+    padding: 30px 20px;
+  }
+
+  .application-success .success-star {
+    width: 46px;
+    height: 62px;
+  }
+
+  .application-success .btn {
+    width: 100%;
+    min-width: 0;
+  }
+
   .form-grid {
     grid-template-columns: 1fr;
     gap: 14px;
@@ -2212,6 +2391,28 @@ details p {
   .consent input {
     width: 20px;
     height: 20px;
+  }
+
+  .privacy-policy {
+    margin: 0 18px 28px;
+    border-radius: 20px 8px 24px 8px;
+  }
+
+  .privacy-policy summary {
+    padding: 17px 48px 17px 18px;
+    font-size: 12px;
+  }
+
+  .privacy-policy summary::after {
+    right: 18px;
+  }
+
+  .privacy-policy-copy {
+    padding: 0 18px 20px;
+  }
+
+  .privacy-policy-copy h2 {
+    font-size: 24px;
   }
 
   .application-form .btn {
@@ -2388,7 +2589,26 @@ details p {
 
 </style>
 
-<main class="page-shell">
+<!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '2079040289653796');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=2079040289653796&ev=PageView&noscript=1"
+  alt=""
+  ></noscript>
+  <!-- End Meta Pixel Code -->
+
+  <main class="page-shell">
     <section class="landing-card">
       <header class="site-header">
         <a class="brand" href="#top" aria-label="Annaelle - начало страницы">
@@ -2727,7 +2947,7 @@ details p {
             <li>Свяжемся в удобное для вас время</li>
           </ul>
         </div>
-        <form class="application-form" id="client-lead-form" novalidate>
+        <form class="application-form" id="client-lead-form" action="" method="post" data-lead-endpoint="" data-min-submit-interval="10" novalidate>
           <div class="form-grid">
             <label class="field">
               <span>Имя *</span>
@@ -2735,7 +2955,8 @@ details p {
             </label>
             <label class="field">
               <span>Телефон *</span>
-              <input type="tel" name="phone" autocomplete="tel" inputmode="tel" required maxlength="24" placeholder="+998 90 000 00 00">
+              <input type="tel" name="phone" autocomplete="tel" inputmode="numeric" required maxlength="17" pattern="\+998 [0-9]{2} [0-9]{3} [0-9]{2} [0-9]{2}" placeholder="+998 XX XXX XX XX" aria-describedby="phone-format" title="Введите номер в формате +998 XX XXX XX XX">
+              <small class="field-hint" id="phone-format">Формат: +998 XX XXX XX XX</small>
             </label>
             <label class="field">
               <span>Удобный филиал *</span>
@@ -2777,20 +2998,50 @@ details p {
               <span>Комментарий</span>
               <textarea name="comment" maxlength="300" placeholder="Например, удобное время для звонка или интересующие зоны"></textarea>
             </label>
+            <label class="form-trap" aria-hidden="true">
+              <span>Не заполняйте это поле</span>
+              <input type="text" name="website" tabindex="-1" autocomplete="off">
+            </label>
           </div>
           <label class="consent">
             <input type="checkbox" name="consent" required>
-            <span>Я согласна на обработку указанных данных для записи и связи со мной по услугам Annaelle.</span>
+            <span>Я согласна на обработку персональных данных и ознакомилась с <a href="#privacy-policy">политикой конфиденциальности</a>.</span>
           </label>
           <p class="form-status" id="form-status" role="alert" aria-live="polite"></p>
-          <button class="btn btn-filled" type="submit"><span class="brand-star" aria-hidden="true"></span><span>Получить скидку</span></button>
+          <button class="btn btn-filled" type="submit"><span class="brand-star" aria-hidden="true"></span><span data-submit-label>Получить скидку</span></button>
           <input type="hidden" name="utm_source">
           <input type="hidden" name="utm_medium">
           <input type="hidden" name="utm_campaign">
           <input type="hidden" name="utm_content">
           <input type="hidden" name="utm_term">
+          <input type="hidden" name="fbclid">
+          <input type="hidden" name="fbp">
+          <input type="hidden" name="fbc">
+          <input type="hidden" name="landing_url">
+          <input type="hidden" name="page_referrer">
+          <input type="hidden" name="page_language">
+          <input type="hidden" name="submission_id">
+          <input type="hidden" name="form_started_at">
         </form>
+        <div class="application-success" id="lead-success" role="status" aria-live="polite" tabindex="-1" hidden>
+          <span class="success-star brand-star" aria-hidden="true"></span>
+          <p class="section-kicker">Заявка отправлена</p>
+          <h3>Спасибо!</h3>
+          <p>Администратор Annaelle свяжется с вами в ближайшее время и поможет выбрать удобный филиал, зоны и время визита.</p>
+          <a class="btn btn-outline" href="#packages"><span class="brand-star" aria-hidden="true"></span><span>Посмотреть акции</span></a>
+        </div>
       </section>
+
+      <details class="privacy-policy" id="privacy-policy">
+        <summary>Политика конфиденциальности</summary>
+        <div class="privacy-policy-copy">
+          <h2>Обработка персональных данных</h2>
+          <p>Оставляя заявку на сайте Annaelle, вы добровольно передаёте имя, номер телефона, выбранный филиал, интересующую услугу, предпочтительный способ связи и комментарий.</p>
+          <p>Эти данные используются только для обработки заявки, записи на процедуру, обратной связи и оценки эффективности рекламных источников. Доступ к данным получают сотрудники Annaelle и подключённые сервисы учёта заявок в объёме, необходимом для работы.</p>
+          <p>Мы не передаём в рекламные системы сведения о здоровье, противопоказаниях, беременности, лекарствах, состоянии кожи или текст вашего обращения.</p>
+          <p>Вы можете отозвать согласие или запросить уточнение и удаление данных, написав в Telegram <a href="https://telegram.me/annaellelaser" target="_blank" rel="noreferrer">@annaellelaser</a>.</p>
+        </div>
+      </details>
 
       <footer class="footer" id="contacts">
         <div class="footer-copy">
@@ -2806,7 +3057,7 @@ details p {
         </div>
         <div class="footer-links">
           <div><strong>Услуги</strong><a href="#packages">Акции</a><a href="#packages">Зоны и цены</a><a href="#faq">Вопросы</a></div>
-          <div><strong>Студия</strong><a href="#about">О нас</a><a href="#reviews">Отзывы</a><a href="#contacts">Контакты</a></div>
+          <div><strong>Студия</strong><a href="#about">О нас</a><a href="#reviews">Отзывы</a><a href="#contacts">Контакты</a><a href="#privacy-policy">Политика конфиденциальности</a></div>
           <div><strong>Контакты</strong><a href="https://yandex.ru/maps/?text=Annaelle%20%D0%A8%D0%BE%D1%82%D0%B0%20%D0%A0%D1%83%D1%81%D1%82%D0%B0%D0%B2%D0%B5%D0%BB%D0%B8%2033%2F1%20%D0%A2%D0%B0%D1%88%D0%BA%D0%B5%D0%BD%D1%82" target="_blank" rel="noreferrer">Ташкент, ул. Шота Руставели, 33/1</a><a href="https://yandex.ru/maps/?text=Annaelle%20%D0%9A%D0%B0%D1%80%D0%B0%D1%81%D1%83%2031%20%D0%A2%D0%B0%D1%88%D0%BA%D0%B5%D0%BD%D1%82" target="_blank" rel="noreferrer">Ташкент, ул. Карасу, 31</a><span>09:00–21:00 без выходных</span></div>
         </div>
         <div class="map-card" aria-label="Карта расположения">
@@ -2942,7 +3193,21 @@ details p {
       "Как удобнее связаться? *": "Qanday bog'lanish qulay? *",
       "Позвоните мне": "Menga qo'ng'iroq qiling",
       "Комментарий": "Izoh",
-      "Я согласна на обработку указанных данных для записи и связи со мной по услугам Annaelle.": "Yozilish va Annaelle xizmatlari bo'yicha men bilan bog'lanish uchun ko'rsatilgan ma'lumotlarni qayta ishlashga roziman.",
+      "Формат: +998 XX XXX XX XX": "Format: +998 XX XXX XX XX",
+      "Введите номер в формате +998 XX XXX XX XX": "Raqamni +998 XX XXX XX XX formatida kiriting",
+      "Не заполняйте это поле": "Bu maydonni to'ldirmang",
+      "Я согласна на обработку персональных данных и ознакомилась с": "Shaxsiy ma'lumotlarimni qayta ishlashga roziman va",
+      "политикой конфиденциальности": "maxfiylik siyosati bilan tanishdim",
+      "Заявка отправлена": "Ariza yuborildi",
+      "Спасибо!": "Rahmat!",
+      "Администратор Annaelle свяжется с вами в ближайшее время и поможет выбрать удобный филиал, зоны и время визита.": "Annaelle administratori tez orada siz bilan bog'lanib, qulay filial, zonalar va tashrif vaqtini tanlashga yordam beradi.",
+      "Посмотреть акции": "Aksiyalarni ko'rish",
+      "Политика конфиденциальности": "Maxfiylik siyosati",
+      "Обработка персональных данных": "Shaxsiy ma'lumotlarni qayta ishlash",
+      "Оставляя заявку на сайте Annaelle, вы добровольно передаёте имя, номер телефона, выбранный филиал, интересующую услугу, предпочтительный способ связи и комментарий.": "Annaelle saytida ariza qoldirib, siz ismingiz, telefon raqamingiz, tanlangan filial, qiziqtirgan xizmat, afzal aloqa usuli va izohingizni ixtiyoriy ravishda taqdim etasiz.",
+      "Эти данные используются только для обработки заявки, записи на процедуру, обратной связи и оценки эффективности рекламных источников. Доступ к данным получают сотрудники Annaelle и подключённые сервисы учёта заявок в объёме, необходимом для работы.": "Bu ma'lumotlar faqat arizani qayta ishlash, protseduraga yozish, qayta aloqa va reklama manbalari samaradorligini baholash uchun ishlatiladi. Annaelle xodimlari va ulangan ariza hisobini yuritish servislariga faqat ish uchun zarur hajmda ruxsat beriladi.",
+      "Мы не передаём в рекламные системы сведения о здоровье, противопоказаниях, беременности, лекарствах, состоянии кожи или текст вашего обращения.": "Biz reklama tizimlariga sog'liq, qarshi ko'rsatmalar, homiladorlik, dorilar, teri holati yoki murojaat matnini uzatmaymiz.",
+      "Вы можете отозвать согласие или запросить уточнение и удаление данных, написав в Telegram": "Telegram orqali yozib, roziligingizni bekor qilishingiz yoki ma'lumotlarni aniqlashtirish va o'chirishni so'rashingiz mumkin",
       "До встречи в Annaelle": "Annaelle'da ko'rishguncha",
       "Оставьте заявку, и администратор поможет подобрать зоны, акцию и удобное время для первого визита.": "Ariza qoldiring, administrator zonalar, aksiya va birinchi tashrif uchun qulay vaqtni tanlashga yordam beradi.",
       "мы в Instagram": "Instagram'damiz",
@@ -2965,7 +3230,13 @@ details p {
       "Карта расположения": "Joylashuv xaritasi",
       "Карта Ташкента с двумя филиалами Annaelle": "Annaelle'ning ikki filiali ko'rsatilgan Toshkent xaritasi",
       "Пожалуйста, заполните обязательные поля и проверьте номер телефона.": "Majburiy maydonlarni to'ldiring va telefon raqamini tekshiring.",
-      "Форма заполнена. Подключение отправки выполним после утверждения лендинга.": "Forma to'ldirildi. Yuborishni landing tasdiqlangandan keyin ulaymiz.",
+      "Отправляем заявку...": "Ariza yuborilmoqda...",
+      "Спасибо! Заявка отправлена. Администратор свяжется с вами.": "Rahmat! Ariza yuborildi. Administrator siz bilan bog'lanadi.",
+      "Отправка формы пока не подключена. Ваши данные не были переданы.": "Ariza yuborish hali ulanmagan. Ma'lumotlaringiz yuborilmadi.",
+      "Сервер долго не отвечает. Попробуйте отправить заявку ещё раз.": "Server uzoq vaqt javob bermayapti. Arizani yana yuborib ko'ring.",
+      "Заявка уже отправляется. Пожалуйста, не нажимайте кнопку повторно.": "Ariza allaqachon yuborilmoqda. Iltimos, tugmani qayta bosmang.",
+      "Слишком много попыток. Подождите немного и отправьте заявку ещё раз.": "Juda ko'p urinish bo'ldi. Biroz kutib, arizani yana yuboring.",
+      "Не удалось отправить заявку. Попробуйте ещё раз или свяжитесь с нами по телефону.": "Arizani yuborib bo'lmadi. Yana urinib ko'ring yoki biz bilan telefon orqali bog'laning.",
       "Как к вам обращаться": "Ismingiz",
       "Например, удобное время для звонка или интересующие зоны": "Masalan, qo'ng'iroq uchun qulay vaqt yoki qiziqqan zonalar"
     },
@@ -3088,7 +3359,21 @@ details p {
       "Как удобнее связаться? *": "How should we contact you? *",
       "Позвоните мне": "Call me",
       "Комментарий": "Comment",
-      "Я согласна на обработку указанных данных для записи и связи со мной по услугам Annaelle.": "I consent to the processing of the provided data for booking and contact regarding Annaelle services.",
+      "Формат: +998 XX XXX XX XX": "Format: +998 XX XXX XX XX",
+      "Введите номер в формате +998 XX XXX XX XX": "Enter the number in the format +998 XX XXX XX XX",
+      "Не заполняйте это поле": "Do not fill in this field",
+      "Я согласна на обработку персональных данных и ознакомилась с": "I consent to the processing of my personal data and have read the",
+      "политикой конфиденциальности": "privacy policy",
+      "Заявка отправлена": "Request sent",
+      "Спасибо!": "Thank you!",
+      "Администратор Annaelle свяжется с вами в ближайшее время и поможет выбрать удобный филиал, зоны и время визита.": "An Annaelle administrator will contact you shortly and help choose a convenient location, treatment areas and visit time.",
+      "Посмотреть акции": "View offers",
+      "Политика конфиденциальности": "Privacy policy",
+      "Обработка персональных данных": "Personal data processing",
+      "Оставляя заявку на сайте Annaelle, вы добровольно передаёте имя, номер телефона, выбранный филиал, интересующую услугу, предпочтительный способ связи и комментарий.": "By submitting a request on the Annaelle website, you voluntarily provide your name, phone number, selected location, service of interest, preferred contact method and comment.",
+      "Эти данные используются только для обработки заявки, записи на процедуру, обратной связи и оценки эффективности рекламных источников. Доступ к данным получают сотрудники Annaelle и подключённые сервисы учёта заявок в объёме, необходимом для работы.": "This data is used only to process your request, arrange an appointment, contact you and evaluate advertising sources. Annaelle staff and connected lead-management services receive only the access required for their work.",
+      "Мы не передаём в рекламные системы сведения о здоровье, противопоказаниях, беременности, лекарствах, состоянии кожи или текст вашего обращения.": "We do not send advertising platforms information about health, contraindications, pregnancy, medication, skin condition or the text of your request.",
+      "Вы можете отозвать согласие или запросить уточнение и удаление данных, написав в Telegram": "You may withdraw consent or request correction or deletion of your data by messaging us on Telegram",
       "До встречи в Annaelle": "See you at Annaelle",
       "Оставьте заявку, и администратор поможет подобрать зоны, акцию и удобное время для первого визита.": "Send a request and our administrator will help select the areas, offer and a convenient time for your first visit.",
       "мы в Instagram": "Follow us on Instagram",
@@ -3111,7 +3396,13 @@ details p {
       "Карта расположения": "Location map",
       "Карта Ташкента с двумя филиалами Annaelle": "Map of Tashkent with two Annaelle locations",
       "Пожалуйста, заполните обязательные поля и проверьте номер телефона.": "Please complete the required fields and check your phone number.",
-      "Форма заполнена. Подключение отправки выполним после утверждения лендинга.": "The form is complete. Submission will be connected after the landing page is approved.",
+      "Отправляем заявку...": "Sending your request...",
+      "Спасибо! Заявка отправлена. Администратор свяжется с вами.": "Thank you! Your request has been sent. Our administrator will contact you.",
+      "Отправка формы пока не подключена. Ваши данные не были переданы.": "Form submission is not connected yet. Your details were not sent.",
+      "Сервер долго не отвечает. Попробуйте отправить заявку ещё раз.": "The server is taking too long to respond. Please try sending your request again.",
+      "Заявка уже отправляется. Пожалуйста, не нажимайте кнопку повторно.": "Your request is already being sent. Please do not press the button again.",
+      "Слишком много попыток. Подождите немного и отправьте заявку ещё раз.": "Too many attempts. Please wait a moment and try again.",
+      "Не удалось отправить заявку. Попробуйте ещё раз или свяжитесь с нами по телефону.": "We could not send your request. Please try again or contact us by phone.",
       "Как к вам обращаться": "Your name",
       "Например, удобное время для звонка или интересующие зоны": "For example, a convenient call time or areas you are interested in"
     }
@@ -3239,6 +3530,15 @@ if (menuButton && navigation) {
   });
 }
 
+document.addEventListener("annaelle:lead:success", (event) => {
+  if (!(event instanceof CustomEvent) || typeof window.fbq !== "function") return;
+
+  const eventId = String(event.detail?.eventId || "").trim();
+  if (!eventId) return;
+
+  window.fbq("track", "Lead", {}, { eventID: eventId });
+});
+
 const reviewCards = Array.from(document.querySelectorAll(".review-card"));
 const reviewDots = Array.from(document.querySelectorAll(".dots span"));
 const reviewPrev = document.querySelector(".review-prev");
@@ -3272,35 +3572,191 @@ if (reviewCards.length) {
 
 const leadForm = document.querySelector("#client-lead-form");
 const formStatus = document.querySelector("#form-status");
+const leadSuccess = document.querySelector("#lead-success");
 const translate = (value) => window.annaelleI18n?.t(value) || value;
+
+const attributionFields = [
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_content",
+  "utm_term",
+  "fbclid",
+];
+const attributionStorageKey = "annaelle-lead-attribution";
+const lastSubmissionStorageKey = "annaelle-last-lead-submission";
+
+function getUzbekPhoneDigits(value) {
+  const digits = String(value || "").replace(/\D/g, "");
+  const localDigits = digits.startsWith("998") ? digits.slice(3) : digits;
+  return localDigits.slice(0, 9);
+}
+
+function formatUzbekPhone(value) {
+  const digits = getUzbekPhoneDigits(value);
+  if (!digits) return "";
+
+  const groups = [digits.slice(0, 2), digits.slice(2, 5), digits.slice(5, 7), digits.slice(7, 9)]
+    .filter(Boolean);
+
+  return `+998 ${groups.join(" ")}`;
+}
+
+function normalizeUzbekPhone(value) {
+  const digits = getUzbekPhoneDigits(value);
+  return digits.length === 9 ? `+998${digits}` : "";
+}
+
+function readCookie(name) {
+  const prefix = `${encodeURIComponent(name)}=`;
+  const cookie = document.cookie
+    .split(";")
+    .map((item) => item.trim())
+    .find((item) => item.startsWith(prefix));
+
+  return cookie ? decodeURIComponent(cookie.slice(prefix.length)) : "";
+}
+
+function readStoredAttribution() {
+  try {
+    const value = window.sessionStorage.getItem(attributionStorageKey);
+    return value ? JSON.parse(value) : {};
+  } catch {
+    return {};
+  }
+}
+
+function storeAttribution(value) {
+  try {
+    window.sessionStorage.setItem(attributionStorageKey, JSON.stringify(value));
+  } catch {
+    // The form still works when storage is unavailable or blocked.
+  }
+}
+
+function createSubmissionId() {
+  if (window.crypto?.randomUUID) {
+    return window.crypto.randomUUID();
+  }
+
+  return `annaelle-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+}
+
+function setFormStatus(message, state = "") {
+  if (!formStatus) return;
+
+  formStatus.textContent = translate(message);
+  formStatus.dataset.state = state;
+}
+
+function setFormBusy(form, isBusy) {
+  const submitButton = form.querySelector('button[type="submit"]');
+  const submitLabel = form.querySelector("[data-submit-label]");
+
+  form.setAttribute("aria-busy", String(isBusy));
+
+  if (submitButton instanceof HTMLButtonElement) {
+    submitButton.disabled = isBusy;
+  }
+
+  if (submitLabel instanceof HTMLElement) {
+    if (!submitLabel.dataset.defaultLabel) {
+      submitLabel.dataset.defaultLabel = submitLabel.textContent?.trim() || "Получить скидку";
+    }
+
+    submitLabel.textContent = isBusy
+      ? translate("Отправляем заявку...")
+      : translate(submitLabel.dataset.defaultLabel);
+  }
+}
+
+function showLeadSuccess() {
+  if (!(leadForm instanceof HTMLFormElement) || !(leadSuccess instanceof HTMLElement)) return;
+
+  leadForm.hidden = true;
+  leadSuccess.hidden = false;
+  leadSuccess.focus({ preventScroll: true });
+  leadSuccess.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+async function parseResponse(response) {
+  const contentType = response.headers.get("content-type") || "";
+
+  if (contentType.includes("application/json")) {
+    return response.json().catch(() => ({}));
+  }
+
+  return response.text().catch(() => "");
+}
 
 if (leadForm) {
   const searchParams = new URLSearchParams(window.location.search);
+  const storedAttribution = readStoredAttribution();
+  const hasCurrentAttribution = attributionFields.some((name) => searchParams.has(name));
+  const currentAttribution = hasCurrentAttribution ? {} : { ...storedAttribution };
 
-  ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"].forEach((name) => {
+  attributionFields.forEach((name) => {
     const field = leadForm.elements.namedItem(name);
-    const value = searchParams.get(name);
+    const value = searchParams.get(name) || currentAttribution[name] || "";
 
     if (field instanceof HTMLInputElement && value) {
       field.value = value;
+      currentAttribution[name] = value;
     }
   });
+
+  const fbpField = leadForm.elements.namedItem("fbp");
+  const fbcField = leadForm.elements.namedItem("fbc");
+  const landingUrlField = leadForm.elements.namedItem("landing_url");
+  const referrerField = leadForm.elements.namedItem("page_referrer");
+  const languageField = leadForm.elements.namedItem("page_language");
+  const submissionIdField = leadForm.elements.namedItem("submission_id");
+  const formStartedAtField = leadForm.elements.namedItem("form_started_at");
+  const phoneField = leadForm.elements.namedItem("phone");
+  const fbclid = currentAttribution.fbclid || "";
+  const fbp = readCookie("_fbp");
+  const fbc = readCookie("_fbc") || (fbclid ? `fb.1.${Date.now()}.${fbclid}` : "");
+
+  if (fbpField instanceof HTMLInputElement) fbpField.value = fbp;
+  if (fbcField instanceof HTMLInputElement) fbcField.value = fbc;
+  if (landingUrlField instanceof HTMLInputElement) landingUrlField.value = window.location.href;
+  if (referrerField instanceof HTMLInputElement) referrerField.value = document.referrer;
+  if (languageField instanceof HTMLInputElement) languageField.value = document.documentElement.lang || "ru";
+  if (submissionIdField instanceof HTMLInputElement) submissionIdField.value = createSubmissionId();
+  if (formStartedAtField instanceof HTMLInputElement) formStartedAtField.value = new Date().toISOString();
+
+  storeAttribution(currentAttribution);
+
+  if (phoneField instanceof HTMLInputElement) {
+    phoneField.addEventListener("focus", () => {
+      if (!phoneField.value) phoneField.value = "+998 ";
+    });
+
+    phoneField.addEventListener("input", () => {
+      phoneField.value = formatUzbekPhone(phoneField.value);
+      phoneField.setCustomValidity("");
+    });
+
+    phoneField.addEventListener("blur", () => {
+      if (!getUzbekPhoneDigits(phoneField.value)) phoneField.value = "";
+    });
+  }
 
   leadForm.addEventListener("input", (event) => {
     if (event.target instanceof HTMLElement) {
       event.target.removeAttribute("aria-invalid");
     }
 
-    if (formStatus) {
-      formStatus.textContent = "";
-    }
+    setFormStatus("");
   });
 
-  leadForm.addEventListener("submit", (event) => {
+  leadForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
+    if (leadForm.getAttribute("aria-busy") === "true") return;
+
     const requiredFields = Array.from(leadForm.querySelectorAll("[required]"));
-    const phoneField = leadForm.elements.namedItem("phone");
+    const honeypotField = leadForm.elements.namedItem("website");
     let isValid = true;
 
     requiredFields.forEach((field) => {
@@ -3313,27 +3769,170 @@ if (leadForm) {
     });
 
     if (phoneField instanceof HTMLInputElement) {
-      const digits = phoneField.value.replace(/\D/g, "");
+      const normalizedPhone = normalizeUzbekPhone(phoneField.value);
 
-      if (digits.length < 9) {
+      if (!/^\+998\d{9}$/.test(normalizedPhone)) {
+        phoneField.setCustomValidity(translate("Введите номер в формате +998 XX XXX XX XX"));
         phoneField.setAttribute("aria-invalid", "true");
         isValid = false;
+      } else {
+        phoneField.setCustomValidity("");
       }
     }
 
     if (!isValid) {
-      if (formStatus) {
-        formStatus.textContent = translate("Пожалуйста, заполните обязательные поля и проверьте номер телефона.");
+      setFormStatus("Пожалуйста, заполните обязательные поля и проверьте номер телефона.", "error");
+
+      const firstInvalidField = leadForm.querySelector('[aria-invalid="true"]');
+
+      if (
+        firstInvalidField instanceof HTMLInputElement ||
+        firstInvalidField instanceof HTMLSelectElement ||
+        firstInvalidField instanceof HTMLTextAreaElement
+      ) {
+        firstInvalidField.focus();
+        firstInvalidField.reportValidity();
       }
 
-      leadForm.querySelector('[aria-invalid="true"]')?.focus();
       return;
     }
 
-    if (formStatus) {
-      formStatus.textContent = translate("Форма заполнена. Подключение отправки выполним после утверждения лендинга.");
+    if (honeypotField instanceof HTMLInputElement && honeypotField.value.trim()) {
+      showLeadSuccess();
+      return;
+    }
+
+    const minimumInterval = Math.max(0, Number(leadForm.dataset.minSubmitInterval) || 10) * 1000;
+    let lastSubmissionAt = 0;
+
+    try {
+      lastSubmissionAt = Number(window.sessionStorage.getItem(lastSubmissionStorageKey)) || 0;
+    } catch {
+      lastSubmissionAt = 0;
+    }
+
+    if (lastSubmissionAt && Date.now() - lastSubmissionAt < minimumInterval) {
+      setFormStatus("Заявка уже отправляется. Пожалуйста, не нажимайте кнопку повторно.", "error");
+      return;
+    }
+
+    const configuredEndpoint =
+      leadForm.dataset.leadEndpoint?.trim() ||
+      leadForm.getAttribute("action")?.trim() ||
+      String(window.ANNAELLE_LEAD_ENDPOINT || "").trim();
+
+    if (!configuredEndpoint || configuredEndpoint === window.location.href) {
+      setFormStatus("Отправка формы пока не подключена. Ваши данные не были переданы.", "error");
+      return;
+    }
+
+    if (languageField instanceof HTMLInputElement) {
+      languageField.value = document.documentElement.lang || "ru";
+    }
+
+    if (landingUrlField instanceof HTMLInputElement) {
+      landingUrlField.value = window.location.href;
+    }
+
+    const formData = new FormData(leadForm);
+    const payload = Object.fromEntries(formData.entries());
+    payload.phone = normalizeUzbekPhone(payload.phone);
+    payload.consent = payload.consent === "on";
+    payload.submitted_at = new Date().toISOString();
+    payload.form_elapsed_ms = formStartedAtField instanceof HTMLInputElement
+      ? Math.max(0, Date.now() - Date.parse(formStartedAtField.value || payload.submitted_at))
+      : 0;
+
+    try {
+      window.sessionStorage.setItem(lastSubmissionStorageKey, String(Date.now()));
+    } catch {
+      // The busy state still prevents repeated clicks when storage is unavailable.
+    }
+
+    setFormBusy(leadForm, true);
+    setFormStatus("Отправляем заявку...", "loading");
+
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 15000);
+
+    try {
+      const response = await fetch(configuredEndpoint, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "X-Submission-Id": String(payload.submission_id || ""),
+          "Idempotency-Key": String(payload.submission_id || ""),
+        },
+        body: JSON.stringify(payload),
+        credentials: "omit",
+        signal: controller.signal,
+      });
+      const responseBody = await parseResponse(response);
+
+      if (response.status === 429) {
+        throw new Error("RATE_LIMITED");
+      }
+
+      if (!response.ok) {
+        throw new Error(`Lead endpoint returned ${response.status}`);
+      }
+
+      setFormStatus("Спасибо! Заявка отправлена. Администратор свяжется с вами.", "success");
+      leadForm.dispatchEvent(
+        new CustomEvent("annaelle:lead:success", {
+          bubbles: true,
+          detail: {
+            eventId: payload.submission_id,
+            status: response.status,
+          },
+        })
+      );
+
+      leadForm.reset();
+      if (submissionIdField instanceof HTMLInputElement) submissionIdField.value = createSubmissionId();
+      if (landingUrlField instanceof HTMLInputElement) landingUrlField.value = window.location.href;
+      if (referrerField instanceof HTMLInputElement) referrerField.value = document.referrer;
+      if (languageField instanceof HTMLInputElement) languageField.value = document.documentElement.lang || "ru";
+      if (formStartedAtField instanceof HTMLInputElement) formStartedAtField.value = new Date().toISOString();
+      attributionFields.forEach((name) => {
+        const field = leadForm.elements.namedItem(name);
+        if (field instanceof HTMLInputElement) field.value = currentAttribution[name] || "";
+      });
+      if (fbpField instanceof HTMLInputElement) fbpField.value = fbp;
+      if (fbcField instanceof HTMLInputElement) fbcField.value = fbc;
+
+      showLeadSuccess();
+
+      void responseBody;
+    } catch (error) {
+      const message =
+        error instanceof DOMException && error.name === "AbortError"
+          ? "Сервер долго не отвечает. Попробуйте отправить заявку ещё раз."
+          : error instanceof Error && error.message === "RATE_LIMITED"
+            ? "Слишком много попыток. Подождите немного и отправьте заявку ещё раз."
+          : "Не удалось отправить заявку. Попробуйте ещё раз или свяжитесь с нами по телефону.";
+
+      setFormStatus(message, "error");
+    } finally {
+      window.clearTimeout(timeout);
+      setFormBusy(leadForm, false);
     }
   });
+
+}
+
+const privacyPolicy = document.querySelector("#privacy-policy");
+if (privacyPolicy instanceof HTMLDetailsElement) {
+  document.querySelectorAll('a[href="#privacy-policy"]').forEach((link) => {
+    link.addEventListener("click", () => {
+      privacyPolicy.open = true;
+    });
+  });
+
+  if (window.location.hash === "#privacy-policy") {
+    privacyPolicy.open = true;
+  }
 }
 
 const mobileApply = document.querySelector(".mobile-apply");

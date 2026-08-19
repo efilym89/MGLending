@@ -1393,6 +1393,11 @@ details p {
   box-shadow: 0 18px 42px rgba(76, 57, 48, 0.08);
 }
 
+.application-form[hidden],
+.application-success[hidden] {
+  display: none;
+}
+
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1489,6 +1494,13 @@ details p {
   font-weight: 600;
 }
 
+.field-hint {
+  margin-top: -2px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.35;
+}
+
 .field input,
 .field select,
 .field textarea {
@@ -1517,8 +1529,20 @@ details p {
 }
 
 .field input[aria-invalid="true"],
-.field select[aria-invalid="true"] {
+.field select[aria-invalid="true"],
+.field textarea[aria-invalid="true"] {
   border-color: #a94355;
+}
+
+.form-trap {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .consent {
@@ -1537,6 +1561,18 @@ details p {
   accent-color: var(--rose);
 }
 
+.consent a {
+  color: var(--rose-dark);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+.consent input[aria-invalid="true"] {
+  outline: 2px solid #a94355;
+  outline-offset: 2px;
+}
+
 .form-status {
   min-height: 18px;
   margin: -4px 0 0;
@@ -1544,11 +1580,139 @@ details p {
   font-size: 12px;
 }
 
+.form-status[data-state="success"] {
+  color: #39734f;
+}
+
+.form-status[data-state="loading"] {
+  color: var(--muted);
+}
+
 .application-form .btn {
   width: 100%;
   min-height: 52px;
   border: 0;
   cursor: pointer;
+}
+
+.application-form .btn:disabled {
+  cursor: wait;
+  opacity: 0.72;
+  filter: saturate(0.75);
+}
+
+.application-success {
+  display: grid;
+  min-height: 520px;
+  place-items: center;
+  align-content: center;
+  gap: 13px;
+  padding: 42px;
+  border: 1px solid var(--line);
+  border-radius: var(--leaf-radius);
+  background: linear-gradient(145deg, #fff 0%, #fef7fb 100%);
+  box-shadow: 0 18px 42px rgba(76, 57, 48, 0.08);
+  text-align: center;
+}
+
+.application-success:focus {
+  outline: 0;
+}
+
+.application-success .success-star {
+  width: 54px;
+  height: 72px;
+  margin-bottom: 3px;
+  color: var(--rose);
+}
+
+.application-success .section-kicker {
+  justify-content: center;
+}
+
+.application-success h3 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(42px, 5vw, 58px);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.application-success > p:not(.section-kicker) {
+  max-width: 430px;
+  margin: 0 0 12px;
+  color: var(--muted);
+}
+
+.application-success .btn {
+  min-width: 230px;
+}
+
+.privacy-policy {
+  margin: 0 42px 42px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 24px 10px 30px 10px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.privacy-policy summary {
+  position: relative;
+  padding: 18px 52px 18px 22px;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  list-style: none;
+}
+
+.privacy-policy summary::-webkit-details-marker {
+  display: none;
+}
+
+.privacy-policy summary::after {
+  position: absolute;
+  top: 50%;
+  right: 22px;
+  color: var(--rose-dark);
+  content: "+";
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1;
+  transform: translateY(-50%);
+}
+
+.privacy-policy[open] summary::after {
+  content: "−";
+}
+
+.privacy-policy-copy {
+  display: grid;
+  gap: 12px;
+  padding: 0 22px 24px;
+  border-top: 1px solid var(--line);
+}
+
+.privacy-policy-copy h2 {
+  margin: 22px 0 0;
+  font-family: var(--serif);
+  font-size: 27px;
+  font-weight: 500;
+}
+
+.privacy-policy-copy p {
+  max-width: 850px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.privacy-policy-copy a {
+  color: var(--rose-dark);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .form-note {
@@ -2171,6 +2335,21 @@ details p {
     padding: 18px 12px;
   }
 
+  .application-success {
+    min-height: 430px;
+    padding: 30px 20px;
+  }
+
+  .application-success .success-star {
+    width: 46px;
+    height: 62px;
+  }
+
+  .application-success .btn {
+    width: 100%;
+    min-width: 0;
+  }
+
   .form-grid {
     grid-template-columns: 1fr;
     gap: 14px;
@@ -2206,6 +2385,28 @@ details p {
   .consent input {
     width: 20px;
     height: 20px;
+  }
+
+  .privacy-policy {
+    margin: 0 18px 28px;
+    border-radius: 20px 8px 24px 8px;
+  }
+
+  .privacy-policy summary {
+    padding: 17px 48px 17px 18px;
+    font-size: 12px;
+  }
+
+  .privacy-policy summary::after {
+    right: 18px;
+  }
+
+  .privacy-policy-copy {
+    padding: 0 18px 20px;
+  }
+
+  .privacy-policy-copy h2 {
+    font-size: 24px;
   }
 
   .application-form .btn {
