@@ -145,7 +145,12 @@ class KommoClient:
         add(lead_fields["offer"]["id"], submission.offer)
         add(lead_fields["contact_method"]["id"], submission.contact_method)
         if branch_enum is not None:
-            add(lead_fields["branch"]["id"], submission.studio, enum_id=int(branch_enum))
+            fields.append(
+                {
+                    "field_id": int(lead_fields["branch"]["id"]),
+                    "values": [{"enum_id": int(branch_enum)}],
+                }
+            )
         tracking_values = {
             "UTM_SOURCE": submission.utm_source,
             "UTM_MEDIUM": submission.utm_medium,

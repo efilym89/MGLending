@@ -39,7 +39,7 @@ def test_incoming_payload_contains_tracking_fields(
     assert values[155680]["value"] == "222"
     assert values[155682]["value"] == "333"
     assert values[155684]["value"] == "instagram_stories"
-    assert values[62720]["enum_id"] == 50404
+    assert values[62720] == {"enum_id": 50404}
     assert values[23108]["value"] == "meta"
 
 
