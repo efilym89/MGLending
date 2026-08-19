@@ -8,7 +8,7 @@ Landing page for Annaelle laser epilation studio.
 - `styles.css` - visual styles and responsive layout
 - `script.js` - small UI interactions
 - `images/` - landing assets
-- `tilda-t123.html` - full code for the Tilda T123 block
+- `tilda-t123.html` - compact code for the Tilda T123 block; CSS and JavaScript load from GitHub Pages
 
 Regenerate the T123 code after editing the main landing:
 
