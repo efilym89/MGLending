@@ -24,7 +24,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="annaelle-work/assets/hero-main-960.webp" as="image" type="image/webp" fetchpriority="high">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=8">
+  <link rel="stylesheet" href="styles.css?v=20260822-1">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -424,7 +424,7 @@
             <li>Свяжемся в удобное для вас время</li>
           </ul>
         </div>
-        <form class="application-form" id="client-lead-form" action="" method="post" data-lead-endpoint="https://api.annaellebot.com/landing-leads/v1/leads" data-min-submit-interval="10" novalidate>
+        <form class="application-form" id="client-lead-form" action="" method="post" data-lead-endpoint="https://api.annaellebot.com/landing-leads/v1/leads" data-min-submit-interval="10" data-telegram-username="annaellelaser" novalidate>
           <div class="form-grid">
             <label class="field">
               <span>Имя *</span>
@@ -506,10 +506,17 @@
         </form>
         <div class="application-success" id="lead-success" role="status" aria-live="polite" tabindex="-1" hidden>
           <span class="success-star brand-star" aria-hidden="true"></span>
-          <p class="section-kicker">Заявка отправлена</p>
-          <h3>Спасибо!</h3>
-          <p>Администратор Annaelle свяжется с вами в ближайшее время и поможет выбрать удобный филиал, зоны и время визита.</p>
-          <a class="btn btn-outline" href="#packages"><span class="brand-star" aria-hidden="true"></span><span>Посмотреть акции</span></a>
+          <p class="section-kicker" data-success-kicker>Заявка отправлена</p>
+          <h3 data-success-title>Спасибо!</h3>
+          <p data-success-message>Администратор Annaelle свяжется с вами в ближайшее время и поможет выбрать удобный филиал, зоны и время визита.</p>
+          <div class="success-actions">
+            <a class="btn btn-filled success-telegram" data-success-telegram href="https://t.me/annaellelaser" target="_self" hidden>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 3-7.4 18-4.2-7.2L3 10.7 21 3Z"></path><path d="m9.4 13.8 4.8-4.6"></path></svg>
+              <span>Открыть Telegram ещё раз</span>
+            </a>
+            <a class="btn btn-outline" href="#packages"><span class="brand-star" aria-hidden="true"></span><span>Посмотреть акции</span></a>
+          </div>
+          <p class="success-note" data-success-note hidden>В Telegram останется нажать «Отправить».</p>
         </div>
       </section>
 
@@ -552,7 +559,7 @@
 
   <a class="btn btn-filled mobile-apply" href="#lead-form"><span class="brand-star" aria-hidden="true"></span>Получить скидку до 30%</a>
 
-  <script src="i18n.js?v=3"></script>
-  <script src="script.js?v=9"></script>
+  <script src="i18n.js?v=20260822-1"></script>
+  <script src="script.js?v=20260822-1"></script>
 </body>
 </html>

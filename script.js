@@ -58,6 +58,11 @@ if (reviewCards.length) {
 const leadForm = document.querySelector("#client-lead-form");
 const formStatus = document.querySelector("#form-status");
 const leadSuccess = document.querySelector("#lead-success");
+const leadSuccessKicker = leadSuccess?.querySelector("[data-success-kicker]");
+const leadSuccessTitle = leadSuccess?.querySelector("[data-success-title]");
+const leadSuccessMessage = leadSuccess?.querySelector("[data-success-message]");
+const leadSuccessTelegram = leadSuccess?.querySelector("[data-success-telegram]");
+const leadSuccessNote = leadSuccess?.querySelector("[data-success-note]");
 const translate = (value) => window.annaelleI18n?.t(value) || value;
 
 const attributionFields = [
@@ -74,6 +79,8 @@ const attributionFields = [
 ];
 const attributionStorageKey = "annaelle-lead-attribution";
 const lastSubmissionStorageKey = "annaelle-last-lead-submission";
+const leadSuccessStorageKey = "annaelle-lead-success";
+const leadSuccessLifetime = 30 * 60 * 1000;
 
 function getUzbekPhoneDigits(value) {
   const digits = String(value || "").replace(/\D/g, "");
@@ -159,13 +166,140 @@ function setFormBusy(form, isBusy) {
   }
 }
 
-function showLeadSuccess() {
+function getSelectedOptionLabel(fieldName, fallback = "") {
+  const field = leadForm?.elements.namedItem(fieldName);
+
+  if (field instanceof HTMLSelectElement) {
+    const label = field.selectedOptions[0]?.textContent?.trim();
+    if (label && field.value) return label;
+  }
+
+  return translate(String(fallback || "").trim());
+}
+
+function buildTelegramMessage(payload) {
+  const language = document.documentElement.lang || "ru";
+  const name = String(payload.name || "").trim();
+  const phone = formatUzbekPhone(payload.phone);
+  const offer = getSelectedOptionLabel("offer", payload.offer);
+  const studio = getSelectedOptionLabel("studio", payload.studio);
+  const copy = {
+    ru: {
+      greeting: "Здравствуйте, команда Annaelle!",
+      name: (value) => `Меня зовут ${value}.`,
+      phone: (value) => `Телефон для связи: ${value}.`,
+      offer: (value) => `Мне интересно предложение «${value}».`,
+      noOffer: "Мне нужна консультация по выбору предложения.",
+      studio: (value) => `Удобный филиал: ${value}.`,
+    },
+    uz: {
+      greeting: "Assalomu alaykum, Annaelle jamoasi!",
+      name: (value) => `Mening ismim ${value}.`,
+      phone: (value) => `Bog'lanish uchun telefon: ${value}.`,
+      offer: (value) => `Menga «${value}» taklifi qiziq.`,
+      noOffer: "Menga mos taklifni tanlash bo'yicha maslahat kerak.",
+      studio: (value) => `Qulay filial: ${value}.`,
+    },
+    en: {
+      greeting: "Hello, Annaelle team!",
+      name: (value) => `My name is ${value}.`,
+      phone: (value) => `Contact phone: ${value}.`,
+      offer: (value) => `I am interested in the “${value}” offer.`,
+      noOffer: "I would like help choosing the right offer.",
+      studio: (value) => `Preferred location: ${value}.`,
+    },
+  };
+  const template = copy[language] || copy.ru;
+  const lines = [template.greeting];
+
+  if (name) lines.push("", template.name(name));
+  lines.push(offer ? template.offer(offer) : template.noOffer);
+  if (studio) lines.push(template.studio(studio));
+  if (phone) lines.push(template.phone(phone));
+  lines.push("", "#META_LANDING");
+
+  return lines.join("\n");
+}
+
+function buildTelegramUrl(payload) {
+  const username = String(leadForm?.dataset.telegramUsername || "annaellelaser")
+    .trim()
+    .replace(/^@/, "");
+
+  return `https://t.me/${encodeURIComponent(username)}?text=${encodeURIComponent(buildTelegramMessage(payload))}`;
+}
+
+function storeLeadSuccess(state) {
+  try {
+    window.sessionStorage.setItem(
+      leadSuccessStorageKey,
+      JSON.stringify({ ...state, createdAt: Date.now() })
+    );
+  } catch {
+    // The success screen still works when storage is unavailable or blocked.
+  }
+}
+
+function readLeadSuccess() {
+  try {
+    const rawValue = window.sessionStorage.getItem(leadSuccessStorageKey);
+    if (!rawValue) return null;
+
+    const state = JSON.parse(rawValue);
+    if (!state?.createdAt || Date.now() - Number(state.createdAt) > leadSuccessLifetime) {
+      window.sessionStorage.removeItem(leadSuccessStorageKey);
+      return null;
+    }
+
+    return state;
+  } catch {
+    return null;
+  }
+}
+
+function showLeadSuccess(options = {}) {
   if (!(leadForm instanceof HTMLFormElement) || !(leadSuccess instanceof HTMLElement)) return;
+
+  const telegramUrl = String(options.telegramUrl || "").trim();
 
   leadForm.hidden = true;
   leadSuccess.hidden = false;
+
+  if (leadSuccessKicker instanceof HTMLElement) {
+    leadSuccessKicker.textContent = telegramUrl
+      ? translate("Сообщение подготовлено")
+      : translate("Заявка отправлена");
+  }
+
+  if (leadSuccessTitle instanceof HTMLElement) {
+    leadSuccessTitle.textContent = telegramUrl
+      ? translate("Остался один шаг")
+      : translate("Спасибо!");
+  }
+
+  if (leadSuccessMessage instanceof HTMLElement) {
+    leadSuccessMessage.textContent = telegramUrl
+      ? translate("Мы открыли Telegram с готовым сообщением. Проверьте его и нажмите «Отправить» — после этого заявка появится у администратора.")
+      : translate("Администратор Annaelle свяжется с вами в ближайшее время и поможет выбрать удобный филиал, зоны и время визита.");
+  }
+
+  if (leadSuccessTelegram instanceof HTMLAnchorElement) {
+    leadSuccessTelegram.hidden = !telegramUrl;
+    if (telegramUrl) leadSuccessTelegram.href = telegramUrl;
+  }
+
+  if (leadSuccessNote instanceof HTMLElement) {
+    leadSuccessNote.hidden = !telegramUrl;
+  }
+
   leadSuccess.focus({ preventScroll: true });
   leadSuccess.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function openTelegram(telegramUrl) {
+  window.setTimeout(() => {
+    window.location.assign(telegramUrl);
+  }, 650);
 }
 
 async function parseResponse(response) {
@@ -206,6 +340,21 @@ if (leadForm) {
   const fbp = readCookie("_fbp");
   const fbc = readCookie("_fbc") || (fbclid ? `fb.1.${Date.now()}.${fbclid}` : "");
 
+  function resetLeadForm() {
+    leadForm.reset();
+    if (submissionIdField instanceof HTMLInputElement) submissionIdField.value = createSubmissionId();
+    if (landingUrlField instanceof HTMLInputElement) landingUrlField.value = window.location.href;
+    if (referrerField instanceof HTMLInputElement) referrerField.value = document.referrer;
+    if (languageField instanceof HTMLInputElement) languageField.value = document.documentElement.lang || "ru";
+    if (formStartedAtField instanceof HTMLInputElement) formStartedAtField.value = new Date().toISOString();
+    attributionFields.forEach((name) => {
+      const field = leadForm.elements.namedItem(name);
+      if (field instanceof HTMLInputElement) field.value = currentAttribution[name] || "";
+    });
+    if (fbpField instanceof HTMLInputElement) fbpField.value = fbp;
+    if (fbcField instanceof HTMLInputElement) fbcField.value = fbc;
+  }
+
   if (fbpField instanceof HTMLInputElement) fbpField.value = fbp;
   if (fbcField instanceof HTMLInputElement) fbcField.value = fbc;
   if (landingUrlField instanceof HTMLInputElement) landingUrlField.value = window.location.href;
@@ -215,6 +364,11 @@ if (leadForm) {
   if (formStartedAtField instanceof HTMLInputElement) formStartedAtField.value = new Date().toISOString();
 
   storeAttribution(currentAttribution);
+
+  const restoredSuccess = readLeadSuccess();
+  if (restoredSuccess) {
+    showLeadSuccess({ telegramUrl: restoredSuccess.telegramUrl || "" });
+  }
 
   if (phoneField instanceof HTMLInputElement) {
     phoneField.addEventListener("focus", () => {
@@ -305,16 +459,6 @@ if (leadForm) {
       return;
     }
 
-    const configuredEndpoint =
-      leadForm.dataset.leadEndpoint?.trim() ||
-      leadForm.getAttribute("action")?.trim() ||
-      String(window.ANNAELLE_LEAD_ENDPOINT || "").trim();
-
-    if (!configuredEndpoint || configuredEndpoint === window.location.href) {
-      setFormStatus("Отправка формы пока не подключена. Ваши данные не были переданы.", "error");
-      return;
-    }
-
     if (languageField instanceof HTMLInputElement) {
       languageField.value = document.documentElement.lang || "ru";
     }
@@ -331,6 +475,33 @@ if (leadForm) {
     payload.form_elapsed_ms = formStartedAtField instanceof HTMLInputElement
       ? Math.max(0, Date.now() - Date.parse(formStartedAtField.value || payload.submitted_at))
       : 0;
+
+    if (payload.contact_method === "Telegram") {
+      const telegramUrl = buildTelegramUrl(payload);
+
+      try {
+        window.sessionStorage.setItem(lastSubmissionStorageKey, String(Date.now()));
+      } catch {
+        // The form can still continue when storage is unavailable.
+      }
+
+      setFormStatus("Открываем Telegram с готовым сообщением...", "loading");
+      storeLeadSuccess({ telegramUrl });
+      resetLeadForm();
+      showLeadSuccess({ telegramUrl });
+      openTelegram(telegramUrl);
+      return;
+    }
+
+    const configuredEndpoint =
+      leadForm.dataset.leadEndpoint?.trim() ||
+      leadForm.getAttribute("action")?.trim() ||
+      String(window.ANNAELLE_LEAD_ENDPOINT || "").trim();
+
+    if (!configuredEndpoint || configuredEndpoint === window.location.href) {
+      setFormStatus("Для этого способа связи отправка формы пока не подключена. Выберите Telegram или свяжитесь с нами напрямую.", "error");
+      return;
+    }
 
     try {
       window.sessionStorage.setItem(lastSubmissionStorageKey, String(Date.now()));
@@ -378,19 +549,8 @@ if (leadForm) {
         })
       );
 
-      leadForm.reset();
-      if (submissionIdField instanceof HTMLInputElement) submissionIdField.value = createSubmissionId();
-      if (landingUrlField instanceof HTMLInputElement) landingUrlField.value = window.location.href;
-      if (referrerField instanceof HTMLInputElement) referrerField.value = document.referrer;
-      if (languageField instanceof HTMLInputElement) languageField.value = document.documentElement.lang || "ru";
-      if (formStartedAtField instanceof HTMLInputElement) formStartedAtField.value = new Date().toISOString();
-      attributionFields.forEach((name) => {
-        const field = leadForm.elements.namedItem(name);
-        if (field instanceof HTMLInputElement) field.value = currentAttribution[name] || "";
-      });
-      if (fbpField instanceof HTMLInputElement) fbpField.value = fbp;
-      if (fbcField instanceof HTMLInputElement) fbcField.value = fbc;
-
+      storeLeadSuccess({ telegramUrl: "" });
+      resetLeadForm();
       showLeadSuccess();
 
       void responseBody;

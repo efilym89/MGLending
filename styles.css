@@ -1644,8 +1644,39 @@ details p {
   color: var(--muted);
 }
 
+.success-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
 .application-success .btn {
   min-width: 230px;
+}
+
+.application-success .success-telegram {
+  gap: 9px;
+}
+
+.application-success .success-telegram svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.application-success .success-note {
+  margin: -2px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.application-success [hidden] {
+  display: none;
 }
 
 .privacy-policy {
@@ -2348,6 +2379,10 @@ details p {
   .application-success .btn {
     width: 100%;
     min-width: 0;
+  }
+
+  .success-actions {
+    width: 100%;
   }
 
   .form-grid {

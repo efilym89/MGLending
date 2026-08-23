@@ -5,10 +5,10 @@ const root = __dirname;
 const siteBase = "https://efilym89.github.io/MGLending/";
 const assetBase = `${siteBase}images/`;
 const workAssetBase = `${siteBase}annaelle-work/assets/`;
-const buildVersion = "20260819-3";
+const buildVersion = "20260822-2";
 const sourceHtml = fs.readFileSync(path.join(root, "index.html"), "utf8");
 
-const bodyMatch = sourceHtml.match(/<body>([\s\S]*?)<script src="i18n\.js\?v=\d+"><\/script>\s*<script src="script\.js\?v=\d+"><\/script>\s*<\/body>/);
+const bodyMatch = sourceHtml.match(/<body>([\s\S]*?)<script src="i18n\.js\?v=[^"]+"><\/script>\s*<script src="script\.js\?v=[^"]+"><\/script>\s*<\/body>/);
 
 if (!bodyMatch) {
   throw new Error("Не удалось извлечь содержимое body из index.html");
