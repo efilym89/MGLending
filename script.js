@@ -266,20 +266,16 @@ function showLeadSuccess(options = {}) {
   leadSuccess.hidden = false;
 
   if (leadSuccessKicker instanceof HTMLElement) {
-    leadSuccessKicker.textContent = telegramUrl
-      ? translate("Сообщение подготовлено")
-      : translate("Заявка отправлена");
+    leadSuccessKicker.textContent = translate("Заявка отправлена");
   }
 
   if (leadSuccessTitle instanceof HTMLElement) {
-    leadSuccessTitle.textContent = telegramUrl
-      ? translate("Остался один шаг")
-      : translate("Спасибо!");
+    leadSuccessTitle.textContent = translate("Спасибо!");
   }
 
   if (leadSuccessMessage instanceof HTMLElement) {
     leadSuccessMessage.textContent = telegramUrl
-      ? translate("Мы открыли Telegram с готовым сообщением. Проверьте его и нажмите «Отправить» — после этого заявка появится у администратора.")
+      ? translate("Заявка уже сохранена, и администратор получит её в любом случае. Мы также открыли Telegram с готовым сообщением — отправьте его, чтобы продолжить общение в чате.")
       : translate("Администратор Annaelle свяжется с вами в ближайшее время и поможет выбрать удобный филиал, зоны и время визита.");
   }
 
@@ -476,22 +472,9 @@ if (leadForm) {
       ? Math.max(0, Date.now() - Date.parse(formStartedAtField.value || payload.submitted_at))
       : 0;
 
-    if (payload.contact_method === "Telegram") {
-      const telegramUrl = buildTelegramUrl(payload);
-
-      try {
-        window.sessionStorage.setItem(lastSubmissionStorageKey, String(Date.now()));
-      } catch {
-        // The form can still continue when storage is unavailable.
-      }
-
-      setFormStatus("Открываем Telegram с готовым сообщением...", "loading");
-      storeLeadSuccess({ telegramUrl });
-      resetLeadForm();
-      showLeadSuccess({ telegramUrl });
-      openTelegram(telegramUrl);
-      return;
-    }
+    const telegramUrl = payload.contact_method === "Telegram"
+      ? buildTelegramUrl(payload)
+      : "";
 
     const configuredEndpoint =
       leadForm.dataset.leadEndpoint?.trim() ||
@@ -499,7 +482,7 @@ if (leadForm) {
       String(window.ANNAELLE_LEAD_ENDPOINT || "").trim();
 
     if (!configuredEndpoint || configuredEndpoint === window.location.href) {
-      setFormStatus("Для этого способа связи отправка формы пока не подключена. Выберите Telegram или свяжитесь с нами напрямую.", "error");
+      setFormStatus("Отправка формы пока не подключена. Пожалуйста, свяжитесь с нами напрямую.", "error");
       return;
     }
 
@@ -538,7 +521,12 @@ if (leadForm) {
         throw new Error(`Lead endpoint returned ${response.status}`);
       }
 
-      setFormStatus("Спасибо! Заявка отправлена. Администратор свяжется с вами.", "success");
+      setFormStatus(
+        telegramUrl
+          ? "Заявка сохранена. Открываем Telegram с готовым сообщением..."
+          : "Спасибо! Заявка отправлена. Администратор свяжется с вами.",
+        "success"
+      );
       leadForm.dispatchEvent(
         new CustomEvent("annaelle:lead:success", {
           bubbles: true,
@@ -549,9 +537,13 @@ if (leadForm) {
         })
       );
 
-      storeLeadSuccess({ telegramUrl: "" });
+      storeLeadSuccess({ telegramUrl });
       resetLeadForm();
-      showLeadSuccess();
+      showLeadSuccess({ telegramUrl });
+
+      if (telegramUrl) {
+        openTelegram(telegramUrl);
+      }
 
       void responseBody;
     } catch (error) {

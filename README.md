@@ -18,15 +18,13 @@ node build-tilda.cjs
 
 ## Lead form integration
 
-When the visitor selects Telegram, the landing does not send a server request. It opens
-`@annaellelaser` with a prepared message containing the selected offer, location, contact
-phone and the marker `#META_LANDING`. Configure Kommo to assign the `META_LANDING` tag to
-incoming Telegram conversations containing this marker. The website cannot assign a Kommo
-tag by itself without a Kommo API endpoint.
+All contact methods, including Telegram, are sent to the production endpoint before any
+external app is opened. A successful Telegram submission is therefore saved in Kommo even
+when the visitor closes Telegram without sending the prepared message. After Kommo confirms
+the lead, the landing opens `@annaellelaser` with the selected offer, location, contact phone
+and the marker `#META_LANDING` for an optional chat follow-up.
 
-WhatsApp and callback requests continue to use the server endpoint described below.
-
-The form sends those requests to the production endpoint
+The form sends requests to the production endpoint
 `https://api.annaellebot.com/landing-leads/v1/leads`. It can also be overridden in one of these ways:
 
 1. Set `data-lead-endpoint="https://example.com/api/leads"` on `#client-lead-form`.
