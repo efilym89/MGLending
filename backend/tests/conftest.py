@@ -25,6 +25,7 @@ def settings(tmp_path: Path) -> Settings:
         data_hash_key="test-hash-key-that-is-not-used-in-production",
         schema_path=Path(__file__).parents[1] / "config" / "landing-kommo.schema.json",
         kommo_long_lived_token="kommo-test-token",
+        kommo_webhook_secret="kommo-webhook-test-secret",
         meta_website_dataset_id="2079040289653796",
         meta_website_access_token="meta-test-token",
     )

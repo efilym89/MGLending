@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+import json
+
+import httpx
+
 from app.kommo import KommoClient
 from app.models import LeadSubmission
 
@@ -58,3 +62,43 @@ def test_unknown_branch_is_preserved_without_fake_enum(
     assert 62720 not in field_ids
     comment = next(item for item in fields if item["field_id"] == 155676)
     assert "Подобрать ближайшую" in comment["values"][0]["value"]
+
+
+async def test_link_chat_to_existing_landing_lead(schema: dict) -> None:
+    requests: list[httpx.Request] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        requests.append(request)
+        if request.method == "GET":
+            return httpx.Response(
+                200,
+                json={
+                    "_embedded": {
+                        "unsorted": [
+                            {
+                                "uid": "chat-unsorted-uid",
+                                "category": "chats",
+                                "_embedded": {"leads": [{"id": 3001}]},
+                            }
+                        ]
+                    }
+                },
+            )
+        return httpx.Response(200, json={"_total_items": 1})
+
+    client = KommoClient(
+        domain="example.kommo.com",
+        token="token",
+        schema=schema,
+        transport=httpx.MockTransport(handler),
+    )
+
+    await client.link_chat_to_lead(3001, 1001)
+
+    assert len(requests) == 2
+    assert requests[0].url.path == "/api/v4/leads/unsorted"
+    assert requests[0].url.params["filter[category][]"] == "chats"
+    assert requests[1].url.path == "/api/v4/leads/unsorted/chat-unsorted-uid/link"
+    assert json.loads(requests[1].content) == {
+        "link": {"entity_id": 1001, "entity_type": "leads"}
+    }

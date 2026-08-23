@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import logging
+import secrets
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
@@ -11,6 +12,7 @@ from fastapi.responses import JSONResponse
 
 from .config import Settings, get_settings, load_schema
 from .kommo import KommoClient
+from .kommo_webhook import telegram_link_requests
 from .meta import MetaClient
 from .models import LeadSubmission, SubmitResponse
 from .security import PayloadCipher, is_valid_fernet_key
@@ -110,6 +112,20 @@ def create_app(settings: Settings | None = None, service: LeadService | None = N
             client_ip=client_ip,
             client_user_agent=user_agent,
         )
+
+    @app.post("/v1/kommo/webhooks/incoming-message/{webhook_secret}", status_code=200)
+    async def kommo_incoming_message(webhook_secret: str, request: Request) -> dict[str, int]:
+        expected = resolved_settings.kommo_webhook_secret.get_secret_value()
+        if not secrets.compare_digest(webhook_secret, expected):
+            raise HTTPException(status_code=404, detail="NOT_FOUND")
+        body = await request.body()
+        queued = 0
+        for submission_id, source_lead_id in telegram_link_requests(
+            body, request.headers.get("content-type", "")
+        ):
+            if resolved_service.queue_telegram_chat_link(submission_id, source_lead_id):
+                queued += 1
+        return {"queued": queued}
 
     return app
 

@@ -14,6 +14,7 @@ class FakeKommo:
     created: int = 0
     tasks: list[int] = field(default_factory=list)
     notes: list[int] = field(default_factory=list)
+    chat_links: list[tuple[int, int]] = field(default_factory=list)
 
     async def reconcile_submission(self, submission_id: str):  # type: ignore[no-untyped-def]
         return None
@@ -30,6 +31,9 @@ class FakeKommo:
 
     async def add_branch_note(self, lead_id: int, studio: str) -> None:
         self.notes.append(lead_id)
+
+    async def link_chat_to_lead(self, source_lead_id: int, target_lead_id: int) -> None:
+        self.chat_links.append((source_lead_id, target_lead_id))
 
 
 @dataclass
@@ -83,3 +87,8 @@ async def test_service_saves_once_then_processes_outbox(
     assert meta.events[0]["event_id"] == submission.submission_id
     assert kommo.tasks == [1001]
     assert storage.health()["pending_jobs"] == 0
+
+    assert service.queue_telegram_chat_link(submission.submission_id, 3001)
+    assert not service.queue_telegram_chat_link(submission.submission_id, 3001)
+    assert await service.process_jobs_once() == 1
+    assert kommo.chat_links == [(3001, 1001)]

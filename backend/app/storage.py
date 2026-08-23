@@ -171,6 +171,20 @@ class Storage:
                 )
             connection.commit()
 
+    def enqueue_job(self, submission_id: str, kind: str, encrypted_payload: bytes) -> bool:
+        now = int(time.time())
+        with self._connect() as connection:
+            cursor = connection.execute(
+                """
+                INSERT OR IGNORE INTO jobs(
+                    submission_id, kind, encrypted_payload, next_attempt_at,
+                    created_at, updated_at
+                ) VALUES (?, ?, ?, ?, ?, ?)
+                """,
+                (submission_id, kind, encrypted_payload, now, now, now),
+            )
+        return cursor.rowcount == 1
+
     def count_recent(self, column: str, value: str, since: int) -> int:
         if column not in {"phone_hash", "ip_hash"}:
             raise ValueError("Unsupported rate-limit column")

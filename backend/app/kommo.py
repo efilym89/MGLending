@@ -235,6 +235,44 @@ class KommoClient:
             retry_writes=False,
         )
 
+    async def link_chat_to_lead(self, source_lead_id: int, target_lead_id: int) -> None:
+        if source_lead_id == target_lead_id:
+            return
+        response = await self._request(
+            "GET",
+            "/api/v4/leads/unsorted",
+            params={
+                "limit": 250,
+                "filter[category][]": "chats",
+                "order[created_at]": "desc",
+            },
+            retry_writes=False,
+        )
+        if response.status_code == 204:
+            raise KommoError("KOMMO_CHAT_UNSORTED_NOT_READY", retryable=True)
+        incoming = response.json().get("_embedded", {}).get("unsorted", [])
+        uid = next(
+            (
+                str(item["uid"])
+                for item in incoming
+                if item.get("category") == "chats"
+                and any(
+                    int(lead.get("id", 0)) == source_lead_id
+                    for lead in item.get("_embedded", {}).get("leads", [])
+                )
+                and item.get("uid")
+            ),
+            None,
+        )
+        if not uid:
+            raise KommoError("KOMMO_CHAT_UNSORTED_NOT_READY", retryable=True)
+        await self._request(
+            "POST",
+            f"/api/v4/leads/unsorted/{uid}/link",
+            json={"link": {"entity_id": target_lead_id, "entity_type": "leads"}},
+            retry_writes=False,
+        )
+
     async def _request(
         self,
         method: str,

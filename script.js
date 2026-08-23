@@ -191,6 +191,7 @@ function buildTelegramMessage(payload) {
       offer: (value) => `Мне интересно предложение «${value}».`,
       noOffer: "Мне нужна консультация по выбору предложения.",
       studio: (value) => `Удобный филиал: ${value}.`,
+      submission: (value) => `Код заявки: ${value}`,
     },
     uz: {
       greeting: "Assalomu alaykum, Annaelle jamoasi!",
@@ -199,6 +200,7 @@ function buildTelegramMessage(payload) {
       offer: (value) => `Menga «${value}» taklifi qiziq.`,
       noOffer: "Menga mos taklifni tanlash bo'yicha maslahat kerak.",
       studio: (value) => `Qulay filial: ${value}.`,
+      submission: (value) => `Ariza kodi: ${value}`,
     },
     en: {
       greeting: "Hello, Annaelle team!",
@@ -207,6 +209,7 @@ function buildTelegramMessage(payload) {
       offer: (value) => `I am interested in the “${value}” offer.`,
       noOffer: "I would like help choosing the right offer.",
       studio: (value) => `Preferred location: ${value}.`,
+      submission: (value) => `Request ID: ${value}`,
     },
   };
   const template = copy[language] || copy.ru;
@@ -216,7 +219,8 @@ function buildTelegramMessage(payload) {
   lines.push(offer ? template.offer(offer) : template.noOffer);
   if (studio) lines.push(template.studio(studio));
   if (phone) lines.push(template.phone(phone));
-  lines.push("", "#META_LANDING");
+  if (payload.submission_id) lines.push("", template.submission(payload.submission_id));
+  lines.push("#META_LANDING");
 
   return lines.join("\n");
 }

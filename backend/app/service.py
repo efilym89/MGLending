@@ -177,6 +177,17 @@ class LeadService:
             await self._process_job(job)
         return len(jobs)
 
+    def queue_telegram_chat_link(self, submission_id: str, source_lead_id: int) -> bool:
+        record = self.storage.get_submission(submission_id)
+        if not record or not record.lead_id:
+            return False
+        if source_lead_id == record.lead_id:
+            return False
+        payload = self.cipher.encrypt(
+            {"source_lead_id": source_lead_id, "target_lead_id": record.lead_id}
+        )
+        return self.storage.enqueue_job(submission_id, "kommo_chat_link", payload)
+
     async def _process_job(self, job: JobRecord) -> None:
         try:
             payload = self.cipher.decrypt(job.encrypted_payload)
@@ -188,6 +199,10 @@ class LeadService:
                 )
             elif job.kind == "branch_note":
                 await self.kommo.add_branch_note(int(payload["lead_id"]), str(payload["studio"]))
+            elif job.kind == "kommo_chat_link":
+                await self.kommo.link_chat_to_lead(
+                    int(payload["source_lead_id"]), int(payload["target_lead_id"])
+                )
             else:
                 raise RuntimeError("UNKNOWN_JOB_KIND")
         except (MetaError, KommoError, httpx.RequestError, RuntimeError, ValueError) as exc:

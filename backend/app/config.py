@@ -30,6 +30,9 @@ class Settings(BaseSettings):
     kommo_long_lived_token: SecretStr = Field(
         validation_alias=AliasChoices("KOMMO_LONG_LIVED_TOKEN", "kommo_token")
     )
+    kommo_webhook_secret: SecretStr = Field(
+        validation_alias=AliasChoices("KOMMO_WEBHOOK_SECRET", "kommo_webhook_secret")
+    )
     kommo_timeout_seconds: float = 8.0
     meta_website_dataset_id: str = Field(
         validation_alias=AliasChoices("META_WEBSITE_DATASET_ID", "meta_dataset_id")

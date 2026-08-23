@@ -29,3 +29,5 @@ def test_submission_and_jobs_are_idempotent(tmp_path: Path) -> None:
     jobs = storage.claim_due_jobs()
     assert {job.kind for job in jobs} == {"meta_lead", "follow_up_task"}
     assert storage.get_submission("submission-00000001").encrypted_payload is None
+    assert storage.enqueue_job("submission-00000001", "kommo_chat_link", b"chat")
+    assert not storage.enqueue_job("submission-00000001", "kommo_chat_link", b"chat")

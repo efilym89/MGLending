@@ -22,7 +22,9 @@ All contact methods, including Telegram, are sent to the production endpoint bef
 external app is opened. A successful Telegram submission is therefore saved in Kommo even
 when the visitor closes Telegram without sending the prepared message. After Kommo confirms
 the lead, the landing opens `@annaellelaser` with the selected offer, location, contact phone
-and the marker `#META_LANDING` for an optional chat follow-up.
+and the marker `#META_LANDING` for an optional chat follow-up. The prepared message also
+contains the unique `submission_id`. Kommo's incoming-message webhook uses that ID to move
+the Telegram chat from the automatically created unsorted lead to the original landing lead.
 
 The form sends requests to the production endpoint
 `https://api.annaellebot.com/landing-leads/v1/leads`. It can also be overridden in one of these ways:
@@ -58,3 +60,16 @@ utm_source=meta&utm_medium=paid_social&utm_campaign={{campaign.name}}&utm_conten
 ```
 
 The browser Pixel `Lead` and server CAPI `Lead` use the same `submission_id` as `event_id`.
+
+## Kommo Telegram chat linking
+
+The backend requires a long random `KOMMO_WEBHOOK_SECRET`. Register a Kommo webhook for the
+`add_message` event at:
+
+```text
+https://api.annaellebot.com/landing-leads/v1/kommo/webhooks/incoming-message/<KOMMO_WEBHOOK_SECRET>
+```
+
+The callback accepts Kommo's URL-encoded incoming-message payload, ignores non-Telegram and
+outgoing messages, extracts the landing `submission_id`, and queues the chat-link operation.
+The HTTP response is returned immediately; Kommo API retries happen in the backend worker.
