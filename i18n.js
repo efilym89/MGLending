@@ -386,6 +386,39 @@
   };
 
   const normalize = (value) => value.replace(/\s+/g, " ").trim();
+
+  const ensureLegalDetails = () => {
+    if (document.querySelector("#legal-details")) return;
+
+    const footer = document.querySelector(".footer");
+    if (!footer) return;
+
+    footer.insertAdjacentHTML("beforeend", `
+      <div class="footer-legal" id="legal-details" aria-labelledby="footer-legal-title">
+        <div class="footer-legal-heading">
+          <span class="footer-legal-kicker" id="footer-legal-title">Юридическая информация</span>
+          <strong>ИП JUKOVA ANNA ALEKSEYEVNA</strong>
+        </div>
+        <dl class="footer-legal-list">
+          <div>
+            <dt>Регистрация</dt>
+            <dd>№ 7265086 от 11.11.2025</dd>
+          </div>
+          <div>
+            <dt>Место деятельности</dt>
+            <dd>Ташкент, Узбекистан</dd>
+          </div>
+          <div>
+            <dt>Телефон</dt>
+            <dd><a href="tel:+998505403825" aria-label="Позвонить по номеру +998 50 540 38 25">+998 50 540 38 25</a></dd>
+          </div>
+        </dl>
+      </div>
+    `);
+  };
+
+  ensureLegalDetails();
+
   const root = document.querySelector(".page-shell") || document.body;
   const textNodes = [];
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
