@@ -1808,6 +1808,77 @@ details p {
   font-size: 13px;
 }
 
+.footer-legal {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(220px, 0.9fr) minmax(0, 1.8fr);
+  gap: 18px 36px;
+  align-items: center;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.footer-legal-heading {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+
+.footer-legal-kicker {
+  color: var(--rose-dark);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.footer-legal-heading strong {
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.footer-legal-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px 28px;
+  margin: 0;
+}
+
+.footer-legal-list div {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.footer-legal-list dt {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.footer-legal-list dd {
+  margin: 0;
+  color: var(--ink);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.footer-legal-list a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.footer-legal-list a:hover,
+.footer-legal-list a:focus-visible {
+  color: var(--rose-dark);
+}
+
 .map-card {
   position: relative;
   min-height: 220px;
@@ -2469,7 +2540,7 @@ details p {
 
   .footer {
     gap: 24px;
-    padding: 36px 20px;
+    padding: 36px 20px calc(112px + env(safe-area-inset-bottom));
   }
 
   .footer-actions {
@@ -2488,6 +2559,17 @@ details p {
 
   .footer-brand {
     width: 132px;
+  }
+
+  .footer-legal {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding-top: 22px;
+  }
+
+  .footer-legal-list {
+    grid-template-columns: 1fr;
+    gap: 14px;
   }
 
   .map-card {
