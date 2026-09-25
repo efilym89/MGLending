@@ -16,6 +16,12 @@ Regenerate the T123 code after editing the main landing:
 node build-tilda.cjs
 ```
 
+The build also copies the current offers section into the marked generated block
+in `i18n.js`. That block updates offers in already-published Tilda markup before
+translations initialize; edit offers in `index.html`, then rebuild. For a later
+offer release, update `data-offers-version`, the version check in `i18n.js`, and
+the CSS/script cache versions together.
+
 ## Lead form integration
 
 All contact methods, including Telegram, are sent to the production endpoint before any

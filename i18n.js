@@ -12,7 +12,7 @@
       "эпиляция": "epilyatsiya",
       "в Ташкенте": "Toshkentda",
       "Гарантируем результат: если при соблюдении рекомендаций эффект не достигнут, вернём 100% стоимости процедуры.": "Natijaga kafolat beramiz: tavsiyalarga amal qilinganda samara bo'lmasa, protsedura narxining 100%ini qaytaramiz.",
-      "Получить скидку до 30%": "30% gacha chegirma olish",
+      "Записаться по акции": "Aksiya bo'yicha yozilish",
       "Выбрать акцию": "Aksiyani tanlash",
       "более 500+": "500 dan ortiq",
       "довольных клиентов": "mamnun mijoz",
@@ -24,7 +24,14 @@
       "ежедневно": "har kuni",
       "выберите акцию под себя": "o'zingizga mos aksiyani tanlang",
       "Акции с выгодой на первый визит": "Ilk tashrif uchun foydali aksiyalar",
-      "Подмышки + бикини": "Qo'ltiq + bikini",
+      "Специальные предложения Annaelle": "Annaelle maxsus takliflari",
+      "Бикини + подмышки": "Bikini + qo'ltiq",
+      "Две зоны в одном комплексе": "Bir kompleksda ikki zona",
+      "Три зоны": "Uch zona",
+      "Бикини, голени и подмышки": "Bikini, boldir va qo'ltiq",
+      "Всё тело": "Butun tana",
+      "Без ограничений по зонам": "Zonalar bo'yicha cheklovsiz",
+      "Предложения действуют только на первое посещение": "Takliflar faqat birinchi tashrif uchun amal qiladi",
       "Подмышки": "Qo'ltiq",
       "Классическое бикини": "Klassik bikini",
       "сум": "so'm",
@@ -103,7 +110,7 @@
       "Silk-карта — персональная карта клиента Annaelle. Администратор расскажет об оформлении и доступных привилегиях во время записи или визита.": "Silk-karta — Annaelle mijozining shaxsiy kartasi. Administrator yozilish yoki tashrif vaqtida rasmiylashtirish va imtiyozlar haqida aytadi.",
       "Получить консультацию": "Maslahat olish",
       "Ваш первый визит": "Sizning birinchi tashrifingiz",
-      "Получите скидку до 30%": "30% gacha chegirma oling",
+      "Запишитесь по акции": "Aksiya bo'yicha yoziling",
       "Оставьте контакты и выберите удобный филиал. Администратор уточнит зоны, рассчитает стоимость и предложит время для визита.": "Kontaktlaringizni qoldiring va qulay filialni tanlang. Administrator zonalarni aniqlaydi, narxni hisoblaydi va tashrif vaqtini taklif qiladi.",
       "Заполнение занимает меньше минуты": "To'ldirish bir daqiqadan kam vaqt oladi",
       "Подберём выгодный комплекс под ваши зоны": "Zonalaringiz uchun foydali kompleks tanlaymiz",
@@ -196,7 +203,7 @@
       "эпиляция": "removal",
       "в Ташкенте": "in Tashkent",
       "Гарантируем результат: если при соблюдении рекомендаций эффект не достигнут, вернём 100% стоимости процедуры.": "We guarantee results: if the treatment has no effect when recommendations are followed, we will refund 100% of its cost.",
-      "Получить скидку до 30%": "Get up to 30% off",
+      "Записаться по акции": "Book a special offer",
       "Выбрать акцию": "Choose an offer",
       "более 500+": "over 500",
       "довольных клиентов": "happy clients",
@@ -208,7 +215,14 @@
       "ежедневно": "daily",
       "выберите акцию под себя": "choose the offer that suits you",
       "Акции с выгодой на первый визит": "First-visit special offers",
-      "Подмышки + бикини": "Underarms + bikini",
+      "Специальные предложения Annaelle": "Annaelle special offers",
+      "Бикини + подмышки": "Bikini + underarms",
+      "Две зоны в одном комплексе": "Two areas in one package",
+      "Три зоны": "Three areas",
+      "Бикини, голени и подмышки": "Bikini, lower legs and underarms",
+      "Всё тело": "Full body",
+      "Без ограничений по зонам": "No limit on areas",
+      "Предложения действуют только на первое посещение": "Offers are valid for your first visit only",
       "Подмышки": "Underarms",
       "Классическое бикини": "Classic bikini",
       "сум": "UZS",
@@ -287,7 +301,7 @@
       "Silk-карта — персональная карта клиента Annaelle. Администратор расскажет об оформлении и доступных привилегиях во время записи или визита.": "The Silk card is Annaelle's personal client card. Our administrator will explain registration and available benefits when you book or visit.",
       "Получить консультацию": "Get a consultation",
       "Ваш первый визит": "Your first visit",
-      "Получите скидку до 30%": "Get up to 30% off",
+      "Запишитесь по акции": "Book your special offer",
       "Оставьте контакты и выберите удобный филиал. Администратор уточнит зоны, рассчитает стоимость и предложит время для визита.": "Leave your contact details and choose a convenient location. Our administrator will confirm the areas, calculate the price and suggest a visit time.",
       "Заполнение занимает меньше минуты": "Takes less than a minute to complete",
       "Подберём выгодный комплекс под ваши зоны": "We will select the best-value package for your areas",
@@ -373,19 +387,67 @@
   const metaByLanguage = {
     ru: {
       title: "Лазерная эпиляция в Ташкенте - студия Annaelle",
-      description: "Лазерная эпиляция в Ташкенте в студии Annaelle. Два филиала, медицинское оборудование, гарантия результата и скидка до 30% на первый визит."
+      description: "Лазерная эпиляция в Ташкенте в студии Annaelle. Два филиала, медицинское оборудование, гарантия результата и специальные предложения на первый визит."
     },
     uz: {
       title: "Toshkentda lazer epilyatsiyasi - Annaelle studiyasi",
-      description: "Annaelle studiyasida Toshkentda lazer epilyatsiyasi. Ikki filial, tibbiy uskunalar, natija kafolati va ilk tashrif uchun 30% gacha chegirma."
+      description: "Annaelle studiyasida Toshkentda lazer epilyatsiyasi. Ikki filial, tibbiy uskunalar, natija kafolati va ilk tashrif uchun maxsus takliflar."
     },
     en: {
       title: "Laser hair removal in Tashkent - Annaelle studio",
-      description: "Laser hair removal at Annaelle in Tashkent. Two locations, medical equipment, a results guarantee and up to 30% off your first visit."
+      description: "Laser hair removal at Annaelle in Tashkent. Two locations, medical equipment, a results guarantee and special offers for your first visit."
     }
   };
 
   const normalize = (value) => value.replace(/\s+/g, " ").trim();
+
+  const ensureCurrentOffers = () => {
+    const section = document.querySelector("#packages");
+    if (!section) return;
+    // BEGIN GENERATED OFFERS
+    const offersMarkup = "<section class=\"section section-packages offers-current\" id=\"packages\" data-offers-version=\"20260925\">\r\n  <p class=\"section-kicker\">Специальные предложения Annaelle</p>\r\n  <h2>Акции с выгодой на первый визит</h2>\r\n  <div class=\"package-grid\"><article class=\"package-card offer-card\" data-offer=\"bikini-underarms\">\r\n\n      <div class=\"offer-photo offer-photo--underarm\" role=\"img\" aria-label=\"Лазерная эпиляция подмышек в студии Annaelle\"></div>\r\n      <div class=\"offer-content\">\r\n        <h3>Бикини + подмышки</h3>\r\n        <p class=\"offer-description\">Две зоны в одном комплексе</p>\r\n        <div class=\"price-row\"><strong><span class=\"offer-price\">220 000</span> <span class=\"offer-currency\">сум</span></strong></div>\r\n        <a class=\"btn btn-filled\" href=\"#lead-form\" data-select-offer=\"Бикини + подмышки\"><span class=\"brand-star\" aria-hidden=\"true\"></span><span>Записаться</span></a>\r\n      </div>\r\n    </article>\r\n<article class=\"package-card offer-card featured\" data-offer=\"three-zones\">\r\n      <span class=\"badge\">популярная</span>\r\n      <img class=\"offer-photo offer-photo--legs\" src=\"images/offer-202609-legs-760.webp\" srcset=\"images/offer-202609-legs-380.webp 380w, images/offer-202609-legs-760.webp 760w\" sizes=\"(max-width: 680px) calc(100vw - 76px), 300px\" loading=\"lazy\" decoding=\"async\" alt=\"Специалист Annaelle проводит лазерную эпиляцию голеней\" width=\"760\" height=\"950\">\r\n      <div class=\"offer-content\">\r\n        <h3>Три зоны</h3>\r\n        <p class=\"offer-description\">Бикини, голени и подмышки</p>\r\n        <div class=\"price-row\"><strong><span class=\"offer-price\">380 000</span> <span class=\"offer-currency\">сум</span></strong></div>\r\n        <a class=\"btn btn-filled\" href=\"#lead-form\" data-select-offer=\"Три зоны\"><span class=\"brand-star\" aria-hidden=\"true\"></span><span>Записаться</span></a>\r\n      </div>\r\n    </article>\r\n<article class=\"package-card offer-card\" data-offer=\"full-body\">\r\n\n      <img class=\"offer-photo offer-photo--body\" src=\"images/offer-202609-body-760.webp\" srcset=\"images/offer-202609-body-380.webp 380w, images/offer-202609-body-760.webp 760w\" sizes=\"(max-width: 680px) calc(100vw - 76px), 300px\" loading=\"lazy\" decoding=\"async\" alt=\"Процедура лазерной эпиляции в Annaelle\" width=\"760\" height=\"950\">\r\n      <div class=\"offer-content\">\r\n        <h3>Всё тело</h3>\r\n        <p class=\"offer-description\">Без ограничений по зонам</p>\r\n        <div class=\"price-row\"><strong><span class=\"offer-price\">590 000</span> <span class=\"offer-currency\">сум</span></strong></div>\r\n        <a class=\"btn btn-filled\" href=\"#lead-form\" data-select-offer=\"Всё тело\"><span class=\"brand-star\" aria-hidden=\"true\"></span><span>Записаться</span></a>\r\n      </div>\r\n    </article></div>\r\n  <p class=\"note\">Предложения действуют только на первое посещение</p>\r\n</section>";
+    // END GENERATED OFFERS
+    if (section.dataset.offersVersion !== "20260925") {
+      const template = document.createElement("template");
+      template.innerHTML = offersMarkup;
+      const assetBase = new URL(".", document.currentScript?.src || window.location.href);
+      const stylesheet = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
+        .find(link => link.href.split("?")[0] === new URL("styles.css", assetBase).href);
+      if (stylesheet) stylesheet.href = new URL("styles.css?v=20260925-1", assetBase).href;
+      template.content.querySelectorAll("img").forEach(image => {
+        image.src = new URL(image.getAttribute("src"), assetBase).href;
+        image.srcset = image.getAttribute("srcset").split(",").map(source => {
+          const [url, size] = source.trim().split(/\s+/);
+          return `${new URL(url, assetBase).href} ${size}`;
+        }).join(", ");
+      });
+      section.replaceWith(template.content);
+    }
+
+    const offerNames = {
+      "Подмышки + бикини": "Бикини + подмышки",
+      "Любые 3 зоны": "Три зоны",
+      "Все зоны": "Всё тело"
+    };
+    document.querySelectorAll('select[name="offer"] option').forEach(option => {
+      const name = offerNames[option.value];
+      if (name) { option.value = name; option.textContent = name; }
+    });
+    const labels = {
+      "Получить скидку до 30%": "Записаться по акции",
+      "Получите скидку до 30%": "Запишитесь по акции"
+    };
+    document.querySelectorAll(".page-shell, .mobile-apply").forEach(container => {
+      const nodes = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
+      let node;
+      while ((node = nodes.nextNode())) {
+        const label = labels[normalize(node.nodeValue || "")];
+        if (label) node.nodeValue = label;
+      }
+    });
+  };
+
+  ensureCurrentOffers();
 
   const ensureLegalDetails = () => {
     if (document.querySelector("#legal-details")) return;
@@ -437,6 +499,14 @@
   let textNode;
   while ((textNode = walker.nextNode())) {
     textNodes.push({ node: textNode, original: textNode.nodeValue, key: normalize(textNode.nodeValue) });
+  }
+
+  const mobileAction = document.querySelector(".mobile-apply");
+  if (mobileAction && !root.contains(mobileAction)) {
+    const mobileWalker = document.createTreeWalker(mobileAction, NodeFilter.SHOW_TEXT);
+    while ((textNode = mobileWalker.nextNode())) {
+      textNodes.push({ node: textNode, original: textNode.nodeValue, key: normalize(textNode.nodeValue) });
+    }
   }
 
   const attributeNodes = Array.from(root.querySelectorAll("[placeholder], [aria-label], [title]"))

@@ -65,6 +65,16 @@ const leadSuccessTelegram = leadSuccess?.querySelector("[data-success-telegram]"
 const leadSuccessNote = leadSuccess?.querySelector("[data-success-note]");
 const translate = (value) => window.annaelleI18n?.t(value) || value;
 
+document.querySelectorAll("[data-select-offer]").forEach(link => {
+  link.addEventListener("click", () => {
+    const offer = leadForm?.elements.namedItem("offer");
+    if (offer instanceof HTMLSelectElement) {
+      offer.value = link.dataset.selectOffer;
+      offer.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+  });
+});
+
 const attributionFields = [
   "utm_source",
   "utm_medium",

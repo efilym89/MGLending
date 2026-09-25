@@ -2697,3 +2697,40 @@ details p {
     padding-inline: 14px;
   }
 }
+
+/* First-visit offers, approved September 2026. */
+
+.offers-current { padding-top: 40px; padding-bottom: 34px; }
+.offers-current h2 { margin-bottom: 28px; }
+.offers-current .package-grid { gap: 18px; align-items: stretch; }
+.offers-current .offer-card { display: flex; flex-direction: column; min-height: 0; padding: 12px; overflow: hidden; text-align: left; }
+.offer-photo { display: block; width: 100%; aspect-ratio: 4 / 5; height: auto; object-fit: contain; border-radius: 24px 10px 30px 10px; background-color: #f3e4ea; margin: 0; }
+.offer-photo--underarm { background-image: url('images/offer-202609-underarm.webp'); background-size: 367.3469% auto; background-position: 49.806% 45%; }
+.offer-photo--legs { object-position: 50% 53%; }
+.offer-photo--body { object-position: 50% 39%; }
+.offers-current .badge { top: 24px; left: 24px; z-index: 1; }
+.offer-content { display: flex; flex: 1; flex-direction: column; padding: 22px 10px 10px; }
+.offers-current .offer-card h3 { font-family: var(--serif); font-size: 25px; font-weight: 500; line-height: 1.2; margin: 0 0 9px; letter-spacing: -.4px; }
+.offer-description { font-size: 13px; color: var(--muted); line-height: 1.5; margin: 0; min-height: 40px; }
+.offers-current .price-row { justify-content: flex-start; margin: auto 0 19px; padding-top: 18px; }
+.offers-current .price-row strong { font-size: 34px; color: var(--rose-dark); line-height: 1.15; letter-spacing: -.9px; }
+.offers-current .price-row .offer-price { color: inherit; font-size: inherit; }
+.offers-current .price-row .offer-currency { font-size: 16px; font-weight: 500; color: var(--muted); letter-spacing: 0; }
+.offers-current .offer-card .btn { min-height: 47px; margin-top: 0; font-size: 13px; width: 100%; }
+.offers-current .note { margin-top: 23px; font-size: 12px; }
+@media (max-width: 680px) {
+  .offers-current { padding: 30px 18px 28px; }
+  .offers-current h2 { font-size: 30px; line-height: 1.15; margin-bottom: 23px; }
+  .offers-current .section-kicker { font-size: 9px; letter-spacing: 1.3px; }
+  .offers-current .package-grid { gap: 18px; }
+  .offers-current .offer-card { padding: 10px; }
+  .offer-photo { aspect-ratio: 4 / 3; object-fit: cover; }
+  .offer-photo--underarm { background-size: 351.7915% auto; background-position: 49.806% 45.56%; }
+  .offer-content { padding: 18px 8px 9px; }
+  .offers-current .offer-card h3 { font-size: 25px; }
+  .offer-description { min-height: 0; font-size: 13px; }
+  .offers-current .price-row { margin: 16px 0 17px; padding-top: 0; }
+  .offers-current .price-row strong { width: auto; font-size: 32px; }
+  .offers-current .offer-card .btn { min-height: 48px; }
+  .offers-current .note { font-size: 11px; line-height: 1.5; }
+}

@@ -5,8 +5,20 @@ const root = __dirname;
 const siteBase = "https://efilym89.github.io/MGLending/";
 const assetBase = `${siteBase}images/`;
 const workAssetBase = `${siteBase}annaelle-work/assets/`;
-const buildVersion = "20260901-1";
+const buildVersion = "20260925-1";
 const sourceHtml = fs.readFileSync(path.join(root, "index.html"), "utf8");
+
+// Already-published Tilda blocks load i18n.js from Pages. Keep their offers in
+// sync with index.html before the language switch collects its text nodes.
+const offersMatch = sourceHtml.match(/<section class="section section-packages offers-current"[\s\S]*?<\/section>/);
+if (!offersMatch) throw new Error("Current offers section is missing from index.html");
+const i18nPath = path.join(root, "i18n.js");
+const i18nSource = fs.readFileSync(i18nPath, "utf8");
+const offersMarker = /\/\/ BEGIN GENERATED OFFERS[\s\S]*?\/\/ END GENERATED OFFERS/;
+if (!offersMarker.test(i18nSource)) throw new Error("Generated offers markers are missing");
+fs.writeFileSync(i18nPath, i18nSource.replace(offersMarker, () =>
+  `// BEGIN GENERATED OFFERS\n    const offersMarkup = ${JSON.stringify(offersMatch[0])};\n    // END GENERATED OFFERS`
+));
 
 const bodyMatch = sourceHtml.match(/<body>([\s\S]*?)<script src="i18n\.js\?v=[^"]+"><\/script>\s*<script src="script\.js\?v=[^"]+"><\/script>\s*<\/body>/);
 
