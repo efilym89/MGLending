@@ -4,7 +4,7 @@
 <link rel="preconnect" href="https://efilym89.github.io" crossorigin>
 <link rel="preload" href="https://efilym89.github.io/MGLending/annaelle-work/assets/hero-main-960.webp" as="image" type="image/webp" fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
-<link href="https://efilym89.github.io/MGLending/styles.css?v=20260925-1" rel="stylesheet">
+<link href="https://efilym89.github.io/MGLending/styles.css?v=20260925-2" rel="stylesheet">
 
 <!-- Meta Pixel Code -->
   <script>
@@ -111,12 +111,12 @@
         </div>
       </section>
 
-      <section class="section section-packages offers-current" id="packages" data-offers-version="20260925">
+      <section class="section section-packages offers-current" id="packages" data-offers-version="20260925-2">
   <p class="section-kicker">Специальные предложения Annaelle</p>
   <h2>Акции с выгодой на первый визит</h2>
   <div class="package-grid"><article class="package-card offer-card" data-offer="bikini-underarms">
 
-      <div class="offer-photo offer-photo--underarm" role="img" aria-label="Лазерная эпиляция подмышек в студии Annaelle"></div>
+      <img class="offer-photo offer-photo--original" src="https://efilym89.github.io/MGLending/images/offer-new-1-760.webp" alt="Лазерная эпиляция бикини и подмышек в Annaelle" width="760" height="440" decoding="async">
       <div class="offer-content">
         <h3>Бикини + подмышки</h3>
         <p class="offer-description">Две зоны в одном комплексе</p>
@@ -126,7 +126,7 @@
     </article>
 <article class="package-card offer-card featured" data-offer="three-zones">
       <span class="badge">популярная</span>
-      <img class="offer-photo offer-photo--legs" src="https://efilym89.github.io/MGLending/images/offer-202609-legs-760.webp" srcset="https://efilym89.github.io/MGLending/images/offer-202609-legs-380.webp 380w, https://efilym89.github.io/MGLending/images/offer-202609-legs-760.webp 760w" sizes="(max-width: 680px) calc(100vw - 76px), 300px" loading="lazy" decoding="async" alt="Специалист Annaelle проводит лазерную эпиляцию голеней" width="760" height="950">
+      <img class="offer-photo offer-photo--original" src="https://efilym89.github.io/MGLending/images/offer-new-2-760.webp" alt="Бикини, голени и подмышки — три зоны в Annaelle" width="760" height="440" decoding="async">
       <div class="offer-content">
         <h3>Три зоны</h3>
         <p class="offer-description">Бикини, голени и подмышки</p>
@@ -136,7 +136,7 @@
     </article>
 <article class="package-card offer-card" data-offer="full-body">
 
-      <img class="offer-photo offer-photo--body" src="https://efilym89.github.io/MGLending/images/offer-202609-body-760.webp" srcset="https://efilym89.github.io/MGLending/images/offer-202609-body-380.webp 380w, https://efilym89.github.io/MGLending/images/offer-202609-body-760.webp 760w" sizes="(max-width: 680px) calc(100vw - 76px), 300px" loading="lazy" decoding="async" alt="Процедура лазерной эпиляции в Annaelle" width="760" height="950">
+      <img class="offer-photo offer-photo--original" src="https://efilym89.github.io/MGLending/images/offer-new-3-760.webp" alt="Лазерная эпиляция всего тела в Annaelle" width="760" height="440" decoding="async">
       <div class="offer-content">
         <h3>Всё тело</h3>
         <p class="offer-description">Без ограничений по зонам</p>
@@ -507,6 +507,6 @@
 
   <a class="btn btn-filled mobile-apply" href="#lead-form"><span class="brand-star" aria-hidden="true"></span>Записаться по акции</a>
 
-<script src="https://efilym89.github.io/MGLending/i18n.js?v=20260925-1"></script>
-<script src="https://efilym89.github.io/MGLending/script.js?v=20260925-1"></script>
+<script src="https://efilym89.github.io/MGLending/i18n.js?v=20260925-2"></script>
+<script src="https://efilym89.github.io/MGLending/script.js?v=20260925-2"></script>
 <!-- nominify end -->

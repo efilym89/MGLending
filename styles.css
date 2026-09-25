@@ -2708,6 +2708,7 @@ details p {
 .offer-photo--underarm { background-image: url('images/offer-202609-underarm.webp'); background-size: 367.3469% auto; background-position: 49.806% 45%; }
 .offer-photo--legs { object-position: 50% 53%; }
 .offer-photo--body { object-position: 50% 39%; }
+.offers-current .offer-photo--original { aspect-ratio: 19 / 11; height: auto; object-fit: contain; object-position: center; background: #fcf5f9; }
 .offers-current .badge { top: 24px; left: 24px; z-index: 1; }
 .offer-content { display: flex; flex: 1; flex-direction: column; padding: 22px 10px 10px; }
 .offers-current .offer-card h3 { font-family: var(--serif); font-size: 25px; font-weight: 500; line-height: 1.2; margin: 0 0 9px; letter-spacing: -.4px; }
