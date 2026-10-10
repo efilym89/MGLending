@@ -161,3 +161,10 @@
  .rop-application{margin:0 12px 26px;padding:25px 20px;grid-template-columns:1fr;gap:27px;border-radius:32px 12px 38px 12px}.rop-application .application-copy h2{font-size:36px;margin-bottom:18px}.rop-application .application-copy>p:not(.section-kicker){font-size:13px;margin-bottom:20px}.rop-case-hint{padding:17px}.rop-case-hint p{font-size:12px}.rop-application .form-grid{grid-template-columns:1fr}.rop-application .field input,.rop-application .field select,.rop-application .field textarea{font-size:16px}.rop-application .field>span{font-size:12px}.rop-file input{font-size:11px!important}.rop-application .consent{font-size:11px}.rop-footer{grid-template-columns:70px 1fr;gap:18px;padding:22px 22px 28px}.rop-footer .brand{width:70px}.rop-footer p{font-size:10px;line-height:1.7}.rop-footer p span{font-size:10px}.rop-footer>a:last-child{grid-column:1/-1;font-size:12px}.rop-page .mobile-apply{min-height:51px;font-size:12px}
 }
 @media(max-width:370px){.rop-hero h1{font-size:36px}.rop-hero{padding-inline:17px}.rop-tags{gap:5px}.rop-tags>span{font-size:9px;padding:7px 6px}.rop-salary strong{font-size:36px}.rop-team>div>span{display:block}.rop-team strong{display:block}.rop-pay-card>strong{font-size:31px}.rop-page .section h2{font-size:29px}.rop-application{padding-inline:16px}.rop-invite{padding-inline:20px}}
+
+/* Horizontal logo extracted from the Annaelle brandbook. */
+.rop-footer{grid-template-columns:220px 1fr auto}
+.rop-footer .brand{width:220px}
+.rop-footer .brand-logo{mix-blend-mode:multiply}
+@media(max-width:980px){.rop-footer{grid-template-columns:180px 1fr;gap:24px}.rop-footer .brand{width:180px}.rop-footer>a:last-child{grid-column:1/-1}}
+@media(max-width:680px){.rop-footer{grid-template-columns:1fr;gap:18px}.rop-footer .brand{width:220px;max-width:100%}}
