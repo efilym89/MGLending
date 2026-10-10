@@ -22,6 +22,13 @@ translations initialize; edit offers in `index.html`, then rebuild. For a later
 offer release, update `data-offers-version`, the version check in `i18n.js`, and
 the CSS/script cache versions together.
 
+## Career landings
+
+- `annaelle-work/` — cosmetologist / laser specialist vacancy.
+- `annaelle-rop/` — Head of Sales vacancy, built from the approved Annaelle mockup.
+  Local review: `/annaelle-rop/?preview=1`. See `annaelle-rop/README.md` for the
+  Telegram application flow and the separate Tilda T123 block.
+
 ## Lead form integration
 
 All contact methods, including Telegram, are sent to the production endpoint before any
