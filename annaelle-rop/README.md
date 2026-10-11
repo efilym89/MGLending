@@ -7,7 +7,7 @@ Separate landing page based on the approved ROP mockup. The laserologist landing
 - `styles.css`: ROP layout, responsive rules and application result styles.
 - `script.js`: menu, validation, application preparation, mobile CTA and Tilda integration.
 - `application.mjs`: phone/resume checks and Telegram message formatting.
-- `assets/studio-640.webp`: the studio photograph from the approved mockup.
+- `assets/master-client.jpg`: original Annaelle bank photo BSA08104 (Контент цвет 1), displayed at its natural aspect ratio.
 - `tilda-t123.html`: a separate Tilda T123 wrapper with automatic iframe height and mobile CTA.
 
 ## Local review
@@ -16,7 +16,7 @@ Serve the repository root with a local HTTP server. Open `/annaelle-rop/?preview
 
 The normal form prepares an application and opens `@annaellelaser`. The candidate must send the message in Telegram. A resume URL is included in the prepared text. A selected PDF/DOC/DOCX file must be attached manually in Telegram; the site does not upload the file. The client-sales API is not used for job applications.
 
-The page includes every supplied ROP duty, requirement, metric and employment condition. The spelling `Altegio` is used consistently.
+The page includes the current ROP duties, requirements, metrics and employment conditions. Fixed team headcounts and the direct task assignment duty were removed at the owner's request. Compensation includes a KPI bonus. The spelling `Altegio` is used consistently.
 
 ## Publication
 
