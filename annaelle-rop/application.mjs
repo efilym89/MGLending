@@ -36,7 +36,7 @@ export function createApplicationMessage(fields, source = {}) {
     'Управление командой и обучение продажам:',
     get('team_experience'),
     '',
-    'Опыт работы в Altegio и Kommo:',
+    'Опыт работы в Altegio и CRM:',
     get('systems'),
     '',
     'Пример: показатель → действия → результат:',

@@ -4,7 +4,7 @@ import {
   isResumeFile,
   isResumeUrl,
   normalizePhone
-} from './application.mjs';
+} from './application.mjs?v=20261012-1';
 
 const params = new URLSearchParams(window.location.search);
 const isPreview = params.get('preview') === '1';

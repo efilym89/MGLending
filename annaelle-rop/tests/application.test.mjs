@@ -30,7 +30,7 @@ test('resume accepts web links and document files, not executable URLs or other 
 test('the prepared application includes ROP answers and an explicit manual resume attachment', () => {
   const message = createApplicationMessage({
     name:'Тестовый кандидат',phone:'+7 (999) 123-45-67',experience:'3–5 лет',
-    team_experience:'Обучал команду продаж.',systems:'Altegio и Kommo.',
+    team_experience:'Обучал команду продаж.',systems:'Altegio и CRM.',
     case:'Конверсия: 20% → 30%.',resume_filename:'Резюме & опыт.docx'
   }, {utm_source:'test',utm_campaign:'роль РОП'});
   assert.match(message, /руководителя отдела продаж/);
