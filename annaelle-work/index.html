@@ -2139,6 +2139,39 @@ fieldset.field {
   grid-column: 1 / -1;
 }
 
+.field-required {
+  padding: 14px;
+  border: 1px solid var(--rose);
+  border-radius: 18px 8px 22px 8px;
+  background: rgba(183, 122, 136, .07);
+}
+
+.field-required > span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--rose-dark);
+  font-weight: 700;
+}
+
+.required-badge {
+  flex-shrink: 0;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: var(--rose-dark);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.field-help {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
 .conditional-field[hidden] {
   display: none;
 }
@@ -2179,7 +2212,8 @@ fieldset.field {
 }
 
 .field input[aria-invalid="true"],
-.field select[aria-invalid="true"] {
+.field select[aria-invalid="true"],
+.field textarea[aria-invalid="true"] {
   border-color: #a94355;
 }
 
@@ -3252,9 +3286,10 @@ html.is-embedded .mobile-apply {
               <label class="choice"><input type="radio" name="schedule" value="Нужно обсудить"><span>Нужно обсудить</span></label>
             </div>
           </fieldset>
-          <label class="field field-full">
-            <span>Сопроводительное письмо</span>
-            <textarea name="motivation" maxlength="350" placeholder="Несколько предложений о себе и вашей мотивации работы с нами"></textarea>
+          <label class="field field-full field-required" for="candidate-motivation">
+            <span>Сопроводительное письмо <strong class="required-badge">Обязательно</strong></span>
+            <textarea id="candidate-motivation" name="motivation" required aria-describedby="motivation-help" maxlength="350" placeholder="Несколько предложений о себе и вашей мотивации работы с нами"></textarea>
+            <small class="field-help" id="motivation-help">Пожалуйста, заполните это поле — оно обязательно для рассмотрения отклика.</small>
           </label>
         </div>
         <label class="consent">
@@ -3284,7 +3319,7 @@ html.is-embedded .mobile-apply {
       </div>
       <div class="footer-links">
         <div><strong>Вакансия</strong><a href="#benefits">Почему Annaelle</a><a href="#role">Обязанности</a><a href="#conditions">Условия</a></div>
-        <div><strong>Контакты</strong><a href="https://telegram.me/annaellelaser" target="_blank" rel="noreferrer">Telegram @annaellelaser</a><span>Ташкент</span><span>09:00-21:00</span></div>
+        <div><strong>Контакты</strong><a href="https://t.me/annaelle_hr" target="_blank" rel="noreferrer">Telegram @annaelle_hr</a><span>Ташкент</span><span>09:00-21:00</span></div>
         <div class="footer-addresses"><strong>Адреса студий</strong><span>ул. Шота Руставели, 33, Ташкент</span><span>ул. Карасу, 31, Ташкент</span></div>
       </div>
     </footer>
@@ -3414,8 +3449,10 @@ if (candidateForm) {
     event.preventDefault();
     clearFieldState();
 
-    const requiredFields = Array.from(candidateForm.querySelectorAll("input[required], select[required]"));
-    const invalidFields = requiredFields.filter((field) => !field.checkValidity());
+    const requiredFields = Array.from(candidateForm.querySelectorAll("input[required], select[required], textarea[required]"));
+    const invalidFields = requiredFields.filter((field) =>
+      !field.checkValidity() || (field instanceof HTMLTextAreaElement && !field.value.trim())
+    );
     const phone = candidateForm.elements.namedItem("phone");
     const phoneDigits = phone instanceof HTMLInputElement ? phone.value.replace(/\D/g, "") : "";
 
@@ -3425,7 +3462,12 @@ if (candidateForm) {
 
     if (invalidFields.length) {
       invalidFields.forEach((field) => field.setAttribute("aria-invalid", "true"));
-      if (formStatus) formStatus.textContent = "Пожалуйста, заполните обязательные поля и проверьте номер телефона.";
+      if (formStatus) {
+        const motivation = candidateForm.elements.namedItem("motivation");
+        formStatus.textContent = invalidFields.includes(motivation)
+          ? "Пожалуйста, заполните сопроводительное письмо. Это обязательное поле."
+          : "Пожалуйста, заполните обязательные поля и проверьте номер телефона.";
+      }
       const firstInvalid = invalidFields[0];
       if (firstInvalid instanceof HTMLElement) firstInvalid.focus();
       return;
@@ -3446,7 +3488,7 @@ if (candidateForm) {
       `Русский язык: ${get("russian_level")}`,
       `Узбекский язык: ${get("uzbek_level")}`,
       `График 2/2, 09:00-21:00: ${get("schedule")}`,
-      `Сопроводительное письмо: ${get("motivation") || "Не указано"}`,
+      `Сопроводительное письмо: ${get("motivation")}`,
       "",
       `Источник: ${get("utm_source") || "Сайт"}`,
       `Кампания: ${get("utm_campaign") || "Не указана"}`,
@@ -3463,7 +3505,7 @@ if (candidateForm) {
     }
 
     if (formStatus) formStatus.textContent = "Анкета готова. Открываем Telegram...";
-    const telegramUrl = `https://telegram.me/annaellelaser?text=${encodeURIComponent(message)}`;
+    const telegramUrl = `https://t.me/annaelle_hr?text=${encodeURIComponent(message)}`;
     const telegramWindow = window.open(telegramUrl, "_blank", "noopener,noreferrer");
     if (!telegramWindow) window.location.href = telegramUrl;
   });
