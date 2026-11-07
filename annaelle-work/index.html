@@ -2300,6 +2300,22 @@ fieldset.field {
   text-align: center;
 }
 
+.application-handoff {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: 18px;
+  background: var(--paper);
+}
+
+.application-handoff[hidden] { display: none; }
+.application-handoff p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.5; }
+.application-handoff .handoff-actions { display: grid; gap: 8px; }
+.application-handoff textarea { min-height: 170px; font-size: 12px; }
+.application-handoff .handoff-status { color: var(--rose-dark); }
+
+
 .vacancy-footer {
   grid-template-columns: 1.2fr .8fr;
 }
@@ -3221,7 +3237,7 @@ html.is-embedded .mobile-apply {
       <div class="application-copy">
         <p class="section-kicker">Короткая анкета</p>
         <h2>Станьте частью команды Annaelle</h2>
-        <p>Оставьте основные данные. После заполнения откроется Telegram с готовым текстом анкеты для нашего менеджера.</p>
+        <p>Оставьте основные данные. После заполнения откроется наш HR-бот в Telegram. Отправьте анкету и резюме в его чат.</p>
         <ul class="application-points">
           <li>Заполнение занимает около 2-х минут</li>
           <li>Мы внимательно читаем каждую анкету</li>
@@ -3298,7 +3314,19 @@ html.is-embedded .mobile-apply {
         </label>
         <p class="form-status" id="form-status" role="alert" aria-live="polite"></p>
         <button class="btn btn-filled" type="submit"><span class="brand-star" aria-hidden="true"></span><span>Стать частью команды</span></button>
-        <p class="form-note">После нажатия откроется Telegram с заполненной анкетой. Проверьте текст и отправьте сообщение.</p>
+        <p class="form-note">Откроется HR-бот. Если текст не появился, скопируйте анкету ниже и отправьте её в чат. Резюме пришлите следующим сообщением.</p>
+        <div class="application-handoff" id="application-handoff" hidden>
+          <p>Если бот попросит нажать «Старт», нажмите его, затем вставьте анкету в чат и отправьте. После этого пришлите резюме.</p>
+          <div class="handoff-actions">
+            <button class="btn btn-outline" id="copy-application" type="button">Скопировать анкету</button>
+            <a class="btn btn-filled" id="open-telegram" href="https://t.me/annaelle_hr_bot" target="_blank" rel="noopener noreferrer">Открыть Telegram</a>
+          </div>
+          <label class="field">
+            <span>Ваша анкета для Telegram</span>
+            <textarea id="application-message" rows="8" readonly></textarea>
+          </label>
+          <p class="handoff-status" id="handoff-status" role="status" aria-live="polite"></p>
+        </div>
         <input type="hidden" name="utm_source">
         <input type="hidden" name="utm_campaign">
         <input type="hidden" name="utm_content">
@@ -3319,7 +3347,7 @@ html.is-embedded .mobile-apply {
       </div>
       <div class="footer-links">
         <div><strong>Вакансия</strong><a href="#benefits">Почему Annaelle</a><a href="#role">Обязанности</a><a href="#conditions">Условия</a></div>
-        <div><strong>Контакты</strong><a href="https://t.me/annaelle_hr" target="_blank" rel="noreferrer">Telegram @annaelle_hr</a><span>Ташкент</span><span>09:00-21:00</span></div>
+        <div><strong>Контакты</strong><a href="https://t.me/annaelle_hr_bot" target="_blank" rel="noreferrer">Telegram @annaelle_hr_bot</a><span>Ташкент</span><span>09:00-21:00</span></div>
         <div class="footer-addresses"><strong>Адреса студий</strong><span>ул. Шота Руставели, 33, Ташкент</span><span>ул. Карасу, 31, Ташкент</span></div>
       </div>
     </footer>
@@ -3435,15 +3463,39 @@ if (candidateForm) {
   });
   updateMedicalDirection();
 
+  const applicationHandoff = document.querySelector("#application-handoff");
+  const applicationMessage = document.querySelector("#application-message");
+  const handoffStatus = document.querySelector("#handoff-status");
+  const openTelegram = document.querySelector("#open-telegram");
+
+  const copyApplication = async () => {
+    if (!(applicationMessage instanceof HTMLTextAreaElement) || !applicationMessage.value) return;
+    applicationMessage.focus();
+    applicationMessage.select();
+    applicationMessage.setSelectionRange(0, applicationMessage.value.length);
+    let copied = false;
+    try { copied = document.execCommand("copy"); } catch { /* Selectable text remains available. */ }
+    if (!copied) {
+      try {
+        await navigator.clipboard.writeText(applicationMessage.value);
+        copied = true;
+      } catch { /* Keep the full text selected for manual copying. */ }
+    }
+    if (handoffStatus) handoffStatus.textContent = copied
+      ? "Анкета скопирована. Если в Telegram нет текста, вставьте его в чат и отправьте."
+      : "Скопируйте выделенный текст анкеты, вставьте его в Telegram и отправьте.";
+  };
+  document.querySelector("#copy-application")?.addEventListener("click", copyApplication);
+
   const clearFieldState = () => {
     candidateForm.querySelectorAll("[aria-invalid='true']").forEach((field) => {
       field.removeAttribute("aria-invalid");
     });
     if (formStatus) formStatus.textContent = "";
+    if (applicationHandoff instanceof HTMLElement) applicationHandoff.hidden = true;
   };
 
   candidateForm.addEventListener("input", clearFieldState);
-  candidateForm.addEventListener("change", clearFieldState);
 
   candidateForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -3504,10 +3556,15 @@ if (candidateForm) {
       });
     }
 
-    if (formStatus) formStatus.textContent = "Анкета готова. Открываем Telegram...";
-    const telegramUrl = `https://t.me/annaelle_hr?text=${encodeURIComponent(message)}`;
-    const telegramWindow = window.open(telegramUrl, "_blank", "noopener,noreferrer");
-    if (!telegramWindow) window.location.href = telegramUrl;
+    if (formStatus) formStatus.textContent = "Анкета готова. Проверьте её в Telegram и отправьте.";
+    const telegramUrl = `https://t.me/annaelle_hr_bot?text=${encodeURIComponent(message)}`;
+    if (applicationMessage instanceof HTMLTextAreaElement) applicationMessage.value = message;
+    if (applicationHandoff instanceof HTMLElement) applicationHandoff.hidden = false;
+    if (openTelegram instanceof HTMLAnchorElement) openTelegram.href = telegramUrl;
+    copyApplication();
+    try { window.open(telegramUrl, "_blank", "noopener,noreferrer"); } catch {
+      if (formStatus) formStatus.textContent = "Анкета готова. Нажмите «Открыть Telegram» ниже и отправьте её.";
+    }
   });
 }
 
